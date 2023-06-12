@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16.004" height="25.006" viewBox="0 0 16.004 25.006">
+  <g id="microphone" transform="translate(-78.336)">
+    <g id="Group_111" data-name="Group 111" transform="translate(78.336 12.032)">
+      <g id="Group_110" data-name="Group 110">
+        <path id="Path_356" data-name="Path 356" d="M94.34,210.291a.883.883,0,1,0-1.765,0,6.237,6.237,0,0,1-12.474,0,.883.883,0,1,0-1.765,0,8,8,0,0,0,7.119,7.973v2.354H82.249a.883.883,0,1,0,0,1.765h8.178a.883.883,0,1,0,0-1.765H87.221v-2.354A8,8,0,0,0,94.34,210.291Z" transform="translate(-78.336 -209.408)"/>
+      </g>
+    </g>
+    <g id="Group_113" data-name="Group 113" transform="translate(81.425)">
+      <g id="Group_112" data-name="Group 112">
+        <path id="Path_357" data-name="Path 357" d="M137.009,0A4.922,4.922,0,0,0,132.1,4.913v7.973a4.913,4.913,0,1,0,9.826.029v-8A4.922,4.922,0,0,0,137.009,0Z" transform="translate(-132.096)"/>
+      </g>
+    </g>
+  </g>
+</svg>

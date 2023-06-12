@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "585790994486",
+    "project_id": "doctorsonhand-96bae",
+    "storage_bucket": "doctorsonhand-96bae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585790994486:android:11469d3da66ff50e8b8097",
+        "android_client_info": {
+          "package_name": "com.example.doctorppp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "585790994486-446dqcsn43odulebsoqn7eun29n79tn4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_TonHXG0MJMzCZqBuC1x3wrnDfXVwwFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "585790994486-446dqcsn43odulebsoqn7eun29n79tn4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585790994486:android:bc679fa08efe81ee8b8097",
+        "android_client_info": {
+          "package_name": "com.example.doctorsonhand"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "585790994486-446dqcsn43odulebsoqn7eun29n79tn4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_TonHXG0MJMzCZqBuC1x3wrnDfXVwwFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "585790994486-446dqcsn43odulebsoqn7eun29n79tn4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
