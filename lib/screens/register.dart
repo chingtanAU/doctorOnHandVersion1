@@ -208,7 +208,7 @@ class _MyRegisterState extends State<MyRegister> {
                               ),
 
                               IntlPhoneField(
-                                keyField: globals.phoneKey,
+                               // keyField: globals.phoneKey,
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
