@@ -6,7 +6,6 @@ import '../validatorsAuth/auth.dart' as auth;
 import '../globals.dart' as globals;
 import 'package:doctorppp/widgets/singlecategory.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import '../constraints.dart';
 import '../widgets/incoming_appointments.dart';
 import 'detailscreen.dart';
@@ -555,11 +554,11 @@ class _HomepageState extends State<Homepage> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: width * 0.04,vertical:height*0.01),
                       child: Text(
-                        "Nearby Hospitals",
+                        "Nearby Hospitals/Walk In Clinics",
                         style: TextStyle(
                           fontFamily: "Comic Sans",
                           fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                          fontSize: 25,
                         ),
                       ),
                     ),
@@ -642,6 +641,9 @@ class _HomepageState extends State<Homepage> {
                     //     }),
                     //   ),
                     // ),
+                    createDocWidget("Image.jpg", "Susan Thomas"),
+                    createDocWidget("Image2.jpg", "Paul Barbara"),
+                    createDocWidget("Image3.jpg", "Nancy Williams"),
                   ],
                 ),
               ),
@@ -693,4 +695,89 @@ class _HomepageState extends State<Homepage> {
       );
 
   }
+}
+
+
+
+
+Container createDocWidget(String imgName, String docName)
+{
+  return Container(
+    margin: EdgeInsets.all(
+      8,
+    ),
+    decoration: BoxDecoration(
+      color: Colors.white.withOpacity(0.8),
+     // color: Theme.of(context as BuildContext).primaryColor.withOpacity(0.8),
+      borderRadius: BorderRadius.circular(20),
+      //boxShadow: kElevationToShadow[6],
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey,
+          blurRadius: 3.0,
+          spreadRadius: 3.0,
+          offset: Offset(3.0, 3.0), // shadow direction: bottom right
+        )
+      ],
+    ),
+    child: InkWell(
+      child: Container(
+
+
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(12),
+          ),
+          color: Colors.cyan
+          ,
+        ),
+        child: Container(
+          padding: EdgeInsets.all(7),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Container(
+                width: 70,
+                height: 90,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/$imgName'),
+                        fit: BoxFit.cover
+                    )
+                ),
+              ),
+              SizedBox(width: width*0.03,),
+              Column(
+
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text("Dr. $docName", style: TextStyle(
+                    fontFamily: "Comic Sans",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),),
+                  SizedBox(height: height*0.02),
+                  Container(
+                    width: 250,
+                    height: 50,
+                    child: Text("A brief about the doctor to be added here. This is more like an introduction about the doctor", style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                      overflow: TextOverflow.clip,
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+      onTap: (){
+         Get.to(()=>DetailScreen());
+         print('tapped ');
+      },
+    ),
+  );
 }

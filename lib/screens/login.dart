@@ -145,7 +145,9 @@ class _MyLoginState extends State<MyLogin> {
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () {
+                                      Navigator.pushNamed(context, 'home');
                                         auth.onLogin(context);
+
                                     },
                                     icon: Icon(
                                       Icons.arrow_forward,
