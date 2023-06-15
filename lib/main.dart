@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 import 'constraints.dart';
 import 'globals.dart';
@@ -48,19 +49,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'DoctorsOnHand',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyLogin(),
+    return SafeArea(
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'DoctorsOnHand',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(background: Colors.blueGrey),
+        ),
+        home: MyLogin(),
 
-      routes: {
-        'register': (context) => MyRegister(),
-        'login': (context) => MyLogin(),
-        'home' : (context) => Homepage()
-      },
+        routes: {
+          'register': (context) => MyRegister(),
+          'login': (context) => MyLogin(),
+          'home' : (context) => Homepage()
+        },
+      ),
     );
   }
 }

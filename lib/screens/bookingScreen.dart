@@ -64,7 +64,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
     return converted;
   }
 
-  Future<dynamic> uploadBookingFirebase({required BookingService newBooking, required BuildContext context}) async {
+  Future<dynamic> uploadBookingFirebase({required BookingService newBooking}) async {
     await _displayTextInputDesc(context,newBooking);
 
   }
