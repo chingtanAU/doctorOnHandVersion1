@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:ionicons/ionicons.dart';
 import '../validatorsAuth/auth.dart' as auth;
 import '../globals.dart' as globals;
@@ -206,6 +207,8 @@ class _HomepageState extends State<Homepage> {
     width = MediaQuery.of(context).size.width;
     return
       Scaffold(
+        backgroundColor: Colors.white,
+
         key: _scaffoldKey,
         resizeToAvoidBottomInset: true, //new line
         drawer: Drawer(
@@ -645,6 +648,48 @@ class _HomepageState extends State<Homepage> {
             ],
           ),
         ),
+       bottomNavigationBar: Container(
+         color: Colors.grey.shade100,
+         child: Padding(
+           padding:EdgeInsets.symmetric(horizontal: 15, vertical:15),
+           child: GNav(
+               tabBackgroundGradient: LinearGradient(
+                 begin: Alignment.topRight,
+                 end: Alignment.bottomLeft,
+                 colors: [Colors.lightBlue[100]!, Colors.cyan],
+               ),
+               color: Colors.grey[600],
+               activeColor: Colors.white,
+               rippleColor: Colors.grey[800]!,
+               hoverColor: Colors.grey[700]!,
+               iconSize: 20,
+               textStyle: TextStyle(fontSize: 16, color: Colors.white),
+               tabBackgroundColor: Colors.grey[900]!,
+               padding:
+               EdgeInsets.symmetric(horizontal: 20, vertical: 16.5),
+               duration: Duration(milliseconds: 800),
+             gap: 8,
+               tabs: [
+              GButton(
+                icon: Icons.home,
+                text: 'Home',
+              ),
+              GButton(
+                icon: Icons.message_sharp,
+                text: 'Messages',
+              ),
+              GButton(
+                icon: Icons.person,
+                text: 'Profile',
+              ),
+            ],
+
+                onTabChange: (index) {
+
+                }),
+         ),
+       ),
+
       );
 
   }
