@@ -1,3 +1,5 @@
+import 'package:get/get_core/src/get_main.dart';
+
 import '../globals.dart' as globals;
 import '../validatorsAuth/Validator.dart' as validator;
 import '../validatorsAuth/Validator.dart';
@@ -145,6 +147,7 @@ class _MyLoginState extends State<MyLogin> {
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () {
+                                         Navigator.pushNamed(context, 'home');
                                         auth.onLogin(context);
                                     },
                                     icon: Icon(

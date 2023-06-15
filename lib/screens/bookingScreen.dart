@@ -99,7 +99,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
                 textColor: Colors.white,
                 child: const Text('Submit'),
                 onPressed: () async {
-                  newBooking.description= _descController.text as String?;
+                 // newBooking.description= _descController.text as String?;
                   await meeting
                       .doc('eFWgNp9ZQy2453tnKO9j')
                       .collection('DoctorMeetings')
