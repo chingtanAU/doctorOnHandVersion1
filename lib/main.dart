@@ -1,3 +1,4 @@
+import 'package:doctorppp/screens/bookingScreen.dart';
 import 'package:doctorppp/screens/callscreen.dart';
 import 'package:doctorppp/screens/detailscreen.dart';
 import 'package:doctorppp/screens/login.dart';
@@ -61,7 +62,9 @@ class MyApp extends StatelessWidget {
         routes: {
           'register': (context) => MyRegister(),
           'login': (context) => MyLogin(),
-          'home' : (context) => Homepage()
+          'home' : (context) => Homepage(),
+           'book' : (context) => BookingCalendarDemoApp(),
+          'detail' : (context) => DetailScreen(),
         },
       ),
     );

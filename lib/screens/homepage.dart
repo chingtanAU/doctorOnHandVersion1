@@ -347,12 +347,14 @@ class _HomepageState extends State<Homepage> {
 
                          InkWell(
                            onTap: () {
-                             Navigator.push(
-                               context,
-                               MaterialPageRoute(
-                                 builder: (context) =>const Homepage(),
-                               ),
-                             );
+                             Navigator.pushNamed(context, 'book');
+
+                             // Navigator.push(
+                             //   context,
+                             //   MaterialPageRoute(
+                             //     builder: (context) =>const Homepage(),
+                             //   ),
+                             // );
                            },
                            child: Card(
                               shape: RoundedRectangleBorder(

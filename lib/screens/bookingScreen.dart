@@ -1,9 +1,7 @@
-import 'package:booking_calendar/booking_calendar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-
+import 'package:booking_calendar/booking_calendar.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class BookingCalendarDemoApp extends StatefulWidget {
   const BookingCalendarDemoApp({Key? key}) : super(key: key);
@@ -21,6 +19,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
 
   @override
   void initState() {
+    initializeDateFormatting();
     super.initState();
     // DateTime.now().startOfDay
     // DateTime.now().endOfDay
@@ -99,7 +98,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
                 textColor: Colors.white,
                 child: const Text('Submit'),
                 onPressed: () async {
-                 // newBooking.description= _descController.text as String?;
+                  // newBooking.description= _descController.text as String?;
                   await meeting
                       .doc('eFWgNp9ZQy2453tnKO9j')
                       .collection('DoctorMeetings')
@@ -127,7 +126,27 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
         ),
         home: Scaffold(
           appBar: AppBar(
-            title: const Text('Doctor scheduler'),
+            title: const Text('Book Date and Time'),
+            elevation: 9,
+            flexibleSpace: Container(
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    stops: [
+
+                      0.1,
+                      0.6,
+                    ],
+                    colors: [
+
+                      Colors.blue,
+                      Colors.teal,
+                    ],
+                  )
+              ),
+            ),
+
           ),
           body: Center(
 
