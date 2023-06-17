@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:ionicons/ionicons.dart';
 import '../validatorsAuth/auth.dart' as auth;
@@ -8,6 +10,7 @@ import 'package:doctorppp/widgets/singlecategory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../constraints.dart';
+import '../validatorsAuth/auth.dart';
 import '../widgets/incoming_appointments.dart';
 import 'detailscreen.dart';
 import 'login.dart';
@@ -17,8 +20,8 @@ import 'notifcationScreen.dart';
 
 
 class Homepage extends StatefulWidget {
-  const Homepage({Key? key}) : super(key: key);
-
+   Homepage({Key? key}) : super(key: key);
+  final authController= Get.find<AuthController>();
   @override
   void initState() {
 
@@ -238,9 +241,8 @@ class _HomepageState extends State<Homepage> {
                       leading: Icon(Icons.logout),
                       title: Text('Log out'),
                       onTap: () {
-                         auth.logOut();
-                         Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => MyLogin()));
+                         widget.authController.logOut();
+                         Get.offNamed("/login");
                       },
                     ) ,
                     Divider(
