@@ -1,4 +1,8 @@
 
+import 'package:doctorppp/screens/bookingScreen.dart';
+import 'package:doctorppp/screens/callscreen.dart';
+import 'package:doctorppp/screens/detailscreen.dart';
+
 import 'package:doctorppp/screens/login.dart';
 import 'package:doctorppp/screens/register.dart';
 import 'package:doctorppp/validatorsAuth/auth.dart';
@@ -33,6 +37,24 @@ class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+
+//     return SafeArea(
+//       child: GetMaterialApp(
+//         debugShowCheckedModeBanner: false,
+//         title: 'DoctorsOnHand',
+//         theme: ThemeData(
+//           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(background: Colors.blueGrey),
+//         ),
+//         home: MyLogin(),
+
+//         routes: {
+//           'register': (context) => MyRegister(),
+//           'login': (context) => MyLogin(),
+//           'home' : (context) => Homepage(),
+//            'book' : (context) => BookingCalendarDemoApp(),
+//           'detail' : (context) => DetailScreen(),
+//         },
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'DoctorsOnHand',

@@ -117,6 +117,10 @@ class MyLogin extends StatelessWidget {
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () {
+                                      Navigator.pushNamed(context, 'home');
+                                        auth.onLogin(context);
+
+
                                       authController.onLogin();
                                     },
                                     icon: Icon(
