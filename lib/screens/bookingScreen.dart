@@ -105,7 +105,6 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
                       .add(newBooking.toJson())
                       .then((value) => Navigator.pop(context))
                       .catchError((error) => print("Failed to add booking: $error"));
-
                 },
               ),
             ],
