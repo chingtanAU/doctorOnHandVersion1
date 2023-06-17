@@ -7,6 +7,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'constraints.dart';
+import 'globals.dart';
+import 'screens/drawerscreen.dart';
 import 'screens/homepage.dart';
 
 Future<void> main() async {
@@ -43,6 +46,23 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/home',  page: () => Homepage()),
       ],
 
+
+//     return SafeArea(
+//       child: GetMaterialApp(
+//         debugShowCheckedModeBanner: false,
+//         title: 'DoctorsOnHand',
+//         theme: ThemeData(
+//           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(background: Colors.blueGrey),
+//         ),
+//         home: MyLogin(),
+
+//         routes: {
+//           'register': (context) => MyRegister(),
+//           'login': (context) => MyLogin(),
+//           'home' : (context) => Homepage()
+//         },
+//       ),
+// >>>>>>> main
     );
   }
 }
