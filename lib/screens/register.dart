@@ -1,10 +1,13 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import '../globals.dart' as globals;
 import '../validatorsAuth/Validator.dart' as validator;
 
 import '../validatorsAuth/auth.dart' as auth;
+import '../validatorsAuth/auth.dart';
 
 const List<String> list = <String>['Pa'
     'tient', 'Doctor', 'Administrator'];
@@ -23,9 +26,9 @@ const List<String> listClinic = <String>
 
 
 class MyRegister extends StatefulWidget {
-  const MyRegister({Key? key}) : super(key: key);
+   MyRegister({Key? key}) : super(key: key);
 
-
+  final authController = Get.find<AuthController>();
   @override
   _MyRegisterState createState() => _MyRegisterState();
 }
@@ -341,7 +344,7 @@ class _MyRegisterState extends State<MyRegister> {
                                     backgroundColor: Color(0xff4c505b),
                                     child: IconButton(
                                         color: Colors.black,
-                                        onPressed: () {auth.onRegister(context);},
+                                        onPressed: () {widget.authController.onRegister();},
                                         icon: Icon(
                                           Icons.arrow_forward,
                                         )),
@@ -357,7 +360,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 children: [
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.pushNamed(context, 'login');
+                                      Get.offNamed("/");
                                     },
                                     child: Text(
                                       'Sign In',

@@ -1,41 +1,21 @@
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
 import '../globals.dart' as globals;
 import '../validatorsAuth/Validator.dart' as validator;
 import '../validatorsAuth/Validator.dart';
-import '../validatorsAuth/auth.dart' as auth;
+
 import 'package:flutter/material.dart';
-import 'homepage.dart';
-
-
-class MyLogin extends StatefulWidget {
-
-  const MyLogin({Key? key}) : super(key: key);
-
-  @override
-  _MyLoginState createState() => _MyLoginState();
-}
-
-class _MyLoginState extends State<MyLogin> {
-  bool isChecked = false;
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-
-
-  bool _submitted = false;
-
-  void _submit() {
-    setState(() => _submitted = true);
-  }
+import '../validatorsAuth/auth.dart';
 
 
 
-  @override
-  void initState() {
-    //
-    super.initState();
-  }
+class MyLogin extends StatelessWidget {
 
+   MyLogin({Key? key}) : super(key: key);
 
-
+  final TextEditingController _emailResetPass = TextEditingController();
+  final authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +29,7 @@ class _MyLoginState extends State<MyLogin> {
         body: Stack(
           children: [
             Container(
-             padding: EdgeInsets.only(left:  MediaQuery.of(context).size.width * 0.03, top: MediaQuery.of(context).size.width * 0.03),
+              padding: EdgeInsets.only(left:  MediaQuery.of(context).size.width * 0.03, top: MediaQuery.of(context).size.width * 0.03),
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.2,
                 width: MediaQuery.of(context).size.width * 0.35,
@@ -66,7 +46,7 @@ class _MyLoginState extends State<MyLogin> {
                     top: MediaQuery
                         .of(context)
                         .size
-                        .height * 0.4),
+                        .height * 0.3),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -81,7 +61,6 @@ class _MyLoginState extends State<MyLogin> {
                             },
                             key: globals.emailLoginKey,
                             validator: (email)=>validator.emailValidatro(email!),
-                            controller: email,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
@@ -95,13 +74,13 @@ class _MyLoginState extends State<MyLogin> {
                             height: 30,
                           ),
                           TextFormField(
-                             autovalidateMode: AutovalidateMode.onUserInteraction,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                             onChanged: (text) {
                               FireError.wrongPassError=false;
                             },
                             key: globals.passLoginKey,
                             validator: (pass)=>validator.passwordValidator(pass!),
-                            controller: password,
+
                             style: TextStyle(),
                             obscureText: true,
                             decoration: InputDecoration(
@@ -113,22 +92,15 @@ class _MyLoginState extends State<MyLogin> {
                                 )),
                           ),
                           SizedBox(
-                            height: 40,
+                            height: 25,
                           ),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text("Remember Me",
                                 style: TextStyle(color: Colors.black),),
-                              Checkbox(
-                                value: isChecked,
-                                onChanged: (value) {
-                                  isChecked = !isChecked;
-                                  setState(() {
-
-                                  });
-                                },
-                              ),
+                             // Checkbox(
+                            //  ),
                             ],
                           ),
                           Row(
@@ -148,6 +120,8 @@ class _MyLoginState extends State<MyLogin> {
                                       Navigator.pushNamed(context, 'home');
                                         auth.onLogin(context);
 
+
+                                      authController.onLogin();
                                     },
                                     icon: Icon(
                                       Icons.arrow_forward,
@@ -155,8 +129,50 @@ class _MyLoginState extends State<MyLogin> {
                               )
                             ],
                           ),
+
                           SizedBox(
-                            height: 40,
+                            height: 20,
+                          ),
+                          OutlinedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.white),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(40),
+                                ),
+                              ),
+                            ),
+                            onPressed: () { authController.signInWithGoogle();},
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Image(
+                                    image: AssetImage("assets/google_logo.png"),
+                                    height: 35.0,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      'Sign in with Google',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.black54,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+
+
+
+                          SizedBox(
+                            height: 25,
                           ),
 
 
@@ -165,7 +181,7 @@ class _MyLoginState extends State<MyLogin> {
                             children: [
                               TextButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, 'register');
+                                  Get.offNamed("/register");;
                                 },
                                 child: Text(
                                   'Sign Up',
@@ -178,7 +194,32 @@ class _MyLoginState extends State<MyLogin> {
                                 style: ButtonStyle(),
                               ),
                               TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {Get.defaultDialog(
+                                      title: 'Enter your email',
+                                      content: TextFormField(
+                                        validator: (email)=> validator.emailValidatro(email!) ,
+                                        controller: _emailResetPass ,
+                                        decoration:InputDecoration(
+
+                                        ) ,
+                                      ),
+                                      confirm:
+                                      MaterialButton(
+                                        child: Text('Submit'),
+                                        onPressed: () async {
+                                          Get.snackbar ( await authController.resetPassword(email: _emailResetPass.text),'');
+                                          _emailResetPass.clear();
+
+                                        },
+                                      )
+
+
+
+
+
+
+
+                                  );},
                                   child: Text(
                                     'Forgot Password',
                                     style: TextStyle(
@@ -201,6 +242,8 @@ class _MyLoginState extends State<MyLogin> {
       ),
     );
   }
+
+
 
 
 }

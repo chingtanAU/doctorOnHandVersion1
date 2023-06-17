@@ -51,9 +51,11 @@ dependencies:
   intl_phone_field: ^3.1.0
   json_serializable: ^6.6.0
   build_runner: ^2.1.2
-  ionicons: ^0.2.2
   get: ^4.6.5
+  google_sign_in: ^6.1.4
+  ionicons: ^0.2.2
   google_nav_bar: ^5.0.6
+
 
 
 dev_dependencies:
