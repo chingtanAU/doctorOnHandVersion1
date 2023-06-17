@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../globals.dart' as globals;
+import '../globals.dart';
 import '../validatorsAuth/Validator.dart' as validator;
 import '../validatorsAuth/Validator.dart';
 
@@ -118,7 +119,7 @@ class MyLogin extends StatelessWidget {
                                     color: Colors.white,
                                     onPressed: () {
                                       Navigator.pushNamed(context, 'home');
-                                        auth.onLogin(context);
+                                       // auth.onLogin(context);
 
 
                                       authController.onLogin();
