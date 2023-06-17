@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:doctorppp/screens/bookingScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -241,7 +242,7 @@ class _HomepageState extends State<Homepage> {
                       title: Text('Log out'),
                       onTap: () {
                          widget.authController.logOut();
-                         Get.offNamed("/login");
+                         Get.offAllNamed("/login");
                       },
                     ) ,
                     Divider(
@@ -349,7 +350,11 @@ class _HomepageState extends State<Homepage> {
 
                          InkWell(
                            onTap: () {
-                             Navigator.pushNamed(context, 'book');
+                             // Navigator.pushNamed(context, 'book');
+                             Get.to(()=>BookingCalendarDemoApp());
+
+                             // Get.offNamed('/book');
+
 
                              // Navigator.push(
                              //   context,
@@ -423,7 +428,7 @@ class _HomepageState extends State<Homepage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>const Homepage(),
+                                builder: (context) => Homepage(),
                               ),
                             );
                           },
@@ -780,6 +785,8 @@ Container createDocWidget(String imgName, String docName)
       ),
       onTap: (){
          Get.to(()=>DetailScreen());
+         //Get.offNamed('/detail');
+
          print('tapped ');
       },
     ),

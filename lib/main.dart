@@ -61,11 +61,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const CircularProgressIndicator(),
+      home: MyLogin(),
+      //home: const CircularProgressIndicator(),
       getPages: [
         GetPage(name: '/login', page: () => MyLogin()),
         GetPage(name: '/register', page: () => MyRegister()),
         GetPage(name: '/home',  page: () => Homepage()),
+        GetPage(name: '/book',  page: () => BookingCalendarDemoApp()),
+        GetPage(name: '/detail',  page: () => DetailScreen()),
       ],
 
 
