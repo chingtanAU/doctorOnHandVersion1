@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'chats.dart';
 import 'const_chat.dart';
 
 class MessageTile extends StatelessWidget {

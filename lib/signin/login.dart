@@ -1,13 +1,12 @@
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import '../globals.dart' as globals;
-import '../globals.dart';
-import '../validatorsAuth/Validator.dart' as validator;
-import '../validatorsAuth/Validator.dart';
+import '../../../globals.dart' as globals;
+import '../../../validatorsAuth/Validator.dart' as validator;
+import '../../../validatorsAuth/Validator.dart';
 
 import 'package:flutter/material.dart';
-import '../validatorsAuth/auth.dart';
+import '../../../validatorsAuth/auth.dart';
 
 
 

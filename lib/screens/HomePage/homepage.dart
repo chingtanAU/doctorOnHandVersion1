@@ -1,18 +1,18 @@
-import 'package:doctorppp/screens/bookingScreen.dart';
-import 'package:doctorppp/screens/clinicdetails.dart';
-import 'package:doctorppp/screens/home_info.dart';
-import 'package:doctorppp/screens/profile.dart';
+import 'package:doctorppp/screens/Clinic/bookingScreen.dart';
+import 'package:doctorppp/screens/Clinic/clinicdetails.dart';
+import 'package:doctorppp/screens/HomePage/home_info.dart';
+import 'package:doctorppp/signin/profile.dart';
 import 'package:doctorppp/screens/search/model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-import '../globals.dart' as globals;
-import '../validatorsAuth/auth.dart';
-import '../widgets/chat/ChatList.dart';
-import 'message.dart';
-import 'notifcationScreen.dart';
+import '../../globals.dart' as globals;
+import '../../validatorsAuth/auth.dart';
+import '../../widgets/chat/ChatList.dart';
+import '../message.dart';
+import '../../widgets/notifcationScreen.dart';
 
 class Homepage extends StatefulWidget {
   Homepage({Key? key}) : super(key: key);

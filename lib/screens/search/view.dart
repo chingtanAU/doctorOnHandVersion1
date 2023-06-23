@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../clinicdetails.dart';
+import '../Clinic/clinicdetails.dart';
 import 'model.dart';
 import 'logic.dart';
 

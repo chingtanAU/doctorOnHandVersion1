@@ -1,9 +1,6 @@
 import 'dart:async';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 import 'const_chat.dart';
-import 'ChatList.dart';
 import 'message_tile.dart';
 
 class Chats extends StatefulWidget {

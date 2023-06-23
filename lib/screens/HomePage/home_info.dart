@@ -2,27 +2,14 @@ import 'dart:ui';
 
 
 import 'package:doctorppp/screens/history/view.dart';
-import 'package:doctorppp/screens/search/logic.dart';
-import 'package:doctorppp/screens/search/model.dart';
-import 'package:doctorppp/screens/search/view.dart';
-import 'package:doctorppp/widgets/singlecategory.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:ionicons/ionicons.dart';
 
-import '../constraints.dart';
-import '../globals.dart' as globals;
-import '../validatorsAuth/auth.dart' as auth;
-import '../validatorsAuth/auth.dart';
-import '../widgets/incoming_appointments.dart';
-import 'detailscreen.dart';
+import 'package:doctorppp/screens/search/view.dart';
+
+import 'package:flutter/material.dart';
+
+import 'package:ionicons/ionicons.dart';
+import '../../widgets/incoming_appointments.dart';
 import 'homepage.dart';
-import 'login.dart';
-import 'notifcationScreen.dart';
 
 class HomeInfo extends StatelessWidget {
   const HomeInfo({

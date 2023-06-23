@@ -6,7 +6,6 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import '../globals.dart' as globals;
 import '../validatorsAuth/Validator.dart' as validator;
 
-import '../validatorsAuth/auth.dart' as auth;
 import '../validatorsAuth/auth.dart';
 
 const List<String> list = <String>['Pa'
