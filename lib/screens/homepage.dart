@@ -1,50 +1,41 @@
-import 'dart:ui';
 import 'package:doctorppp/screens/bookingScreen.dart';
+import 'package:doctorppp/screens/clinicdetails.dart';
+import 'package:doctorppp/screens/home_info.dart';
+import 'package:doctorppp/screens/profile.dart';
+import 'package:doctorppp/screens/search/model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:ionicons/ionicons.dart';
-import '../validatorsAuth/auth.dart' as auth;
-import '../globals.dart' as globals;
-import 'package:doctorppp/widgets/singlecategory.dart';
 import 'package:flutter/material.dart';
-import '../constraints.dart';
-import '../validatorsAuth/auth.dart';
-import '../widgets/incoming_appointments.dart';
-import 'detailscreen.dart';
-import 'login.dart';
 import 'package:get/get.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../globals.dart' as globals;
+import '../validatorsAuth/auth.dart';
+import '../widgets/chat/ChatList.dart';
+import 'message.dart';
 import 'notifcationScreen.dart';
 
-
 class Homepage extends StatefulWidget {
-   Homepage({Key? key}) : super(key: key);
-  final authController= Get.find<AuthController>();
+  Homepage({Key? key}) : super(key: key);
+  final authController = Get.find<AuthController>();
+  final NotificationController controller = Get.put(NotificationController());
+
   @override
   void initState() {
-
-    globals.auth
-        .authStateChanges()
-        .listen((User? user) {
+    globals.auth.authStateChanges().listen((User? user) {
       if (user == null) {
         print('User is currently signed out!');
-
       } else {
         print('User is signed in!');
       }
     });
-
-
-
   }
 
   @override
   _HomepageState createState() => _HomepageState();
 }
+
 late double height;
-late double  width;
+late double width;
 
 class _HomepageState extends State<Homepage> {
   double xoffset = 0;
@@ -100,11 +91,12 @@ class _HomepageState extends State<Homepage> {
     },
   ];
 
-  Widget doctors(
-      {required String image,
-      required String name,
-      required String specialist}) {
-    var size = MediaQuery.of(context).size;
+  Widget doctors({required String image,
+    required String name,
+    required String specialist}) {
+    var size = MediaQuery
+        .of(context)
+        .size;
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
@@ -142,22 +134,22 @@ class _HomepageState extends State<Homepage> {
                 children: [
                   name.length <= 15
                       ? Text(
-                          name,
-                          style: TextStyle(
-                            fontFamily: "Comic Sans",
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        )
+                    name,
+                    style: TextStyle(
+                      fontFamily: "Comic Sans",
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  )
                       : Text(
-                          name,
-                          style: TextStyle(
-                            fontFamily: "Comic Sans",
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                          maxLines: 1,
-                        ),
+                    name,
+                    style: TextStyle(
+                      fontFamily: "Comic Sans",
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                    maxLines: 1,
+                  ),
                   Text(
                     specialist,
                     style: TextStyle(
@@ -204,520 +196,199 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
+  int _currentIndex = 0;
+  List page = [
+    HomeInfo(),
+    ChatList(),
+    PatientProfile(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    height = MediaQuery.of(context).size.height;
-    width = MediaQuery.of(context).size.width;
-    return
-      Scaffold(
-        backgroundColor: Colors.white,
+    height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    return Scaffold(
+      backgroundColor: Colors.white,
 
-        key: _scaffoldKey,
-        resizeToAvoidBottomInset: true, //new line
-        drawer: Drawer(
-          child: ListView.builder(
-            padding: EdgeInsets.zero,
-            itemCount: 4, // Replace with the actual number of items
-            itemBuilder: (BuildContext context, int index) {
-              if (index == 0) {
-                return UserAccountsDrawerHeader(
-                  accountName: Text('John Doe'),
-                  accountEmail: Text('johndoe@example.com'),
-                  currentAccountPicture: CircleAvatar(
-                    backgroundImage: AssetImage('assets/avatar.jpg'),
-                  ),
-                );
-              } else {
-                return Column(
-                  children: <Widget>[
-
-                    index!=3 ? ListTile(
-                              leading: Icon(Icons.home),
-                              title: Text('Item $index'),
-                              onTap: () {
-                                // Handle item tap
-                              },
-                            ):  ListTile(
-                      leading: Icon(Icons.logout),
-                      title: Text('Log out'),
-                      onTap: () {
-                         widget.authController.logOut();
-                         Get.offAllNamed("/login");
-                      },
-                    ) ,
-                    Divider(
-                      thickness: 2.0,
-                    ),
-                  ],
-                );
-              }
-            },
-          ),
-        ),
-
-
-
-          appBar: AppBar(
-            elevation: 9,
-            flexibleSpace: Container(
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    stops: [
-
-                      0.1,
-                      0.6,
-                    ],
-                    colors: [
-
-                      Colors.blue,
-                      Colors.teal,
-                    ],
-                  )
+      key: _scaffoldKey,
+      resizeToAvoidBottomInset: true,
+      //new line
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text('John Doe'),
+              accountEmail: Text('johndoe@example.com'),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assets/profile.jpg'),
               ),
-             ),
+            ),
 
-        leading: IconButton(
-        icon: Icon(Icons.menu),
-    onPressed: _openDrawer,
+            ListTile(
+              leading: Icon(Icons.camera),
+              title: Text('OCR'),
+              onTap: () {
+                widget.authController.logOut();
+                // Handle item tap
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Log out'),
+              onTap: () {
+                widget.authController.logOut();
+                Get.offAllNamed("/login");
+                // Handle item tap
+              },
+            ),
+          ],
 
-    ),
-            title: Align(
-                alignment: Alignment.center,
-                child: Text("Doctors On Hand")),
-            actions: [
-        IconButton(
-            icon: Icon(Icons.notifications_active_sharp),
-            onPressed: (){
-              Get.to(notification());
-            }
+        ),
       ),
-    ],),
+
+      // child: ListView.builder(
+      //   padding: EdgeInsets.zero,
+      //   itemCount: 4, // Replace with the actual number of items
+      //   itemBuilder: (BuildContext context, int index) {
+      //     if (index == 0) {
+      //       return UserAccountsDrawerHeader(
+      //         accountName: Text('John Doe'),
+      //         accountEmail: Text('johndoe@example.com'),
+      //         currentAccountPicture: CircleAvatar(
+      //           backgroundImage: AssetImage('assets/profile.jpg'),
+      //         ),
+      //       );
+      //     } else {
+      //       return Column(
+      //         children: <Widget>[
+      //           index != 3
+      //               ? ListTile(
+      //                   leading: Icon(Icons.home),
+      //                   title: Text('Item $index'),
+      //                   onTap: () {
+      //                     Get.toNamed("/home");
+      //                     // Handle item tap
+      //                   },
+      //                 )
+      //               : ListTile(
+      //                   leading: Icon(Icons.logout),
+      //                   title: Text('Log out'),
+      //                   onTap: () {
+      //                     widget.authController.logOut();
+      //                     Get.offAllNamed("/login");
+      //                   },
+      //                 ),
+      //           Divider(
+      //             thickness: 2.0,
+      //           ),
+      //         ],
+      //       );
+      //     }
+      //   },
+      // ),
 
 
-
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-
-
-              Container(
-                width: width,
-
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all( width * 0.04),
-                      child: Text(
-                        "Hi! Saurabh\nHow are you today?",
-                        style: TextStyle(
-                          fontFamily: "Roboto",
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                        ),
-                      ),
-                    ),
-                    Divider(
-                      color: Colors.grey[300],
-                      thickness: 0,
-                    ),
-
-                        const IncomingCard(),
-
-                    Divider(
-                      color: Colors.grey[300],
-                      thickness: 0,
-                    ),
-
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: width * 0.04,vertical:height*0.01),
-                      child: Text(
-                        "Category",
-                        style: TextStyle(
-                          fontFamily: "Comic Sans",
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                        ),
-                      ),
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-
-
-                         InkWell(
-                           onTap: () {
-                             // Navigator.pushNamed(context, 'book');
-                             Get.to(()=>BookingCalendarDemoApp());
-
-                             // Get.offNamed('/book');
-
-
-                             // Navigator.push(
-                             //   context,
-                             //   MaterialPageRoute(
-                             //     builder: (context) =>const Homepage(),
-                             //   ),
-                             // );
-                           },
-                           child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  height: height * 0.2,
-                                  width: width * 0.42,
-
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    color: Colors.red.shade100,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 3.0,
-                                        spreadRadius: 3.0,
-                                        offset: Offset(3.0, 3.0), // shadow direction: bottom right
-                                      )
-                                    ],
-
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-
-                                      Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(10),
-                                              child: Icon(
-                                                Ionicons.calendar_outline,
-                                                size: 75,
-                                                color: Colors.teal,
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.fromLTRB(8,0,8,0),
-                                            child: Text(
-                                              "Book an Appointment",
-                                              style: TextStyle(
-                                                fontFamily: "Comic Sans",
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                         ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Homepage(),
-                              ),
-                            );
-                          },
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: height * 0.2,
-                                width: width * 0.42,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: Colors.red.shade100,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey,
-                                      blurRadius: 3.0,
-                                      spreadRadius: 3.0,
-                                      offset: Offset(3.0, 3.0), // shadow direction: bottom right
-                                    )
-                                  ],
-
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-
-                                    Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(10),
-                                            child: Icon(
-                                               Icons.medical_information,
-                                             size: 75,
-                                             color: Colors.red,
-                                             //AssetImage("assets/medical1.png"),
-
-
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(8,0,8,0),
-                                          child: Text(
-                                            "Medical History",
-                                            style: TextStyle(
-                                              fontFamily: "Comic Sans",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        // Card(
-                        //   shape: RoundedRectangleBorder(
-                        //     borderRadius: BorderRadius.circular(15),
-                        //   ),
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.all(8.0),
-                        //     child: Container(
-                        //       height: height * 0.2,
-                        //       decoration: BoxDecoration(
-                        //         borderRadius: BorderRadius.circular(15),
-                        //         color: Colors.red.shade100,
-                        //         boxShadow: [
-                        //           BoxShadow(
-                        //             color: Colors.grey,
-                        //             blurRadius: 3.0,
-                        //             spreadRadius: 3.0,
-                        //             offset: Offset(3.0, 3.0), // shadow direction: bottom right
-                        //           )
-                        //         ],
-                        //
-                        //       ),
-                        //       child: Column(
-                        //         mainAxisAlignment: MainAxisAlignment.center,
-                        //         crossAxisAlignment: CrossAxisAlignment.start,
-                        //         children: [
-                        //
-                        //           Column(
-                        //             children: [
-                        //               Padding(
-                        //                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                        //                 child: ClipRRect(
-                        //                   borderRadius: BorderRadius.circular(10),
-                        //                   child: Icon(
-                        //                     Ionicons.calendar_outline,
-                        //                     size: 75,
-                        //                     color: Colors.teal,
-                        //                   ),
-                        //                 ),
-                        //               ),
-                        //               Padding(
-                        //                 padding: const EdgeInsets.fromLTRB(8,0,8,0),
-                        //                 child: Text(
-                        //                   "Book an Appointment",
-                        //                   style: TextStyle(
-                        //                     fontFamily: "Comic Sans",
-                        //                     fontWeight: FontWeight.bold,
-                        //                     fontSize: 15,
-                        //                   ),
-                        //                 ),
-                        //               ),
-                        //             ],
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-
-                      ],
-                    ),
-
-                    Divider(
-                      color: Colors.grey[300],
-                      thickness: 0,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: width * 0.04,vertical:height*0.01),
-                      child: Text(
-                        "Nearby Hospitals/Walk In Clinics",
-                        style: TextStyle(
-                          fontFamily: "Comic Sans",
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                        ),
-                      ),
-                    ),
-                    //
-                    // Container(
-                    //   height: height * 0.22,
-                    //   // color: Colors.amber,
-                    //   padding: EdgeInsets.only(left:width * 0.04 ),
-                    //   child: GridView.builder(
-                    //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    //       crossAxisCount: 2,
-                    //     ),
-                    //
-                    //     // scrollDirection: Axis.horizontal,
-                    //     itemCount: itemCategory.length,
-                    //     itemBuilder: (context, index) {
-                    //       return SingleCategory(
-                    //         image: itemCategory[index]["image"].toString(),
-                    //         name: itemCategory[index]["name"].toString(),
-                    //         doctors: itemCategory[index]["stuff"].toString(),
-                    //         color: itemCategory[index]["color"] as Color,
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: height * 0.02,
-                    // ),
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 20),
-                    //   child: SizedBox(
-                    //     child: Row(
-                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //       children: [
-                    //         Text(
-                    //           "Top Rated Doctor",
-                    //           style: TextStyle(
-                    //             fontFamily: "Comic Sans",
-                    //             fontWeight: FontWeight.bold,
-                    //             fontSize: 22,
-                    //           ),
-                    //         ),
-                    //         Text(
-                    //           "See All",
-                    //           style: TextStyle(
-                    //             fontFamily: "Comic Sans",
-                    //             fontWeight: FontWeight.w400,
-                    //             fontSize: 22,
-                    //           ),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-                    // Container(
-                    //   margin: EdgeInsets.symmetric(
-                    //     horizontal: 15,
-                    //   ),
-                    //   child: GridView.count(
-                    //     shrinkWrap: true,
-                    //     crossAxisSpacing: 8.0,
-                    //     mainAxisSpacing: 8.0,
-                    //     childAspectRatio: 0.85,
-                    //     physics: NeverScrollableScrollPhysics(),
-                    //     crossAxisCount: 2,
-                    //     children: List.generate(doctorItem.length, (index) {
-                    //       return GestureDetector(
-                    //         onTap: () {
-                    //           Navigator.of(context).push(MaterialPageRoute(
-                    //             builder: (ctx) => DetailScreen(),
-                    //           ));
-                    //         },
-                    //         child:  doctors(
-                    //           image: doctorItem[index]["image"].toString(),
-                    //           name: doctorItem[index]["name"].toString(),
-                    //           specialist:
-                    //               doctorItem[index]["specialist"].toString(),
-                    //         ),
-                    //       );
-                    //     }),
-                    //   ),
-                    // ),
-                    createDocWidget("Image.jpg", "Susan Thomas"),
-                    createDocWidget("Image2.jpg", "Paul Barbara"),
-                    createDocWidget("Image3.jpg", "Nancy Williams"),
-                  ],
-                ),
-              ),
-            ],
-          ),
+      appBar: AppBar(
+        elevation: 9,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                stops: [
+                  0.1,
+                  0.6,
+                ],
+                colors: [
+                  Colors.blue,
+                  Colors.teal,
+                ],
+              )),
         ),
-       bottomNavigationBar: Container(
-         color: Colors.grey.shade100,
-         child: Padding(
-           padding:EdgeInsets.symmetric(horizontal: 15, vertical:15),
-           child: GNav(
-               tabBackgroundGradient: LinearGradient(
-                 begin: Alignment.topRight,
-                 end: Alignment.bottomLeft,
-                 colors: [Colors.lightBlue[100]!, Colors.cyan],
-               ),
-               color: Colors.grey[600],
-               activeColor: Colors.white,
-               rippleColor: Colors.grey[800]!,
-               hoverColor: Colors.grey[700]!,
-               iconSize: 20,
-               textStyle: TextStyle(fontSize: 16, color: Colors.white),
-               tabBackgroundColor: Colors.grey[900]!,
-               padding:
-               EdgeInsets.symmetric(horizontal: 20, vertical: 16.5),
-               duration: Duration(milliseconds: 800),
-             gap: 8,
-               tabs: [
-              GButton(
-                icon: Icons.home,
-                text: 'Home',
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: _openDrawer,
+        ),
+        title:
+        Align(alignment: Alignment.center, child: Text("Doctors On Hand")),
+        actions: [
+          Obx(() {
+            if(  Get.find<NotificationController>().notifications.length==0
+            ){
+              return IconButton(
+                  icon: Icon(Icons.notifications_none),
+                  onPressed: () {
+                    Get.to(NotificationPage());
+                  });
+            }
+            else
+            return IconButton(
+                icon: Icon(Icons.notifications_active),
+                onPressed: () {
+                  Get.to(NotificationPage());
+                });
+          }),
+        ],
+      ),
+
+      body: page[_currentIndex],
+      bottomNavigationBar: Container(
+        color: Colors.grey.shade100,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          child: GNav(
+              tabBackgroundGradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [Colors.lightBlue[100]!, Colors.cyan],
               ),
-              GButton(
-                icon: Icons.message_sharp,
-                text: 'Messages',
-              ),
-              GButton(
-                icon: Icons.person,
-                text: 'Profile',
-              ),
-            ],
-
-                onTabChange: (index) {
-
-                }),
-         ),
-       ),
-
-      );
-
+              color: Colors.grey[600],
+              activeColor: Colors.white,
+              rippleColor: Colors.grey[800]!,
+              hoverColor: Colors.grey[700]!,
+              iconSize: 20,
+              textStyle: TextStyle(fontSize: 16, color: Colors.white),
+              tabBackgroundColor: Colors.grey[900]!,
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16.5),
+              duration: Duration(milliseconds: 800),
+              gap: 8,
+              tabs: [
+                GButton(
+                  icon: Icons.home,
+                  text: 'Home',
+                ),
+                GButton(
+                  icon: Icons.message_sharp,
+                  text: 'Messages',
+                ),
+                GButton(
+                  icon: Icons.person,
+                  text: 'Profile',
+                ),
+              ],
+              onTabChange: (index) {
+                setState(() => _currentIndex = index);
+              }),
+        ),
+      ),
+    );
   }
 }
 
-
-
-
-Container createDocWidget(String imgName, String docName)
-{
+Container createDocWidget(String imgName, String docName) {
   return Container(
     margin: EdgeInsets.all(
       8,
     ),
     decoration: BoxDecoration(
       color: Colors.white.withOpacity(0.8),
-     // color: Theme.of(context as BuildContext).primaryColor.withOpacity(0.8),
+      // color: Theme.of(context as BuildContext).primaryColor.withOpacity(0.8),
       borderRadius: BorderRadius.circular(20),
       //boxShadow: kElevationToShadow[6],
       boxShadow: [
@@ -731,14 +402,11 @@ Container createDocWidget(String imgName, String docName)
     ),
     child: InkWell(
       child: Container(
-
-
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(
             Radius.circular(12),
           ),
-          color: Colors.cyan
-          ,
+          color: Colors.cyan,
         ),
         child: Container(
           padding: EdgeInsets.all(7),
@@ -751,29 +419,33 @@ Container createDocWidget(String imgName, String docName)
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage('assets/$imgName'),
-                        fit: BoxFit.cover
-                    )
-                ),
+                        fit: BoxFit.cover)),
               ),
-              SizedBox(width: width*0.03,),
+              SizedBox(
+                width: width * 0.03,
+              ),
               Column(
-
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text("Dr. $docName", style: TextStyle(
-                    fontFamily: "Comic Sans",
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),),
-                  SizedBox(height: height*0.02),
+                  Text(
+                    "Dr. $docName",
+                    style: TextStyle(
+                      fontFamily: "Comic Sans",
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  SizedBox(height: height * 0.02),
                   Container(
                     width: 250,
                     height: 50,
-                    child: Text("A brief about the doctor to be added here. This is more like an introduction about the doctor", style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                    ),
+                    child: Text(
+                      "A brief about the doctor to be added here. This is more like an introduction about the doctor",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
                       overflow: TextOverflow.clip,
                     ),
                   )
@@ -783,11 +455,20 @@ Container createDocWidget(String imgName, String docName)
           ),
         ),
       ),
-      onTap: (){
-         Get.to(()=>DetailScreen());
-         //Get.offNamed('/detail');
+      onTap: () {
+        //Get.to(() => ClinicDetails());
+        Get.to(() => ClinicDetails(clinic:       Clinic(
+          id: 2,
+          name: 'XYZ Clinic',
+          visits: 10,
+          lastVisit: '2023-02-01',
+          imageUrl: 'assets/doctor.png',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        ),
+        ));
+        //Get.offNamed('/detail');
 
-         print('tapped ');
+        print('tapped ');
       },
     ),
   );

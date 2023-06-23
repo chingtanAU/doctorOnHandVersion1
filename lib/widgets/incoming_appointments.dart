@@ -2,7 +2,6 @@ import 'package:doctorppp/screens/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../screens/drawerscreen.dart';
 
 class IncomingCard extends StatelessWidget {
   const IncomingCard({

@@ -13,7 +13,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'constraints.dart';
 import 'globals.dart';
-import 'screens/drawerscreen.dart';
 import 'screens/homepage.dart';
 
 Future<void> main() async {

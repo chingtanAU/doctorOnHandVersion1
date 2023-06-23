@@ -1,11 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class notification extends StatelessWidget {
+class NotificationPage extends StatelessWidget {
+  final NotificationController controller = Get.put(NotificationController());
 
-  const notification({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Notifications'),
+      ),
+      body: Obx(
+    () => ListView.builder(
+        itemCount: Get.find<NotificationController>().notifications.length,
+        itemBuilder: (context, index) {
+          final notification = Get.find<NotificationController>().notifications[index];
+          return Card(
+            elevation: 3,
+            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.blue,
+                child: Icon(
+                  Icons.notifications,
+                  color: Colors.white,
+                ),
+              ),
+              title: Text(
+                notification.title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(notification.message),
+              trailing: IconButton(
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
+                onPressed: () {
+                  Get.find<NotificationController>().removeNotification(index);
+                },
+              ),
+            ),
+          );
+        },
+      ),
+    ),
+    );
+  }
+}
+
+class Notification {
+  final String title;
+  final String message;
+
+  Notification({required this.title, required this.message});
+}
+
+class NotificationController extends GetxController {
+  var notifications = <Notification>[
+    Notification(
+      title: 'New Medical Appointment',
+      message: 'You have a medical appointment tomorrow at 10:00 AM.',
+    ),
+    Notification(
+      title: 'Medication Reminder',
+      message: 'Remember to take your medication at 8:00 PM.',
+    ),
+  ].obs;
+
+  void removeNotification(int index) {
+    notifications.removeAt(index);
   }
 }
