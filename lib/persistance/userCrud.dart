@@ -11,3 +11,4 @@ Future<void> addUser(String uid,Map<String, dynamic> user) async {
   await userCollection.doc(user['role']).collection('account').doc(uid).set(user);
 
 }
+

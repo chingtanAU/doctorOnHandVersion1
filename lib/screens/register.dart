@@ -360,7 +360,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 children: [
                                   TextButton(
                                     onPressed: () {
-                                      Get.offNamed("/");
+                                      Get.offNamed("/login");
                                     },
                                     child: Text(
                                       'Sign In',

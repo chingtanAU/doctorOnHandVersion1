@@ -13,6 +13,16 @@ class UserProfile{
   UserProfile({required this.role,required this.fName,required this.lName,required this.email,required this.address,
          required this.phone, this.meets});
 
+  factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
+    role: json["id"],
+    fName: json["type"],
+    lName:json["name"],
+    email:json["address"],
+    address:json["address"],
+    phone: json["phone"],
+    meets:List<BookingService>.from(json["meets"].map((x) => BookingService.fromJson(x))),
+  );
+
   Map<String, dynamic> toJson() =>
 
       {
