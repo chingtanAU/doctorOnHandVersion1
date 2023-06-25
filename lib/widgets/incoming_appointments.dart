@@ -1,8 +1,7 @@
-import 'package:doctorppp/screens/homepage.dart';
+import 'package:doctorppp/screens/HomePage/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../screens/drawerscreen.dart';
 
 class IncomingCard extends StatelessWidget {
   const IncomingCard({
@@ -49,7 +48,7 @@ class IncomingCard extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 016),
                 child: Text(
                   "Upcoming Appointments",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: "Comic Sans",
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
@@ -73,7 +72,7 @@ class IncomingCard extends StatelessWidget {
                     children: [
                       Text(
                         "Dr. David Jacobs",
-                        style: TextStyle(
+                        style:  TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.onPrimary,
@@ -113,14 +112,14 @@ class IncomingCard extends StatelessWidget {
                                           EdgeInsets.only(left: 6, right: 14),
                                       child: Text(
                                         "4316 139 Avenue ",
-                                        style: TextStyle(color: Colors.white),
+                                        style: const TextStyle(color: Colors.white),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
                             ),
-                            SizedBox(height: height * 0.058),
+                             SizedBox(height: height * 0.058),
                             Icon(
                               Icons.navigate_next,
                               color: Colors.white,
@@ -148,7 +147,7 @@ class IncomingCard extends StatelessWidget {
                               padding: EdgeInsets.only(left: 6, right: 14),
                               child: Text(
                                 "Today",
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                             ),
                             Padding(
@@ -161,7 +160,7 @@ class IncomingCard extends StatelessWidget {
                             ),
                             Text(
                               "14:30 - 15:30 AM",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                               ),
                             )

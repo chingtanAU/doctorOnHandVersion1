@@ -6,7 +6,6 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import '../globals.dart' as globals;
 import '../validatorsAuth/Validator.dart' as validator;
 
-import '../validatorsAuth/auth.dart' as auth;
 import '../validatorsAuth/auth.dart';
 
 const List<String> list = <String>['Pa'
@@ -68,7 +67,7 @@ class _MyRegisterState extends State<MyRegister> {
                       alignment: Alignment.topRight,
                       child: Text(
                         'Create\nAccount',
-                        style: TextStyle(color: Colors.white, fontSize: 33),
+                        style: const TextStyle(color: Colors.white, fontSize: 33),
                       ),
                     ),
                   ),
@@ -93,13 +92,13 @@ class _MyRegisterState extends State<MyRegister> {
                               globals.roleKey.currentState?.value=='Doctor' ? DropdownButtonClinic():
                                   /////////////////////////////
 
-                              SizedBox(
+                              const SizedBox(
                                 height: 30,
                               ),
                               TextFormField(
                                 key: globals.fNameKey,
                                 validator: (text)=> validator.nameValidator(text!) ,
-                                style: TextStyle(color: Colors.black),
+                                style: const TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
@@ -114,18 +113,18 @@ class _MyRegisterState extends State<MyRegister> {
                                       ),
                                     ),
                                     hintText: "First Name",
-                                    hintStyle: TextStyle(color: Colors.black),
+                                    hintStyle: const TextStyle(color: Colors.black),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     )),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 30,
                               ),
                               TextFormField(
                                 key: globals.lNameKey,
                                 validator: (text)=> validator.nameValidator(text!) ,
-                                style: TextStyle(color: Colors.black),
+                                style: const TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
@@ -140,12 +139,12 @@ class _MyRegisterState extends State<MyRegister> {
                                       ),
                                     ),
                                     hintText: "Last Name",
-                                    hintStyle: TextStyle(color: Colors.black),
+                                    hintStyle: const TextStyle(color: Colors.black),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     )),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 30,
                               ),
 
@@ -156,7 +155,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 key: globals.emailKey,
                                 validator: (email)=>validator.emailValidatro(email!),
-                                style: TextStyle(color: Colors.black),
+                                style: const TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
@@ -172,20 +171,20 @@ class _MyRegisterState extends State<MyRegister> {
                                     ),
                                     hintText: "Email",
 
-                                    hintStyle: TextStyle(color: Colors.black),
+                                    hintStyle: const TextStyle(color: Colors.black),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     )),
                               ),
 
-                              SizedBox(
+                              const SizedBox(
                                 height: 30,
                               ),
 
                               TextFormField(
                                 key: globals.addressKey,
                                 validator:(address)=>validator.nameValidator(address!),
-                                style: TextStyle(color: Colors.black),
+                                style: const TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
@@ -200,13 +199,13 @@ class _MyRegisterState extends State<MyRegister> {
                                       ),
                                     ),
                                     hintText: "Address",
-                                    hintStyle: TextStyle(color: Colors.black),
+                                    hintStyle: const TextStyle(color: Colors.black),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     )),
                               ),
 
-                              SizedBox(
+                              const SizedBox(
                                 height: 30,
                               ),
 
@@ -226,7 +225,7 @@ class _MyRegisterState extends State<MyRegister> {
                                       ),
                                     ),
                                     labelText: 'Phone Number',
-                                    hintStyle: TextStyle(color: Colors.black),
+                                    hintStyle: const TextStyle(color: Colors.black),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     )),
@@ -255,14 +254,14 @@ class _MyRegisterState extends State<MyRegister> {
                                       ),
                                     ),
                                     hintText: "Phone",
-                                    hintStyle: TextStyle(color: Colors.black),
+                                    hintStyle: const TextStyle(color: Colors.black),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     )),
-                                style: TextStyle(color: Colors.black),
+                                style: const TextStyle(color: Colors.black),
                               ),
 */
-                              SizedBox(
+                              const SizedBox(
                                 height: 17,
                               ),
 
@@ -273,7 +272,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 validator:(pass)=>validator.passwordValidator(pass!),
                                 key:globals.passKey,
-                                style: TextStyle(color: Colors.black),
+                                style: const TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
@@ -288,14 +287,14 @@ class _MyRegisterState extends State<MyRegister> {
                                       ),
                                     ),
                                     hintText: "Password",
-                                    hintStyle: TextStyle(color: Colors.black),
+                                    hintStyle: const TextStyle(color: Colors.black),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     )),
                               ),
 
 
-                              SizedBox(
+                              const SizedBox(
                                 height: 30,
                               ),
                               TextFormField(
@@ -305,7 +304,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 enableSuggestions: false,
                                 autocorrect: false,
                                 key:globals.conPassKey,
-                                style: TextStyle(color: Colors.black),
+                                style: const TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
@@ -320,12 +319,12 @@ class _MyRegisterState extends State<MyRegister> {
                                       ),
                                     ),
                                     hintText: "Confirm Password",
-                                    hintStyle: TextStyle(color: Colors.black),
+                                    hintStyle: const TextStyle(color: Colors.black),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     )),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 40,
                               ),
                               Row(
@@ -334,7 +333,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 children: [
                                   Text(
                                     'Sign Up',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 27,
                                         fontWeight: FontWeight.w700),
@@ -351,7 +350,7 @@ class _MyRegisterState extends State<MyRegister> {
                                   )
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 40,
                               ),
                               Row(
@@ -365,7 +364,7 @@ class _MyRegisterState extends State<MyRegister> {
                                     child: Text(
                                       'Sign In',
                                       textAlign: TextAlign.left,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           decoration: TextDecoration.underline,
                                           color: Colors.black,
                                           fontSize: 18),
@@ -409,7 +408,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
     return DropdownButtonFormField<String>(
     autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value)=>(value==null ? 'select an account type' : null ) ,
-      hint: Text("Account Type",style: TextStyle(color: Colors.black)),
+      hint: Text("Account Type",style: const TextStyle(color: Colors.black)),
       key: globals.roleKey,
       decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
@@ -424,7 +423,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
               color: Colors.black,
             ),
           ),
-          hintStyle: TextStyle(color: Colors.black),
+          hintStyle: const TextStyle(color: Colors.black),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           )) ,
@@ -444,7 +443,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value,
-          style:TextStyle(color: Colors.black) ,),
+          style:const TextStyle(color: Colors.black) ,),
         );
       }).toList(),
     );
@@ -472,13 +471,13 @@ class _DropdownButtonClinicState extends State<DropdownButtonClinic> {
     return  Column(
 
       children: [
-        SizedBox(
+        const SizedBox(
           height: 40,
         ),
         DropdownButtonFormField<String>(
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value)=>(value==null ? 'clinic is required' : null ) ,
-          hint: Text("Select your clinic",style: TextStyle(color: Colors.black)),
+          hint: Text("Select your clinic",style: const TextStyle(color: Colors.black)),
         key: globals.clinicsKey,
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
@@ -493,7 +492,7 @@ class _DropdownButtonClinicState extends State<DropdownButtonClinic> {
                 color: Colors.black,
               ),
             ),
-            hintStyle: TextStyle(color: Colors.black),
+            hintStyle: const TextStyle(color: Colors.black),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
             )) ,
@@ -512,10 +511,10 @@ class _DropdownButtonClinicState extends State<DropdownButtonClinic> {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value,
-              style:TextStyle(color: Colors.black) ,),
+              style:const TextStyle(color: Colors.black) ,),
           );
         }).toList(),
-      ),SizedBox(
+      ),const SizedBox(
           height: 40,
         )],
     )

@@ -1,6 +1,5 @@
 import 'package:doctorppp/entity/userProfile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,7 +8,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../globals.dart' as globals;
 import '../globals.dart';
-import '../screens/homepage.dart';
 import 'Validator.dart';
 import '../persistance/userCrud.dart' as userCrud;
 

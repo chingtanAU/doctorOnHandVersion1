@@ -37,17 +37,17 @@ class _DetailScreenState extends State<DetailScreen> {
             children: [
               Text(
                 amount,
-                style: TextStyle(
+                style:  TextStyle(
                     fontFamily: "Comic Sans",
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                     color: color),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               data.length < 7
                   ? Text(
                       data,
-                      style: TextStyle(
+                      style:  TextStyle(
                           fontFamily: "Comic Sans",
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
@@ -125,7 +125,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         children: [
                           Text(
                             "Dr. Mary Albright",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: "Comic Sans",
                               fontWeight: FontWeight.bold,
                               fontSize: 22,
@@ -134,7 +134,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           ),
                           Text(
                             "Cardiologist | Apollo Hospital",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: "Comic Sans",
                               fontWeight: FontWeight.bold,
                               fontSize: 13,
@@ -175,7 +175,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               ),
                               Text(
                                 " (5.0)",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: "Comic Sans",
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -199,7 +199,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 children: [
                   Text(
                     "You Can Contact Us :",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Comic Sans",
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -273,7 +273,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
                       "About Doctor",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: "Comic Sans",
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -282,7 +282,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   ),
                   Text(
                     "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document.",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Comic Sans",
                       fontWeight: FontWeight.w400,
                       fontSize: 15,
@@ -298,7 +298,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   padding: const EdgeInsets.only(left: 25, right: 25, top: 10),
                   child: Text(
                     "Availabilty",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Comic Sans",
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -343,7 +343,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 children: [
                                   Text(
                                     available[index]["day"].toString(),
-                                    style: TextStyle(
+                                    style:  TextStyle(
                                       fontFamily: "Comic Sans",
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18,
@@ -370,7 +370,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         );
                       }),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Center(
@@ -387,7 +387,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                     child: Text(
                       "Book Appointment",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: "Comic Sans",
                         fontWeight: FontWeight.bold,
                         fontSize: 18,

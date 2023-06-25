@@ -1,23 +1,17 @@
 
-import 'package:doctorppp/screens/bookingScreen.dart';
-import 'package:doctorppp/screens/callscreen.dart';
+import 'package:doctorppp/screens/Clinic/bookingScreen.dart';
 import 'package:doctorppp/screens/detailscreen.dart';
-
-import 'package:doctorppp/screens/login.dart';
-import 'package:doctorppp/screens/register.dart';
+import 'package:doctorppp/signin/login.dart';
+import 'package:doctorppp/signin/register.dart';
 import 'package:doctorppp/validatorsAuth/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'constraints.dart';
-import 'globals.dart';
-import 'screens/drawerscreen.dart';
-import 'screens/homepage.dart';
+import 'screens/HomePage/homepage.dart';
 
 Future<void> main() async {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarIconBrightness: Brightness.dark,
     statusBarColor: Colors.transparent,
   ));
