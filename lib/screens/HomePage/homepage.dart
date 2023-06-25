@@ -1,4 +1,3 @@
-import 'package:doctorppp/screens/Clinic/bookingScreen.dart';
 import 'package:doctorppp/screens/Clinic/clinicdetails.dart';
 import 'package:doctorppp/screens/HomePage/home_info.dart';
 import 'package:doctorppp/signin/profile.dart';
@@ -10,8 +9,8 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../../globals.dart' as globals;
 import '../../validatorsAuth/auth.dart';
+import '../../widgets/appbar.dart';
 import '../../widgets/chat/ChatList.dart';
-import '../message.dart';
 import '../../widgets/notifcationScreen.dart';
 
 class Homepage extends StatefulWidget {
@@ -47,56 +46,55 @@ class _HomepageState extends State<Homepage> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
-  var itemCategory = [
-    {
-      "image": "/Specialities/heart.svg",
-      "name": "Cardiology",
-      "stuff": "85 Doctors",
-      "color": Colors.red,
-    },
-    {
-      "image": "/Specialities/Teeth.svg",
-      "name": "Teeth",
-      "stuff": "38 Doctors",
-      "color": Colors.white,
-    },
-    {
-      "image": "/Specialities/Bone.svg",
-      "name": "Ligaments",
-      "stuff": "65 Doctors",
-      "color": Colors.white
-    },
-  ];
+  // var itemCategory = [
+  //   {
+  //     "image": "/Specialities/heart.svg",
+  //     "name": "Cardiology",
+  //     "stuff": "85 Doctors",
+  //     "color": Colors.red,
+  //   },
+  //   {
+  //     "image": "/Specialities/Teeth.svg",
+  //     "name": "Teeth",
+  //     "stuff": "38 Doctors",
+  //     "color": Colors.white,
+  //   },
+  //   {
+  //     "image": "/Specialities/Bone.svg",
+  //     "name": "Ligaments",
+  //     "stuff": "65 Doctors",
+  //     "color": Colors.white
+  //   },
+  // ];
 
-  var doctorItem = [
-    {
-      "image": "assets/Image2.jpg",
-      "name": "Dr.Mary Albright",
-      "specialist": "Cardiologist"
-    },
-    {
-      "image": "assets/Image3.jpg",
-      "name": "Dr.Sara James",
-      "specialist": "Dentist"
-    },
-    {
-      "image": "assets/Image4.jpg",
-      "name": "Dr.Robert Dean",
-      "specialist": "Cardiologist"
-    },
-    {
-      "image": "assets/Image5.jpg",
-      "name": "Dr.Anita Silva  ",
-      "specialist": "orthopedist"
-    },
-  ];
+  // var doctorItem = [
+  //   {
+  //     "image": "assets/Image2.jpg",
+  //     "name": "Dr.Mary Albright",
+  //     "specialist": "Cardiologist"
+  //   },
+  //   {
+  //     "image": "assets/Image3.jpg",
+  //     "name": "Dr.Sara James",
+  //     "specialist": "Dentist"
+  //   },
+  //   {
+  //     "image": "assets/Image4.jpg",
+  //     "name": "Dr.Robert Dean",
+  //     "specialist": "Cardiologist"
+  //   },
+  //   {
+  //     "image": "assets/Image5.jpg",
+  //     "name": "Dr.Anita Silva  ",
+  //     "specialist": "orthopedist"
+  //   },
+  // ];
 
-  Widget doctors({required String image,
-    required String name,
-    required String specialist}) {
-    var size = MediaQuery
-        .of(context)
-        .size;
+  Widget doctors(
+      {required String image,
+      required String name,
+      required String specialist}) {
+    var size = MediaQuery.of(context).size;
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
@@ -122,7 +120,7 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
@@ -134,25 +132,25 @@ class _HomepageState extends State<Homepage> {
                 children: [
                   name.length <= 15
                       ? Text(
-                    name,
-                    style: TextStyle(
-                      fontFamily: "Comic Sans",
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  )
+                          name,
+                          style: const TextStyle(
+                            fontFamily: "Comic Sans",
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        )
                       : Text(
-                    name,
-                    style: TextStyle(
-                      fontFamily: "Comic Sans",
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                    maxLines: 1,
-                  ),
+                          name,
+                          style: const TextStyle(
+                            fontFamily: "Comic Sans",
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                          maxLines: 1,
+                        ),
                   Text(
                     specialist,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Comic Sans",
                       fontWeight: FontWeight.w400,
                       fontSize: 17,
@@ -205,14 +203,25 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    height = MediaQuery
-        .of(context)
-        .size
-        .height;
-    width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    var actions3 = [
+      Obx(() {
+        if (Get.find<NotificationController>().notifications.length == 0) {
+          return IconButton(
+              icon: Icon(Icons.notifications_none),
+              onPressed: () {
+                Get.to(NotificationPage());
+              });
+        } else
+          return IconButton(
+              icon: Icon(Icons.notifications_active),
+              onPressed: () {
+                Get.to(NotificationPage());
+              });
+      }),
+    ];
+
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
 
@@ -223,13 +232,26 @@ class _HomepageState extends State<Homepage> {
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    stops: [
+                      0.1,
+                      0.6,
+                    ],
+                    colors: [
+                      Colors.blue,
+                      Colors.teal,
+                    ],
+                  )),
+
               accountName: Text('John Doe'),
               accountEmail: Text('johndoe@example.com'),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/profile.jpg'),
               ),
             ),
-
             ListTile(
               leading: Icon(Icons.camera),
               title: Text('OCR'),
@@ -248,7 +270,6 @@ class _HomepageState extends State<Homepage> {
               },
             ),
           ],
-
         ),
       ),
 
@@ -293,49 +314,8 @@ class _HomepageState extends State<Homepage> {
       //   },
       // ),
 
-
-      appBar: AppBar(
-        elevation: 9,
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                stops: [
-                  0.1,
-                  0.6,
-                ],
-                colors: [
-                  Colors.blue,
-                  Colors.teal,
-                ],
-              )),
-        ),
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: _openDrawer,
-        ),
-        title:
-        Align(alignment: Alignment.center, child: Text("Doctors On Hand")),
-        actions: [
-          Obx(() {
-            if(  Get.find<NotificationController>().notifications.length==0
-            ){
-              return IconButton(
-                  icon: Icon(Icons.notifications_none),
-                  onPressed: () {
-                    Get.to(NotificationPage());
-                  });
-            }
-            else
-            return IconButton(
-                icon: Icon(Icons.notifications_active),
-                onPressed: () {
-                  Get.to(NotificationPage());
-                });
-          }),
-        ],
-      ),
+      appBar: CustomAppBar(
+          IconButton(icon: Icon(Icons.menu), onPressed: _openDrawer), actions3),
 
       body: page[_currentIndex],
       bottomNavigationBar: Container(
@@ -353,7 +333,7 @@ class _HomepageState extends State<Homepage> {
               rippleColor: Colors.grey[800]!,
               hoverColor: Colors.grey[700]!,
               iconSize: 20,
-              textStyle: TextStyle(fontSize: 16, color: Colors.white),
+              textStyle: const TextStyle(fontSize: 16, color: Colors.white),
               tabBackgroundColor: Colors.grey[900]!,
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16.5),
               duration: Duration(milliseconds: 800),
@@ -421,7 +401,7 @@ Container createDocWidget(String imgName, String docName) {
                         image: AssetImage('assets/$imgName'),
                         fit: BoxFit.cover)),
               ),
-              SizedBox(
+               SizedBox(
                 width: width * 0.03,
               ),
               Column(
@@ -429,20 +409,20 @@ Container createDocWidget(String imgName, String docName) {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Text(
-                    "Dr. $docName",
-                    style: TextStyle(
+                    " $docName",
+                    style: const TextStyle(
                       fontFamily: "Comic Sans",
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
                   ),
-                  SizedBox(height: height * 0.02),
+                   SizedBox(height: height * 0.02),
                   Container(
                     width: 250,
                     height: 50,
                     child: Text(
                       "A brief about the doctor to be added here. This is more like an introduction about the doctor",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                       ),
@@ -457,15 +437,17 @@ Container createDocWidget(String imgName, String docName) {
       ),
       onTap: () {
         //Get.to(() => ClinicDetails());
-        Get.to(() => ClinicDetails(clinic:       Clinic(
-          id: 2,
-          name: 'XYZ Clinic',
-          visits: 10,
-          lastVisit: '2023-02-01',
-          imageUrl: 'assets/doctor.png',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        ),
-        ));
+        Get.to(() => ClinicDetails(
+              clinic: Clinic(
+                id: 2,
+                name: 'XYZ Clinic',
+                visits: 10,
+                lastVisit: '2023-02-01',
+                imageUrl: 'assets/doctor.png',
+                description:
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+              ),
+            ));
         //Get.offNamed('/detail');
 
         print('tapped ');

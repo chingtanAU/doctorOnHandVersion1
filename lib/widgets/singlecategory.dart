@@ -72,7 +72,7 @@ class SingleCategory extends StatelessWidget {
     children: [
     Text(
     name,
-    style: TextStyle(
+    style: const TextStyle(
     fontSize: 20,
     fontFamily: "Comic Sans",
     color: Colors.white,
@@ -80,7 +80,7 @@ class SingleCategory extends StatelessWidget {
     ),
     Text(
     doctors,
-    style: TextStyle(
+    style: const TextStyle(
     fontSize: 16,
     fontFamily: "Comic Sans",
     color: Colors.white,
@@ -99,7 +99,7 @@ class SingleCategory extends StatelessWidget {
     children: [
     Text(
     name,
-    style: TextStyle(
+    style: const TextStyle(
     fontSize: 20,
     fontFamily: "Comic Sans",
     color: Colors.black,
@@ -107,7 +107,7 @@ class SingleCategory extends StatelessWidget {
     ),
     Text(
     doctors,
-    style: TextStyle(
+    style: const TextStyle(
     fontSize: 16,
     fontFamily: "Comic Sans",
     color: Colors.black,

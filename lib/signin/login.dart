@@ -61,7 +61,7 @@ class MyLogin extends StatelessWidget {
                             },
                             key: globals.emailLoginKey,
                             validator: (email)=>validator.emailValidatro(email!),
-                            style: TextStyle(color: Colors.black),
+                            style: const TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
                                 filled: true,
@@ -70,7 +70,7 @@ class MyLogin extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10),
                                 )),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
                           TextFormField(
@@ -81,7 +81,7 @@ class MyLogin extends StatelessWidget {
                             key: globals.passLoginKey,
                             validator: (pass)=>validator.passwordValidator(pass!),
 
-                            style: TextStyle(),
+                            style: const TextStyle(),
                             obscureText: true,
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
@@ -91,14 +91,14 @@ class MyLogin extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10),
                                 )),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 25,
                           ),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text("Remember Me",
-                                style: TextStyle(color: Colors.black),),
+                                style: const TextStyle(color: Colors.black),),
                              // Checkbox(
                             //  ),
                             ],
@@ -108,7 +108,7 @@ class MyLogin extends StatelessWidget {
                             children: [
                               Text(
                                 'Sign in',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 27, fontWeight: FontWeight.w700),
                               ),
                               CircleAvatar(
@@ -130,7 +130,7 @@ class MyLogin extends StatelessWidget {
                             ],
                           ),
 
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           OutlinedButton(
@@ -157,7 +157,7 @@ class MyLogin extends StatelessWidget {
                                     padding: const EdgeInsets.only(left: 10),
                                     child: Text(
                                       'Sign in with Google',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 20,
                                         color: Colors.black54,
                                         fontWeight: FontWeight.w600,
@@ -171,7 +171,7 @@ class MyLogin extends StatelessWidget {
 
 
 
-                          SizedBox(
+                          const SizedBox(
                             height: 25,
                           ),
 
@@ -186,7 +186,7 @@ class MyLogin extends StatelessWidget {
                                 child: Text(
                                   'Sign Up',
                                   textAlign: TextAlign.left,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       decoration: TextDecoration.underline,
                                       color: Color(0xff4c505b),
                                       fontSize: 18),
@@ -222,7 +222,7 @@ class MyLogin extends StatelessWidget {
                                   );},
                                   child: Text(
                                     'Forgot Password',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       decoration: TextDecoration.underline,
                                       color: Color(0xff4c505b),
                                       fontSize: 18,

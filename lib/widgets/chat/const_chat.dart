@@ -14,6 +14,15 @@ class Profile {
   Profile({this.imgpath, this.name});
 }
 
+List<Message> message = [
+  Message(status: status.incoming, body: "Hello"),
+  Message(status: status.outgoing, body: "Hi"),
+  Message(status: status.incoming, body: "How are you?"),
+  Message(status: status.outgoing, body: "I'm fine"),
+  Message(status: status.incoming, body: "What are you doing?"),
+  Message(status: status.outgoing, body: "Nothing much"),
+  Message(status: status.incoming, body: "I'm bored"),
+];
 
 
 List<Profile> profiles = [

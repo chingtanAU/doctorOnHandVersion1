@@ -1,3 +1,4 @@
+import 'package:doctorppp/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../Clinic/clinicdetails.dart';
@@ -8,12 +9,13 @@ import 'logic.dart';
 class ClinicSearchPage1 extends StatelessWidget {
   final ClinicSearchController controller = Get.put(ClinicSearchController());
 
+  List<Obx> actions4= [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Clinic Search'),
-      ),
+      appBar: CustomAppBar(IconButton(icon: Icon(Icons.arrow_back_ios_new_outlined),
+        onPressed: null,),actions4 ),
       body: Column(
         children: [
           Padding(
@@ -29,7 +31,7 @@ class ClinicSearchPage1 extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 16.0),
+                const SizedBox(width: 16.0),
                 Obx(() {
                   return DropdownButton<int>(
                     value: controller.filterValue.value,
@@ -94,27 +96,27 @@ class ClinicSearchPage1 extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment
                                           .start,
                                       children: [
-                                        SizedBox(height: 16.0),
+                                        const SizedBox(height: 16.0),
                                         Text(
                                           controller.filteredClinics[index]
                                               .name,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 20.0,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        SizedBox(height: 8.0),
+                                        const SizedBox(height: 8.0),
                                         Text(
                                           'Visits: ${controller
                                               .filteredClinics[index].visits}',
-                                          style: TextStyle(fontSize: 16.0),
+                                          style: const TextStyle(fontSize: 16.0),
                                         ),
-                                        SizedBox(height: 8.0),
+                                        const SizedBox(height: 8.0),
                                         Text(
                                           'Last Visit: ${controller
                                               .filteredClinics[index]
                                               .lastVisit}',
-                                          style: TextStyle(fontSize: 16.0),
+                                          style: const TextStyle(fontSize: 16.0),
                                         ),
                                       ],
                                     ),
@@ -147,25 +149,25 @@ class ClinicDetailsPage extends StatelessWidget {
       body: Column(
         children: [
           Image.asset(clinic.imageUrl),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Text(
             clinic.name,
-            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           Text(
             'Visits: ${clinic.visits}',
-            style: TextStyle(fontSize: 16.0),
+            style: const TextStyle(fontSize: 16.0),
           ),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           Text(
             'Last Visit: ${clinic.lastVisit}',
-            style: TextStyle(fontSize: 16.0),
+            style: const TextStyle(fontSize: 16.0),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Text(
             clinic.description,
-            style: TextStyle(fontSize: 16.0),
+            style: const TextStyle(fontSize: 16.0),
           ),
         ],
       ),

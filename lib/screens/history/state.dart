@@ -28,7 +28,7 @@ class MedicalVisitCard extends StatelessWidget {
               children: [
                 Text(
                   'Visit Date: $visitDate',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                   ),
@@ -39,13 +39,13 @@ class MedicalVisitCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'Doctor: $doctorName',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey,
                   ),
@@ -56,18 +56,18 @@ class MedicalVisitCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Text(
               'Diagnosis:',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Text(
               diagnosis,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14.0,
               ),
             ),

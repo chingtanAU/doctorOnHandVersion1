@@ -46,10 +46,10 @@ class ClinicDetails extends StatelessWidget {
         onPressed: () => {
           Get.toNamed('/book')
         },
-        child: Text('Book Appointment'),
+        child: const Text('Book Appointment'),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(
-            Color(0xff575de3),
+            const Color(0xff575de3),
           ),
         ),
       ),
@@ -99,50 +99,51 @@ class ClinicDetails extends StatelessWidget {
                 ),
             ),
             title: Text(clinic.name),
-            backgroundColor: Color(0xff575de3),
+            backgroundColor: const 
+            Color(0xff575de3),
             expandedHeight: 200,
           ),
           SliverToBoxAdapter(
             child:  Container(
-              padding: EdgeInsets.all(20),
-              margin: EdgeInsets.only(bottom: 30),
+              padding: const EdgeInsets.all(20),
+              margin: const EdgeInsets.only(bottom: 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   DetailClinicCard(),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   ClinicInfo(last: last, total: visit),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Text(
                     'About Clinic',
                     style: kTitleStyle,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Text(clinic.description,
-                    style: TextStyle(
+                    style:  TextStyle(
                       color: Color(MyColors.purple01),
                       fontWeight: FontWeight.w500,
                       height: 1.5,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
                   Text(
                     'Location',
                     style: kTitleStyle,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
                   ClinicLocation(),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
                 ],
@@ -172,39 +173,39 @@ class ClinicDetails extends StatelessWidget {
 //         crossAxisAlignment: CrossAxisAlignment.stretch,
 //         children: [
 //           DetailClinicCard(),
-//           SizedBox(
+//           const SizedBox(
 //             height: 15,
 //           ),
 //           ClinicInfo(),
-//           SizedBox(
+//           const SizedBox(
 //             height: 30,
 //           ),
 //           Text(
 //             'About Clinic',
 //             style: kTitleStyle,
 //           ),
-//           SizedBox(
+//           const SizedBox(
 //             height: 15,
 //           ),
 //           Text(clinic.description,
-//             style: TextStyle(
+//             style: const TextStyle(
 //               color: Color(MyColors.purple01),
 //               fontWeight: FontWeight.w500,
 //               height: 1.5,
 //             ),
 //           ),
-//           SizedBox(
+//           const SizedBox(
 //             height: 25,
 //           ),
 //           Text(
 //             'Location',
 //             style: kTitleStyle,
 //           ),
-//           SizedBox(
+//           const SizedBox(
 //             height: 25,
 //           ),
 //           ClinicLocation(),
-//           SizedBox(
+//           const SizedBox(
 //             height: 25,
 //           ),
 //         ],
@@ -220,7 +221,7 @@ class ClinicLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return  SizedBox(
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.3,
       child: ClipRRect(
@@ -331,26 +332,26 @@ class ClinicInfo extends StatelessWidget {
               label: 'Patients',
               value: '100+',
             ),
-            SizedBox(width: 15),
+            const SizedBox(width: 15),
             NumberCard(
               label: 'Experiences',
               value: '10 years',
             ),
-            SizedBox(width: 15),
+            const SizedBox(width: 15),
             NumberCard(
               label: 'Rating',
               value: '4.0',
             ),
           ],
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         Row(
           children:  [
             NumberCard(
               label: 'Last Visit',
               value: last,
             ),
-            SizedBox(width: 15),
+            const SizedBox(width: 15),
             NumberCard(
               label: 'Total Visit',
               value: total,
@@ -404,18 +405,18 @@ class NumberCard extends StatelessWidget {
           children: [
             Text(
               label,
-              style: TextStyle(
+              style:  TextStyle(
                 color: Color(MyColors.grey02),
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
               value,
-              style: TextStyle(
+              style:  TextStyle(
                 color: Color(MyColors.header01),
                 fontSize: 15,
                 fontWeight: FontWeight.w800,
@@ -454,12 +455,12 @@ class DetailClinicCard extends StatelessWidget {
                           color: Color(MyColors.header01),
                           fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
                       'General Practitioner',
-                      style: TextStyle(
+                      style:  TextStyle(
                         color: Color(MyColors.grey02),
                         fontWeight: FontWeight.w500,
                       ),
@@ -483,12 +484,12 @@ class DetailClinicCard extends StatelessWidget {
 
 
 
-TextStyle kTitleStyle = TextStyle(
+ TextStyle kTitleStyle =  TextStyle(
   color: Color(MyColors.header01),
   fontWeight: FontWeight.bold,
 );
 
-TextStyle kFilterStyle = TextStyle(
+ TextStyle kFilterStyle =  TextStyle(
   color: Color(MyColors.bg02),
   fontWeight: FontWeight.w500,
 );

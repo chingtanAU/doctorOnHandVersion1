@@ -31,7 +31,7 @@ class HomeInfo extends StatelessWidget {
                   child: Text(
                     "Hi! Jhon",
                      //   "\nHow are you today?",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Roboto",
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
@@ -55,7 +55,7 @@ class HomeInfo extends StatelessWidget {
                       horizontal: width * 0.04, vertical: height * 0.01),
                   child: Text(
                     "Category",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Comic Sans",
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
@@ -125,7 +125,7 @@ class HomeInfo extends StatelessWidget {
                                           const EdgeInsets.fromLTRB(8, 0, 8, 0),
                                       child: Text(
                                         "Book an Appointment",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: "Comic Sans",
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15,
@@ -195,7 +195,7 @@ class HomeInfo extends StatelessWidget {
                                           const EdgeInsets.fromLTRB(8, 0, 8, 0),
                                       child: Text(
                                         "Medical History",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: "Comic Sans",
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15,
@@ -254,7 +254,7 @@ class HomeInfo extends StatelessWidget {
                     //                 padding: const EdgeInsets.fromLTRB(8,0,8,0),
                     //                 child: Text(
                     //                   "Book an Appointment",
-                    //                   style: TextStyle(
+                    //                   style: const TextStyle(
                     //                     fontFamily: "Comic Sans",
                     //                     fontWeight: FontWeight.bold,
                     //                     fontSize: 15,
@@ -280,7 +280,7 @@ class HomeInfo extends StatelessWidget {
                       horizontal: width * 0.04, vertical: height * 0.01),
                   child: Text(
                     "Nearby Hospitals/Walk In Clinics",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Comic Sans",
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
@@ -309,18 +309,18 @@ class HomeInfo extends StatelessWidget {
                 //     },
                 //   ),
                 // ),
-                // SizedBox(
+                // const SizedBox(
                 //   height: height * 0.02,
                 // ),
                 // Padding(
                 //   padding: const EdgeInsets.symmetric(horizontal: 20),
-                //   child: SizedBox(
+                //   child: const SizedBox(
                 //     child: Row(
                 //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //       children: [
                 //         Text(
                 //           "Top Rated Doctor",
-                //           style: TextStyle(
+                //           style: const TextStyle(
                 //             fontFamily: "Comic Sans",
                 //             fontWeight: FontWeight.bold,
                 //             fontSize: 22,
@@ -328,7 +328,7 @@ class HomeInfo extends StatelessWidget {
                 //         ),
                 //         Text(
                 //           "See All",
-                //           style: TextStyle(
+                //           style: const TextStyle(
                 //             fontFamily: "Comic Sans",
                 //             fontWeight: FontWeight.w400,
                 //             fontSize: 22,
@@ -366,7 +366,7 @@ class HomeInfo extends StatelessWidget {
                 //     }),
                 //   ),
                 // ),
-                createDocWidget("Image.jpg", "Susan Thomas"),
+                createDocWidget("doctor.png", "ABC Clinic"),
                 createDocWidget("Image2.jpg", "Paul Barbara"),
                 createDocWidget("Image3.jpg", "Nancy Williams"),
               ],

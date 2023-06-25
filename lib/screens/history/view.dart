@@ -1,3 +1,4 @@
+import 'package:doctorppp/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'state.dart';
@@ -5,13 +6,12 @@ import 'logic.dart';
 
 class PreviousVisitsPage extends StatelessWidget {
   final visitsController = Get.put(VisitsController());
-
+ List<Obx> actions2= [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Previous Visits'),
-      ),
+      appBar: CustomAppBar(IconButton(icon: Icon(Icons.arrow_back_ios_new_outlined),
+        onPressed: null,), actions2),
       body: Obx(
             () => ListView.builder(
           padding: EdgeInsets.all(16.0),

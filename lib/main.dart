@@ -1,7 +1,6 @@
 
 import 'package:doctorppp/screens/Clinic/bookingScreen.dart';
 import 'package:doctorppp/screens/detailscreen.dart';
-
 import 'package:doctorppp/signin/login.dart';
 import 'package:doctorppp/signin/register.dart';
 import 'package:doctorppp/validatorsAuth/auth.dart';
@@ -12,7 +11,7 @@ import 'package:get/get.dart';
 import 'screens/HomePage/homepage.dart';
 
 Future<void> main() async {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarIconBrightness: Brightness.dark,
     statusBarColor: Colors.transparent,
   ));

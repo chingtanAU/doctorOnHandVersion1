@@ -38,9 +38,9 @@ class _ChatsState extends State<Chats> {
       appBar: AppBar(
         actions: const [
           Icon(Icons.videocam),
-          SizedBox(width: 15),
+          const SizedBox(width: 15),
           Icon(Icons.call),
-          SizedBox(width: 15),
+          const SizedBox(width: 15),
           Icon(Icons.more_vert),
         ],
         titleSpacing: 2,
@@ -79,7 +79,9 @@ class _ChatsState extends State<Chats> {
                               : Alignment.centerRight,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: MessageTile(message: snapshot.data![index]),
+                            child: MessageTile(message:
+                           snapshot.data![index]),
+
                           ),
                         );
                       },
@@ -88,7 +90,7 @@ class _ChatsState extends State<Chats> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         color: Colors.black,
                       ),
@@ -117,7 +119,7 @@ class _ChatsState extends State<Chats> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         hintStyle:
-                        TextStyle(fontSize: 14, color: Colors.black),
+                        const TextStyle(fontSize: 14, color: Colors.black),
                         suffixIcon: IconButton(
                           onPressed: () {
                             messageController.text.isEmpty
@@ -140,6 +142,7 @@ class _ChatsState extends State<Chats> {
               );
             } else {
               return const Center(
+
                 child: Text("No message yet"),
               );
             }

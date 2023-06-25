@@ -53,7 +53,7 @@ class ChatList extends StatelessWidget {
                 children: [
                   Text(
                     "$time ${symbol.toUpperCase()}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
