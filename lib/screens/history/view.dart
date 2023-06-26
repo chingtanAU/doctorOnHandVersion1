@@ -1,0 +1,45 @@
+import 'package:doctorppp/widgets/appbar.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'state.dart';
+import 'logic.dart';
+
+class PreviousVisitsPage extends StatelessWidget {
+  final visitsController = Get.put(VisitsController());
+ List<Obx> actions2= [];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: CustomAppBar(IconButton(icon: Icon(Icons.arrow_back_ios_new_outlined),
+        onPressed: null,), actions2),
+      body: Obx(
+            () => ListView.builder(
+          padding: EdgeInsets.all(16.0),
+          itemCount: visitsController.visits.length,
+          itemBuilder: (context, index) {
+            final visit = visitsController.visits[index];
+            return MedicalVisitCard(
+              visitDate: visit.visitDate,
+              doctorName: visit.doctorName,
+              diagnosis: visit.diagnosis,
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+
+class Visit {
+  final String visitDate;
+  final String doctorName;
+  final String diagnosis;
+
+  Visit({
+    required this.visitDate,
+    required this.doctorName,
+    required this.diagnosis,
+  });
+}
+

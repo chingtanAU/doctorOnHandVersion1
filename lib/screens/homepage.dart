@@ -13,10 +13,11 @@ import '../constraints.dart';
 import '../validatorsAuth/auth.dart';
 import '../widgets/incoming_appointments.dart';
 import 'detailscreen.dart';
-import 'login.dart';
+import '../widgets/notifcationScreen.dart';
+
 import 'package:get/get.dart';
 
-import 'notifcationScreen.dart';
+
 
 
 class Homepage extends StatefulWidget {
@@ -290,7 +291,7 @@ class _HomepageState extends State<Homepage> {
         IconButton(
             icon: Icon(Icons.notifications_active_sharp),
             onPressed: (){
-              Get.to(notification());
+              Get.to(NotificationPage());
             }
       ),
     ],),

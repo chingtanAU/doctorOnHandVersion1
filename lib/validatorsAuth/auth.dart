@@ -1,6 +1,5 @@
 import 'package:doctorppp/entity/userProfile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,18 +8,18 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../globals.dart' as globals;
 import '../globals.dart';
-import '../screens/homepage.dart';
 import 'Validator.dart';
 import '../persistance/userCrud.dart' as userCrud;
 
 
 class AuthController extends GetxController {
 
+  Rx<UserProfile> userData = Rx<UserProfile>(UserProfile.empty()) ;
   late Rx<User?> firebaseUser;
 
 
   @override
-  void onReady() {
+   void onReady() async {
     super.onReady();
     firebaseUser = Rx<User?>(auth.currentUser);
     firebaseUser.bindStream(auth.userChanges());
@@ -28,19 +27,23 @@ class AuthController extends GetxController {
 
   }
 
-  _setInitialScreen(User? user) {
+   Future<void> _setInitialScreen(User? user) async {
     if (user == null) {
-
       // if the user is not found then the user is navigated to the Register Screen
       Get.offNamed('/login');
 
     } else {
-
-      // if the user exists and logged in the the user is navigated to the Home Screen
+      fetchUserInfo();
       Get.offNamed('/home');
-
     }
   }
+
+  Future<UserProfile?> fetchUserInfo() async{
+     await  userCrud.fetchUserInfo((auth.currentUser!.uid)).then((value) => userData.value=value!);
+  }
+
+
+
 
 
   Future<UserCredential> signInWithGoogle() async {
@@ -66,6 +69,7 @@ class AuthController extends GetxController {
     bool done = true;
     for (int i = 0; i < globals.loginKeys.length; i++){
       if (!globals.loginKeys[i].currentState!.validate()){
+
         done = false;
       }
     }
@@ -102,11 +106,12 @@ class AuthController extends GetxController {
   }
 
   Future<void> onRegister() async{
-
-
     bool done = true;
+
     for (int i = 0; i < globals.regKeys.length; i++){
+      print(globals.regKeys[i].currentState!.value);
       if (!globals.regKeys[i].currentState!.validate()){
+        print(i);
         done = false;
       }
     }
