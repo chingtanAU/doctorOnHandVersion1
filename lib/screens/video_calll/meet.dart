@@ -1,4 +1,3 @@
-
 import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:agora_rtc_engine/rtc_local_view.dart' as rtc_local_view;
 import 'package:agora_rtc_engine/rtc_remote_view.dart' as rtc_remote_view;
@@ -25,8 +24,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   late RtcEngine _engine;
   String app_id = "6d23c50fff654240b43df4285a16a3b8";
   String channelName = "test";
-  String token = "007eJxTYGhUK3opzae17eD5aj/J1ezcYutt/b9+UQ668CvR9Mcat0gFBrMUI+NkU4O0tDQzUxMjE4MkE+OUNBMjC9NEQ7NE4yQLwWmzUxoCGRm2NFgyMzJAIIjPwlCSWlzCwAAA0U8d2Q==";
-
+  String token = "007eJxTYPi0fZYZ5xFZVol10o1Cf4pvqVdkr234N5utqb1v7uz/rTcVGMxSjIyTTQ3S0tLMTE2MTAySTIxT0kyMLEwTDc0SjZMsAn8uSmkIZGSQnbSDhZEBAkF8FoaS1OISBgYAYVggGQ==";
   @override
   void dispose() {
     // clear users
