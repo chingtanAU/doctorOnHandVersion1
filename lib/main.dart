@@ -1,6 +1,9 @@
 
 import 'package:doctorppp/screens/Clinic/bookingScreen.dart';
 import 'package:doctorppp/screens/detailscreen.dart';
+import 'package:doctorppp/screens/video_calll/meet.dart';
+import 'package:doctorppp/screens/video_calll/meeting.dart';
+import 'package:doctorppp/screens/video_calll/view.dart';
 import 'package:doctorppp/signin/login.dart';
 import 'package:doctorppp/signin/register.dart';
 import 'package:doctorppp/validatorsAuth/auth.dart';
@@ -63,6 +66,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/home',  page: () => Homepage()),
         GetPage(name: '/book',  page: () => BookingCalendarDemoApp()),
         GetPage(name: '/detail',  page: () => DetailScreen()),
+        GetPage(name: '/video', page: () => VideoCallScreen()),
       ],
 
 

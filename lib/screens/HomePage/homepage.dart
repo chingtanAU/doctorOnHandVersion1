@@ -3,6 +3,8 @@ import 'package:doctorppp/screens/HomePage/home_info.dart';
 import 'package:doctorppp/signin/profile.dart';
 import 'package:doctorppp/screens/search/model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -37,6 +39,7 @@ late double height;
 late double width;
 
 class _HomepageState extends State<Homepage> {
+  final AuthController authController = Get.find<AuthController>();
   double xoffset = 0;
   double yoffset = 0;
   double scaleFactor = 1;
@@ -231,8 +234,8 @@ class _HomepageState extends State<Homepage> {
       drawer: Drawer(
         child: ListView(
           children: [
-            UserAccountsDrawerHeader(
-              decoration: const BoxDecoration(
+             UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
@@ -246,7 +249,7 @@ class _HomepageState extends State<Homepage> {
                     ],
                   )),
 
-              accountName: Text('John Doe'),
+              accountName: Obx(() => Text(authController.firebaseUser.value?.displayName ?? '')),
               accountEmail: Text('johndoe@example.com'),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/profile.jpg'),

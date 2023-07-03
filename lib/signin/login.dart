@@ -8,11 +8,8 @@ import '../../../validatorsAuth/Validator.dart';
 import 'package:flutter/material.dart';
 import '../../../validatorsAuth/auth.dart';
 
-
-
 class MyLogin extends StatelessWidget {
-
-   MyLogin({Key? key}) : super(key: key);
+  MyLogin({Key? key}) : super(key: key);
 
   final TextEditingController _emailResetPass = TextEditingController();
   final authController = Get.find<AuthController>();
@@ -29,7 +26,9 @@ class MyLogin extends StatelessWidget {
         body: Stack(
           children: [
             Container(
-              padding: EdgeInsets.only(left:  MediaQuery.of(context).size.width * 0.03, top: MediaQuery.of(context).size.width * 0.03),
+              padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.03,
+                  top: MediaQuery.of(context).size.width * 0.03),
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.2,
                 width: MediaQuery.of(context).size.width * 0.35,
@@ -43,10 +42,7 @@ class MyLogin extends StatelessWidget {
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.3),
+                    top: MediaQuery.of(context).size.height * 0.3),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -55,12 +51,14 @@ class MyLogin extends StatelessWidget {
                       child: Column(
                         children: [
                           TextFormField(
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             onChanged: (text) {
-                              FireError.userNotFoundError=false;
+                              FireError.userNotFoundError = false;
                             },
                             key: globals.emailLoginKey,
-                            validator: (email)=>validator.emailValidatro(email!),
+                            validator: (email) =>
+                                validator.emailValidatro(email!),
                             style: const TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
@@ -74,13 +72,14 @@ class MyLogin extends StatelessWidget {
                             height: 30,
                           ),
                           TextFormField(
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             onChanged: (text) {
-                              FireError.wrongPassError=false;
+                              FireError.wrongPassError = false;
                             },
                             key: globals.passLoginKey,
-                            validator: (pass)=>validator.passwordValidator(pass!),
-
+                            validator: (pass) =>
+                                validator.passwordValidator(pass!),
                             style: const TextStyle(),
                             obscureText: true,
                             decoration: InputDecoration(
@@ -97,10 +96,12 @@ class MyLogin extends StatelessWidget {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text("Remember Me",
-                                style: const TextStyle(color: Colors.black),),
-                             // Checkbox(
-                            //  ),
+                              Text(
+                                "Remember Me",
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                              // Checkbox(
+                              //  ),
                             ],
                           ),
                           Row(
@@ -118,8 +119,7 @@ class MyLogin extends StatelessWidget {
                                     color: Colors.white,
                                     onPressed: () {
                                       Get.offAllNamed("/home");
-                                       // auth.onLogin(context);
-
+                                      // auth.onLogin(context);
 
                                       authController.onLogin();
                                     },
@@ -129,22 +129,24 @@ class MyLogin extends StatelessWidget {
                               )
                             ],
                           ),
-
                           const SizedBox(
                             height: 20,
                           ),
                           OutlinedButton(
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(Colors.white),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.white),
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(40),
                                 ),
                               ),
                             ),
-                            onPressed: () { authController.signInWithGoogle();},
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                            onPressed: () {
+                              authController.signInWithGoogle();
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -154,10 +156,10 @@ class MyLogin extends StatelessWidget {
                                     height: 35.0,
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 10),
+                                    padding: EdgeInsets.only(left: 10),
                                     child: Text(
                                       'Sign in with Google',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontSize: 20,
                                         color: Colors.black54,
                                         fontWeight: FontWeight.w600,
@@ -168,61 +170,53 @@ class MyLogin extends StatelessWidget {
                               ),
                             ),
                           ),
-
-
-
                           const SizedBox(
                             height: 25,
                           ),
-
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextButton(
                                 onPressed: () {
-                                  Get.offNamed("/register");;
+                                  Get.offNamed("/register");
+                                  ;
                                 },
-                                child: Text(
+                                style: ButtonStyle(),
+                                child: const Text(
                                   'Sign Up',
                                   textAlign: TextAlign.left,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       decoration: TextDecoration.underline,
                                       color: Color(0xff4c505b),
                                       fontSize: 18),
                                 ),
-                                style: ButtonStyle(),
                               ),
                               TextButton(
-                                  onPressed: () {Get.defaultDialog(
-                                      title: 'Enter your email',
-                                      content: TextFormField(
-                                        validator: (email)=> validator.emailValidatro(email!) ,
-                                        controller: _emailResetPass ,
-                                        decoration:InputDecoration(
-
-                                        ) ,
-                                      ),
-                                      confirm:
-                                      MaterialButton(
-                                        child: Text('Submit'),
-                                        onPressed: () async {
-                                          Get.snackbar ( await authController.resetPassword(email: _emailResetPass.text),'');
-                                          _emailResetPass.clear();
-
-                                        },
-                                      )
-
-
-
-
-
-
-
-                                  );},
-                                  child: Text(
+                                  onPressed: () {
+                                    Get.defaultDialog(
+                                        title: 'Enter your email',
+                                        content: TextFormField(
+                                          validator: (email) =>
+                                              validator.emailValidatro(email!),
+                                          controller: _emailResetPass,
+                                          decoration: InputDecoration(),
+                                        ),
+                                        confirm: MaterialButton(
+                                          child: Text('Submit'),
+                                          onPressed: () async {
+                                            Get.snackbar(
+                                                await authController
+                                                    .resetPassword(
+                                                        email: _emailResetPass
+                                                            .text),
+                                                '');
+                                            _emailResetPass.clear();
+                                          },
+                                        ));
+                                  },
+                                  child: const Text(
                                     'Forgot Password',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       decoration: TextDecoration.underline,
                                       color: Color(0xff4c505b),
                                       fontSize: 18,
@@ -242,8 +236,4 @@ class MyLogin extends StatelessWidget {
       ),
     );
   }
-
-
-
-
 }
