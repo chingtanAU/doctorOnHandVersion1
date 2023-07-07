@@ -28,7 +28,7 @@ class IncomingCard extends StatelessWidget {
             color: Theme.of(context).primaryColor.withOpacity(0.8),
             borderRadius: BorderRadius.circular(20),
             //boxShadow: kElevationToShadow[6],
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Colors.grey,
                 blurRadius: 3.0,
@@ -40,11 +40,11 @@ class IncomingCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 016),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 016),
                 child: Text(
                   "Upcoming Appointments",
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: "Comic Sans",
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
@@ -77,11 +77,11 @@ class IncomingCard extends StatelessWidget {
                       const SizedBox(height: 5),
                       Text(
                         "General Practitioner",
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               color: Colors.white70,
                             ),
                       ),
-                      Container(
+                      SizedBox(
                         width: width * 0.61,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,7 +96,7 @@ class IncomingCard extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     color: Colors.white10,
                                     borderRadius: BorderRadius.circular(10)),
-                                child: Row(
+                                child: const Row(
                                   children: [
                                     Icon(
                                       Ionicons.location_outline,
@@ -108,7 +108,7 @@ class IncomingCard extends StatelessWidget {
                                           EdgeInsets.only(left: 6, right: 14),
                                       child: Text(
                                         "4316 139 Avenue ",
-                                        style: const TextStyle(color: Colors.white),
+                                        style: TextStyle(color: Colors.white),
                                       ),
                                     ),
                                   ],
@@ -116,7 +116,7 @@ class IncomingCard extends StatelessWidget {
                               ),
                             ),
                              SizedBox(height: height * 0.058),
-                            Icon(
+                            const Icon(
                               Icons.navigate_next,
                               color: Colors.white,
                               size: 18,
@@ -132,8 +132,8 @@ class IncomingCard extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: Colors.white10,
                             borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          children: const [
+                        child: const Row(
+                          children: [
                             Icon(
                               Ionicons.calendar_outline,
                               size: 18,
@@ -143,7 +143,7 @@ class IncomingCard extends StatelessWidget {
                               padding: EdgeInsets.only(left: 6, right: 14),
                               child: Text(
                                 "Today",
-                                style: const TextStyle(color: Colors.white),
+                                style: TextStyle(color: Colors.white),
                               ),
                             ),
                             Padding(
@@ -156,7 +156,7 @@ class IncomingCard extends StatelessWidget {
                             ),
                             Text(
                               "14:30 - 15:30 AM",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Colors.white,
                               ),
                             )

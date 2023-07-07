@@ -22,7 +22,7 @@ Future<void> main() async {
   Get.put<AgoraTokenService>(AgoraTokenService());
 
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 @override
@@ -32,7 +32,7 @@ void initState() {
 
 class MyApp extends StatelessWidget {
 
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
 
@@ -68,6 +68,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/book',  page: () => BookingCalendarDemoApp()),
         GetPage(name: '/detail',  page: () => DetailScreen()),
         GetPage(name: '/video', page: () => VideoCallScreen()),
+
       ],
 
 

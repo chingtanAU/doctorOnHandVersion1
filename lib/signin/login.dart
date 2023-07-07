@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../../globals.dart' as globals;
 import '../../../validatorsAuth/Validator.dart' as validator;
@@ -32,7 +31,7 @@ class MyLogin extends StatelessWidget {
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.2,
                 width: MediaQuery.of(context).size.width * 0.35,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/logo.png'),
                   ),
@@ -47,7 +46,7 @@ class MyLogin extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left: 35, right: 35),
+                      margin: const EdgeInsets.only(left: 35, right: 35),
                       child: Column(
                         children: [
                           TextFormField(
@@ -93,7 +92,7 @@ class MyLogin extends StatelessWidget {
                           const SizedBox(
                             height: 25,
                           ),
-                          Row(
+                          const Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
@@ -102,19 +101,20 @@ class MyLogin extends StatelessWidget {
                               ),
                               // Checkbox(
                               //  ),
+
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                              const Text(
                                 'Sign in',
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 27, fontWeight: FontWeight.w700),
                               ),
                               CircleAvatar(
                                 radius: 30,
-                                backgroundColor: Color(0xff4c505b),
+                                backgroundColor: const Color(0xff4c505b),
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () {
@@ -123,7 +123,7 @@ class MyLogin extends StatelessWidget {
 
                                       authController.onLogin();
                                     },
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.arrow_forward,
                                     )),
                               )
@@ -142,9 +142,11 @@ class MyLogin extends StatelessWidget {
                                 ),
                               ),
                             ),
+
                             onPressed: () {
                               authController.signInWithGoogle();
                             },
+
                             child: const Padding(
                               padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                               child: Row(
@@ -179,9 +181,10 @@ class MyLogin extends StatelessWidget {
                               TextButton(
                                 onPressed: () {
                                   Get.offNamed("/register");
-                                  ;
+
                                 },
-                                style: ButtonStyle(),
+                                style: const ButtonStyle(),
+
                                 child: const Text(
                                   'Sign Up',
                                   textAlign: TextAlign.left,
@@ -192,6 +195,7 @@ class MyLogin extends StatelessWidget {
                                 ),
                               ),
                               TextButton(
+
                                   onPressed: () {
                                     Get.defaultDialog(
                                         title: 'Enter your email',
@@ -214,6 +218,8 @@ class MyLogin extends StatelessWidget {
                                           },
                                         ));
                                   },
+
+
                                   child: const Text(
                                     'Forgot Password',
                                     style: TextStyle(

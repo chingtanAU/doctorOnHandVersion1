@@ -5,7 +5,7 @@ class MedicalVisitCard extends StatelessWidget {
   final String doctorName;
   final String diagnosis;
 
-  MedicalVisitCard({
+  const MedicalVisitCard({super.key, 
     required this.visitDate,
     required this.doctorName,
     required this.diagnosis,
@@ -19,7 +19,7 @@ class MedicalVisitCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -33,7 +33,7 @@ class MedicalVisitCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Icon(
+                const Icon(
                   Icons.calendar_today,
                   color: Colors.grey,
                 ),
@@ -50,16 +50,16 @@ class MedicalVisitCard extends StatelessWidget {
                     color: Colors.grey,
                   ),
                 ),
-                Icon(
+                const Icon(
                   Icons.person,
                   color: Colors.grey,
                 ),
               ],
             ),
             const SizedBox(height: 16.0),
-            Text(
+            const Text(
               'Diagnosis:',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14.0,
                 fontWeight: FontWeight.bold,
               ),

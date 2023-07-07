@@ -10,7 +10,7 @@ class SingleCategory extends StatelessWidget {
   late String doctors;
   late Color color;
   SingleCategory(
-      {required this.image,
+      {super.key, required this.image,
       required this.name,
       required this.doctors,
       required this.color});
@@ -24,7 +24,7 @@ class SingleCategory extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // While the future is loading
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           } else if (snapshot.hasError) {
 
             // If an error occurred during the future execution
@@ -33,7 +33,7 @@ class SingleCategory extends StatelessWidget {
             // When the future completes successfully
             return Card(
             elevation: 5,
-            margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+            margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
             shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
             ),
@@ -49,7 +49,7 @@ class SingleCategory extends StatelessWidget {
             top: 20,
             left: 25,
             child: Container(
-            padding: EdgeInsets.symmetric(vertical: 9, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 10),
     height: height * 0.07,
     width: height * 0.07,
     decoration: BoxDecoration(
@@ -120,7 +120,7 @@ class SingleCategory extends StatelessWidget {
     ],
     ),
     ),
-    );;
+    );
           }
         },
 

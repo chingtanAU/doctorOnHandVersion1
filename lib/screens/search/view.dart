@@ -11,21 +11,23 @@ class ClinicSearchPage1 extends StatelessWidget {
 
   List<Obx> actions4= [];
 
+  ClinicSearchPage1({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(IconButton(icon: Icon(Icons.arrow_back_ios_new_outlined),
+      appBar: CustomAppBar(const IconButton(icon: Icon(Icons.arrow_back_ios_new_outlined),
         onPressed: null,),actions4 ),
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
                 Expanded(
                   child: TextField(
                     controller: controller.searchController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Search',
                       prefixIcon: Icon(Icons.search),
                     ),
@@ -41,7 +43,7 @@ class ClinicSearchPage1 extends StatelessWidget {
                         controller.applyFilter();
                       }
                     },
-                    items: [
+                    items: const [
                       DropdownMenuItem<int>(
                         value: 0,
                         child: Text('Number of Visits'),
@@ -74,7 +76,7 @@ class ClinicSearchPage1 extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.all(16.0),
+                              padding: const EdgeInsets.all(16.0),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -144,7 +146,7 @@ class ClinicDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Clinic Details'),
+        title: const Text('Clinic Details'),
       ),
       body: Column(
         children: [

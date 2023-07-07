@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../globals.dart' as globals;
 import '../globals.dart';
@@ -141,7 +140,7 @@ class AuthController extends GetxController {
             backgroundColor: Colors.white,
             textColor: Colors.red,
             fontSize: 16.0);
-        Get.offNamed("/home");;
+        Get.offNamed("/home");
       }
       on  FirebaseAuthException catch (e) {
         if (e.code == 'email-already-in-use') {

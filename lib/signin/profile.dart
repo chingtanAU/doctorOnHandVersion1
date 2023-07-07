@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PatientProfile extends StatefulWidget {
+  const PatientProfile({super.key});
+
 
   @override
   _PatientProfileState createState() => _PatientProfileState();
@@ -28,7 +30,7 @@ class _PatientProfileState extends State<PatientProfile> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
+              const Center(
                 child: CircleAvatar(
                   radius: 80,
                   backgroundImage: AssetImage('assets/profile.jpg'),
@@ -59,9 +61,9 @@ class _PatientProfileState extends State<PatientProfile> {
                 ),
               ),
               const SizedBox(height: 24),
-              Text(
+              const Text(
                 'Medical History',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -76,15 +78,15 @@ class _PatientProfileState extends State<PatientProfile> {
                       color: Colors.grey.withOpacity(0.3),
                       spreadRadius: 2,
                       blurRadius: 5,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
                 child: ListTile(
-                  leading: Icon(Icons.description),
-                  title: Text('Medical Report 1'),
-                  subtitle: Text('Date: 01/01/2022'),
-                  trailing: Icon(Icons.arrow_forward_ios),
+                  leading: const Icon(Icons.description),
+                  title: const Text('Medical Report 1'),
+                  subtitle: const Text('Date: 01/01/2022'),
+                  trailing: const Icon(Icons.arrow_forward_ios),
                   onTap: () {
                     // Add functionality to view medical report
                   },
@@ -100,15 +102,15 @@ class _PatientProfileState extends State<PatientProfile> {
                       color: Colors.grey.withOpacity(0.3),
                       spreadRadius: 2,
                       blurRadius: 5,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
                 child: ListTile(
-                  leading: Icon(Icons.description),
-                  title: Text('Medical Report 2'),
-                  subtitle: Text('Date: 02/01/2022'),
-                  trailing: Icon(Icons.arrow_forward_ios),
+                  leading: const Icon(Icons.description),
+                  title: const Text('Medical Report 2'),
+                  subtitle: const Text('Date: 02/01/2022'),
+                  trailing: const Icon(Icons.arrow_forward_ios),
                   onTap: () {
                     // Add functionality to view medical report
                   },
@@ -119,14 +121,14 @@ class _PatientProfileState extends State<PatientProfile> {
                 onPressed: () {
                   _showUpdateDialog();
                 },
-                child: Text('Update Profile'),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.blueGrey,
-                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                  backgroundColor: Colors.blueGrey,
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
+                child: const Text('Update Profile'),
               ),
             ],
           ),
@@ -144,25 +146,25 @@ class _PatientProfileState extends State<PatientProfile> {
         String newGender = gender;
 
         return AlertDialog(
-          title: Text('Update Profile'),
+          title: const Text('Update Profile'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: const InputDecoration(labelText: 'Name'),
                 onChanged: (value) {
                   newName = value;
                 },
               ),
               TextField(
-                decoration: InputDecoration(labelText: 'Age'),
+                decoration: const InputDecoration(labelText: 'Age'),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   newAge = int.tryParse(value) ?? age;
                 },
               ),
               TextField(
-                decoration: InputDecoration(labelText: 'Gender'),
+                decoration: const InputDecoration(labelText: 'Gender'),
                 onChanged: (value) {
                   newGender = value;
                 },
@@ -174,14 +176,14 @@ class _PatientProfileState extends State<PatientProfile> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
                 updateProfile(newName, newAge, newGender);
                 Navigator.pop(context);
               },
-              child: Text('Update'),
+              child: const Text('Update'),
             ),
           ],
         );

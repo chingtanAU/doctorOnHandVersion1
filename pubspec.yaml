@@ -66,6 +66,9 @@ dependencies:
   agora_rtc_engine: ^5.0.0
   permission_handler: ^10.3.0
   agora_token_service: ^0.1.2
+  flutter_secure_storage: ^8.0.0
+  share_plus: ^7.0.2
+  http: ^0.13.6
 
 
 
