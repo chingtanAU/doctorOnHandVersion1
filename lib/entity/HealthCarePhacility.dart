@@ -1,31 +1,36 @@
-import 'dart:ffi';
 
-import 'package:uuid/uuid.dart';
 
 class HealthCarePhacility {
 
-  var id;
-  String type;
   String name ;
   String address;
-  bool enableReview  ;
+  String? experience;
+  String number;
+  String patientNum ;
+  String? rating;
+  String? desc;
 
-  HealthCarePhacility({required this.type ,required this.id, required this.name, required this.address, this.enableReview= true,});
+
+  HealthCarePhacility({ this.experience , required this.name, required this.address,required this.number,required this.patientNum, this.rating, this.desc });
 
   factory HealthCarePhacility.fromJson(Map<String, dynamic> json) => HealthCarePhacility(
-    id: json["id"],
-    type: json["type"],
     name:json["name"],
     address:json["address"],
-    enableReview:json["enableReview"],
+    experience: json["experience"],
+    number: json["number"],
+    patientNum: json["patientNum"],
+    rating: json["rating"],
+    desc: json['desc'],
   );
 
   Map<String, dynamic> toJson() => {
-    'type':type,
-    'id':id,
     'name':name,
     'address':address,
-    'enableReview':enableReview,
+    'experience': experience,
+    'number': number,
+    'patientNum': patientNum,
+    'rating': rating,
+    'desc': desc
   };
 
 }

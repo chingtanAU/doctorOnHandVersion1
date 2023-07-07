@@ -8,11 +8,12 @@ class UserProfile{
   String phone;
   List<BookingService>? meets;
   String role ;
+  String picture;
 
-  factory UserProfile.empty()=>UserProfile(role: "", fName: "", lName: "", email: "", address: "", phone: "");
+  factory UserProfile.empty()=>UserProfile(role: "", fName: "", lName: "", email: "", address: "", phone: "", picture:"");
 
   UserProfile({required this.role, required this.fName,required this.lName,required this.email,required this.address,
-         required this.phone, this.meets});
+         required this.phone, this.meets, this.picture=""});
 
   factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
     fName: json["fName"],
@@ -22,6 +23,7 @@ class UserProfile{
     phone: json["pNumber"],
     meets:json["meets"]!=null ? List<BookingService>.from(json["meets"].map((x) => BookingService.fromJson(x))):null,
     role: json["role"],
+    picture: json["picture"],
   );
 
   Map<String, dynamic> toJson() =>
@@ -33,7 +35,9 @@ class UserProfile{
         'email': email,
         'address': address,
         'pNumber': phone,
-        'meets': meets
+        'meets': meets,
+        'picture': picture,
+
       };
 
 

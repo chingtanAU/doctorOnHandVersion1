@@ -23,3 +23,10 @@ Future<UserProfile?> fetchUserInfo(String id) async{
   return user;
 }
 
+Future<void> updateUser(String uid, Map<String, dynamic> value ) async {
+  await userCollection.doc(uid).update(value);
+}
+
+
+
+

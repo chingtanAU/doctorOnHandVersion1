@@ -28,12 +28,13 @@ class AuthController extends GetxController {
   }
 
    Future<void> _setInitialScreen(User? user) async {
+
     if (user == null) {
       // if the user is not found then the user is navigated to the Register Screen
       Get.offNamed('/login');
 
     } else {
-      fetchUserInfo();
+      await fetchUserInfo();
       Get.offNamed('/home');
     }
   }

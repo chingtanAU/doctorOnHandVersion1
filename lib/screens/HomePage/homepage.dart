@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../../Controllers/clinicController.dart';
+import '../../entity/HealthCarePhacility.dart';
 import '../../globals.dart' as globals;
 import '../../validatorsAuth/auth.dart';
 import '../../widgets/appbar.dart';
@@ -16,6 +18,7 @@ import '../../widgets/notifcationScreen.dart';
 class Homepage extends StatefulWidget {
   Homepage({Key? key}) : super(key: key);
   final authController = Get.find<AuthController>();
+  final clinicController = Get.find<ClinicContoller>();
   final NotificationController controller = Get.put(NotificationController());
 
   @override
@@ -218,6 +221,14 @@ class _HomepageState extends State<Homepage> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.account_circle_sharp),
+              title: Text('Profile'),
+              onTap: () {
+                Get.offAllNamed("/editProfile");
+                // Handle item tap
+              },
+            ),
+            ListTile(
               leading: Icon(Icons.logout),
               title: Text('Log out'),
               onTap: () {
@@ -279,7 +290,7 @@ class _HomepageState extends State<Homepage> {
   }
 }
 
-Container createDocWidget(String imgName, String docName) {
+Container createDocWidget(String imgName,HealthCarePhacility clinic, String docName ) {
   return Container(
     margin: EdgeInsets.all(
       8,
@@ -358,12 +369,12 @@ Container createDocWidget(String imgName, String docName) {
         Get.to(() => ClinicDetails(
               clinic: Clinic(
                 id: 2,
-                name: 'XYZ Clinic',
-                visits: 10,
+                name: clinic.name,
+                visits:10 ,
                 lastVisit: '2023-02-01',
                 imageUrl: 'assets/doctor.png',
                 description:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                    clinic.desc!,
               ),
             ));
         //Get.offNamed('/detail');
