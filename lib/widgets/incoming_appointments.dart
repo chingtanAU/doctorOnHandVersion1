@@ -1,6 +1,7 @@
 import 'package:doctorppp/screens/HomePage/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:get/get.dart';
 
 
 class IncomingCard extends StatelessWidget {
@@ -15,12 +16,7 @@ class IncomingCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>  Homepage(),
-          ),
-        );
+         Get.toNamed('/video');
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

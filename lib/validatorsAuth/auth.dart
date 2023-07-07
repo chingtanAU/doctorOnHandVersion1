@@ -82,7 +82,6 @@ class AuthController extends GetxController {
           print('No user found for that email.');
           FireError.userNotFoundError=true;
           globals.emailLoginKey.currentState!.validate();
-
         }
 
 

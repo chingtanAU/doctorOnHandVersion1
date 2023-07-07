@@ -1,6 +1,8 @@
 
 import 'package:doctorppp/screens/Clinic/bookingScreen.dart';
 import 'package:doctorppp/screens/detailscreen.dart';
+import 'package:doctorppp/screens/video_calll/meet.dart';
+import 'package:doctorppp/screens/video_calll/token_generation.dart';
 import 'package:doctorppp/signin/login.dart';
 import 'package:doctorppp/signin/register.dart';
 import 'package:doctorppp/validatorsAuth/auth.dart';
@@ -17,6 +19,8 @@ Future<void> main() async {
   ));
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp().then((value) => Get.put(AuthController()));
+  Get.put<AgoraTokenService>(AgoraTokenService());
+
 
   runApp(const MyApp());
 }
@@ -61,8 +65,10 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/login', page: () => MyLogin()),
         GetPage(name: '/register', page: () => MyRegister()),
         GetPage(name: '/home',  page: () => Homepage()),
-        GetPage(name: '/book',  page: () => const BookingCalendarDemoApp()),
-        GetPage(name: '/detail',  page: () => const DetailScreen()),
+        GetPage(name: '/book',  page: () => BookingCalendarDemoApp()),
+        GetPage(name: '/detail',  page: () => DetailScreen()),
+        GetPage(name: '/video', page: () => VideoCallScreen()),
+
       ],
 
 
