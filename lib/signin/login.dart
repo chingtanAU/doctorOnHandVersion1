@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../../globals.dart' as globals;
 import '../../../validatorsAuth/Validator.dart' as validator;
@@ -33,7 +32,7 @@ class MyLogin extends StatelessWidget {
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.2,
                 width: MediaQuery.of(context).size.width * 0.35,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/logo.png'),
                   ),
@@ -51,7 +50,7 @@ class MyLogin extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left: 35, right: 35),
+                      margin: const EdgeInsets.only(left: 35, right: 35),
                       child: Column(
                         children: [
                           TextFormField(
@@ -94,11 +93,11 @@ class MyLogin extends StatelessWidget {
                           const SizedBox(
                             height: 25,
                           ),
-                          Row(
+                          const Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text("Remember Me",
-                                style: const TextStyle(color: Colors.black),),
+                                style: TextStyle(color: Colors.black),),
                              // Checkbox(
                             //  ),
                             ],
@@ -106,14 +105,14 @@ class MyLogin extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                              const Text(
                                 'Sign in',
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 27, fontWeight: FontWeight.w700),
                               ),
                               CircleAvatar(
                                 radius: 30,
-                                backgroundColor: Color(0xff4c505b),
+                                backgroundColor: const Color(0xff4c505b),
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () {
@@ -123,7 +122,7 @@ class MyLogin extends StatelessWidget {
 
                                       authController.onLogin();
                                     },
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.arrow_forward,
                                     )),
                               )
@@ -143,8 +142,8 @@ class MyLogin extends StatelessWidget {
                               ),
                             ),
                             onPressed: () { authController.signInWithGoogle();},
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                            child: const Padding(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -154,10 +153,10 @@ class MyLogin extends StatelessWidget {
                                     height: 35.0,
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 10),
+                                    padding: EdgeInsets.only(left: 10),
                                     child: Text(
                                       'Sign in with Google',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontSize: 20,
                                         color: Colors.black54,
                                         fontWeight: FontWeight.w600,
@@ -181,17 +180,17 @@ class MyLogin extends StatelessWidget {
                             children: [
                               TextButton(
                                 onPressed: () {
-                                  Get.offNamed("/register");;
+                                  Get.offNamed("/register");
                                 },
-                                child: Text(
+                                style: const ButtonStyle(),
+                                child: const Text(
                                   'Sign Up',
                                   textAlign: TextAlign.left,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       decoration: TextDecoration.underline,
                                       color: Color(0xff4c505b),
                                       fontSize: 18),
                                 ),
-                                style: ButtonStyle(),
                               ),
                               TextButton(
                                   onPressed: () {Get.defaultDialog(
@@ -199,13 +198,13 @@ class MyLogin extends StatelessWidget {
                                       content: TextFormField(
                                         validator: (email)=> validator.emailValidatro(email!) ,
                                         controller: _emailResetPass ,
-                                        decoration:InputDecoration(
+                                        decoration:const InputDecoration(
 
                                         ) ,
                                       ),
                                       confirm:
                                       MaterialButton(
-                                        child: Text('Submit'),
+                                        child: const Text('Submit'),
                                         onPressed: () async {
                                           Get.snackbar ( await authController.resetPassword(email: _emailResetPass.text),'');
                                           _emailResetPass.clear();
@@ -220,9 +219,9 @@ class MyLogin extends StatelessWidget {
 
 
                                   );},
-                                  child: Text(
+                                  child: const Text(
                                     'Forgot Password',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       decoration: TextDecoration.underline,
                                       color: Color(0xff4c505b),
                                       fontSize: 18,

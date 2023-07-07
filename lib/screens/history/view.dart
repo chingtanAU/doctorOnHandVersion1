@@ -7,14 +7,16 @@ import 'logic.dart';
 class PreviousVisitsPage extends StatelessWidget {
   final visitsController = Get.put(VisitsController());
  List<Obx> actions2= [];
+
+  PreviousVisitsPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(IconButton(icon: Icon(Icons.arrow_back_ios_new_outlined),
+      appBar: CustomAppBar(const IconButton(icon: Icon(Icons.arrow_back_ios_new_outlined),
         onPressed: null,), actions2),
       body: Obx(
             () => ListView.builder(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           itemCount: visitsController.visits.length,
           itemBuilder: (context, index) {
             final visit = visitsController.visits[index];

@@ -18,7 +18,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp().then((value) => Get.put(AuthController()));
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 @override
@@ -28,7 +28,7 @@ void initState() {
 
 class MyApp extends StatelessWidget {
 
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
 
@@ -61,8 +61,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/login', page: () => MyLogin()),
         GetPage(name: '/register', page: () => MyRegister()),
         GetPage(name: '/home',  page: () => Homepage()),
-        GetPage(name: '/book',  page: () => BookingCalendarDemoApp()),
-        GetPage(name: '/detail',  page: () => DetailScreen()),
+        GetPage(name: '/book',  page: () => const BookingCalendarDemoApp()),
+        GetPage(name: '/detail',  page: () => const DetailScreen()),
       ],
 
 

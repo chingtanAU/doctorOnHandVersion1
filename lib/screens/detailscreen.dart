@@ -83,15 +83,15 @@ class _DetailScreenState extends State<DetailScreen> {
             Container(
               height: size.height * 0.38,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(40),
                   bottomRight: Radius.circular(40),
                 ),
                 color: Colors.black,
                 image: DecorationImage(
-                    colorFilter: new ColorFilter.mode(
+                    colorFilter: ColorFilter.mode(
                         Colors.black.withOpacity(0.8), BlendMode.dstATop),
-                    image: AssetImage(
+                    image: const AssetImage(
                       "assets/Image2.jpg",
                     ),
                     fit: BoxFit.cover),
@@ -102,7 +102,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     top: 30,
                     left: 5,
                     child: IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back,
                         color: Colors.white,
                         size: 30,
@@ -115,17 +115,17 @@ class _DetailScreenState extends State<DetailScreen> {
                   Positioned(
                     left: 20,
                     bottom: 15,
-                    child: Container(
+                    child: SizedBox(
                       // color: Colors.blue,
                       width: size.width * 0.7,
                       height: size.height * 0.1,
-                      child: Column(
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             "Dr. Mary Albright",
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: "Comic Sans",
                               fontWeight: FontWeight.bold,
                               fontSize: 22,
@@ -134,7 +134,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           ),
                           Text(
                             "Cardiologist | Apollo Hospital",
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: "Comic Sans",
                               fontWeight: FontWeight.bold,
                               fontSize: 13,
@@ -175,7 +175,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               ),
                               Text(
                                 " (5.0)",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontFamily: "Comic Sans",
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -197,9 +197,9 @@ class _DetailScreenState extends State<DetailScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "You Can Contact Us :",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: "Comic Sans",
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -263,17 +263,17 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 25),
+              margin: const EdgeInsets.symmetric(horizontal: 25),
               width: size.width,
               // color: Colors.blue,
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding: EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
                       "About Doctor",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: "Comic Sans",
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -282,7 +282,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   ),
                   Text(
                     "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document.",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: "Comic Sans",
                       fontWeight: FontWeight.w400,
                       fontSize: 15,
@@ -294,11 +294,11 @@ class _DetailScreenState extends State<DetailScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 25, right: 25, top: 10),
+                const Padding(
+                  padding: EdgeInsets.only(left: 25, right: 25, top: 10),
                   child: Text(
                     "Availabilty",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: "Comic Sans",
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -309,11 +309,11 @@ class _DetailScreenState extends State<DetailScreen> {
                   // color: Colors.amber,
                   height: size.height * 0.12,
                   width: size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 3),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 3),
                   child: ListView.builder(
                       itemCount: 5,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return GestureDetector(
@@ -377,17 +377,17 @@ class _DetailScreenState extends State<DetailScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (builder) => CallScreen()));
+                          builder: (builder) => const CallScreen()));
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.red,
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(10.0),
+                      backgroundColor: Colors.red,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Book Appointment",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: "Comic Sans",
                         fontWeight: FontWeight.bold,
                         fontSize: 18,

@@ -3,12 +3,12 @@ import 'const_chat.dart';
 
 class MessageTile extends StatelessWidget {
   Message message;
-  MessageTile({required this.message});
+  MessageTile({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       width: 50,
       decoration: BoxDecoration(
         color: message.status == status.outgoing

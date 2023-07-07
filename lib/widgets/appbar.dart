@@ -11,20 +11,21 @@ AppBar CustomAppBar(IconButton iconbutton  , List<Obx> actions2) {
   var iconButton;
 
   var actions2 =  [      Obx(() {
-    if(  Get.find<NotificationController>().notifications.length==0
+    if(  Get.find<NotificationController>().notifications.isEmpty
     ){
       return IconButton(
-          icon: Icon(Icons.notifications_none),
+          icon: const Icon(Icons.notifications_none),
           onPressed: () {
-            Get.to(NotificationPage());
+            Get.to(const NotificationPage());
           });
     }
-    else
+    else {
       return IconButton(
-          icon: Icon(Icons.notifications_active),
+          icon: const Icon(Icons.notifications_active),
           onPressed: () {
-            Get.to(NotificationPage());
+            Get.to(const NotificationPage());
           });
+    }
   }),
   ];
   return AppBar(
@@ -46,7 +47,7 @@ AppBar CustomAppBar(IconButton iconbutton  , List<Obx> actions2) {
     ),
     leading: iconButton,
     title:
-    Align(alignment: Alignment.center, child: Text("Doctors On Hand")),
+    const Align(alignment: Alignment.center, child: Text("Doctors On Hand")),
     actions: actions2,
   );
 }
