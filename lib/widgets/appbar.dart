@@ -16,14 +16,14 @@ AppBar CustomAppBar(IconButton iconbutton  , List<Obx> actions2) {
       return IconButton(
           icon: const Icon(Icons.notifications_none),
           onPressed: () {
-            Get.to(const NotificationPage());
+            Get.to( NotificationPage());
           });
     }
     else {
       return IconButton(
           icon: const Icon(Icons.notifications_active),
           onPressed: () {
-            Get.to(const NotificationPage());
+            Get.to( NotificationPage());
           });
     }
   }),
