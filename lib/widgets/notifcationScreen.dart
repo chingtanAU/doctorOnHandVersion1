@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class NotificationPage extends StatelessWidget {
   final NotificationController controller = Get.put(NotificationController());
 
-  const NotificationPage({super.key});
+   NotificationPage({super.key});
 
 
   @override

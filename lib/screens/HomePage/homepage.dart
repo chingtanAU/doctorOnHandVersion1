@@ -213,13 +213,13 @@ class _HomepageState extends State<Homepage> {
           return IconButton(
               icon: const Icon(Icons.notifications_none),
               onPressed: () {
-                Get.to(const NotificationPage());
+                Get.to( NotificationPage());
               });
         } else {
           return IconButton(
               icon: const Icon(Icons.notifications_active),
               onPressed: () {
-                Get.to(const NotificationPage());
+                Get.to( NotificationPage());
               });
         }
       }),
@@ -262,9 +262,9 @@ class _HomepageState extends State<Homepage> {
               leading: const Icon(Icons.camera),
               title: const Text('OCR'),
               onTap: () {
-                widget.authController.logOut();
+
                 // Handle item tap
-                Get.to(() => const ImageInputScreen());
+                Get.to(() =>  ImageInputScreen());
               },
             ),
             ListTile(
