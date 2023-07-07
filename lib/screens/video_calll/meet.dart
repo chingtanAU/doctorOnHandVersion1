@@ -84,6 +84,19 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   Future<void> _initAgoraRtcEngine() async {
     _engine = await RtcEngine.create(app_id);
     await _engine.enableVideo();
+
+    // Enable audio
+    await _engine.enableAudio();
+
+    // Set the audio mode to communication
+    await _engine.setAudioProfile(AudioProfile.SpeechStandard, AudioScenario.MEETING);
+
+    // Set the video encoder configuration
+    await _engine.setVideoEncoderConfiguration(VideoEncoderConfiguration(
+      dimensions: VideoDimensions(height: 640, width: 480),
+      frameRate: VideoFrameRate.Fps30,
+      orientationMode: VideoOutputOrientationMode.Adaptative,
+    ));
   }
 
   /// Add agora event handlers
