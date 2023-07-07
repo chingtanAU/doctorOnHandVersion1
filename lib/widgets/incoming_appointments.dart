@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
 
+
 class IncomingCard extends StatelessWidget {
   const IncomingCard({
     Key? key,
@@ -15,7 +16,7 @@ class IncomingCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Get.toNamed('/video');
+         Get.toNamed('/video');
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

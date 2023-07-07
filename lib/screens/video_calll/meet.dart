@@ -1,7 +1,10 @@
 import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:agora_rtc_engine/rtc_local_view.dart' as rtc_local_view;
 import 'package:agora_rtc_engine/rtc_remote_view.dart' as rtc_remote_view;
+import 'package:doctorppp/screens/video_calll/token.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get.dart';
 
 class VideoCallScreen extends StatefulWidget {
   const VideoCallScreen({Key? key}) : super(key: key);
@@ -11,6 +14,8 @@ class VideoCallScreen extends StatefulWidget {
 }
 
 class _VideoCallScreenState extends State<VideoCallScreen> {
+  final VideoCallController controller = Get.put(VideoCallController());
+
   // final  AgoraClient _client = AgoraClient(
   //     agoraConnectionData:
   //     AgoraConnectionData(
@@ -20,11 +25,33 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   // );
   static final _users = <int>[];
   final _infoStrings = <String>[];
+  //Future<String> token = generateToken(channelName);
   bool muted = false;
   late RtcEngine _engine;
   String app_id = "6d23c50fff654240b43df4285a16a3b8";
-  String channelName = "test";
-  String token = "007eJxTYPi0fZYZ5xFZVol10o1Cf4pvqVdkr234N5utqb1v7uz/rTcVGMxSjIyTTQ3S0tLMTE2MTAySTIxT0kyMLEwTDc0SjZMsAn8uSmkIZGSQnbSDhZEBAkF8FoaS1OISBgYAYVggGQ==";
+  //String channelName = "test";
+  //String token = "007eJxTYKh6svzC93t7jup9N/uw0CUtNua9+DkrkXn/jF+wxjpE+3MqMJilGBknmxqkpaWZmZoYmRgkmRinpJkYWZgmGpolGidZFK5ZmtIQyMjgt/kqKyMDBIL4LAwlqcUlDAwA0zYg4A==";
+
+
+  void initState() {
+    super.initState();
+    _initAgora();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _generateToken();
+  }
+
+  Future<void> _generateToken() async {
+    await controller.generateToken('doctor1', 'patient3');
+    await _initAgoraRtcEngine();
+    await _engine.joinChannel(controller.token.value, controller.channelName.value, null, 0);
+  }
+
+
+
   @override
   void dispose() {
     // clear users
@@ -36,25 +63,23 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   }
 
 
-  @override
-  void initState() {
-    super.initState();
-    _initagora();
-  }
 
-  Future<void> _initagora() async {
-    // await _client.initialize();
+  Future<void> _initAgora() async {
     await _initAgoraRtcEngine();
     _addAgoraEventHandlers();
     await _engine.enableAudioVolumeIndication(200, 3, true);
-    await _engine.joinChannel(token,channelName, null, 0);
     await _engine.enableDualStreamMode(true);
     await _engine.setParameters("""
-         { "che.video.lowBitRateStreamParameter": {
-           "width":160,"height":120,"frameRate":5,"bitRate":45
-         }}
-       """);
+    { "che.video.lowBitRateStreamParameter": {
+      "width":160,"height":120,"frameRate":5,"bitRate":45
+    }}
+  """);
   }
+
+  // Future<void> _generateToken() async {
+  //   await controller.generateToken('doctor1', 'patient2');
+  //   await _engine.joinChannel(controller.token.value, controller.channelName.value, null, 0);
+  // }
 
   Future<void> _initAgoraRtcEngine() async {
     _engine = await RtcEngine.create(app_id);
@@ -200,6 +225,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                 child: _showViewCounter()),
             _toolbar(),
           ],
+
         ),
       ),
     );

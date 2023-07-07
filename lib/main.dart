@@ -2,8 +2,7 @@
 import 'package:doctorppp/screens/Clinic/bookingScreen.dart';
 import 'package:doctorppp/screens/detailscreen.dart';
 import 'package:doctorppp/screens/video_calll/meet.dart';
-import 'package:doctorppp/screens/video_calll/meeting.dart';
-import 'package:doctorppp/screens/video_calll/view.dart';
+import 'package:doctorppp/screens/video_calll/token_generation.dart';
 import 'package:doctorppp/signin/login.dart';
 import 'package:doctorppp/signin/register.dart';
 import 'package:doctorppp/validatorsAuth/auth.dart';
@@ -20,6 +19,8 @@ Future<void> main() async {
   ));
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp().then((value) => Get.put(AuthController()));
+  Get.put<AgoraTokenService>(AgoraTokenService());
+
 
   runApp(MyApp());
 }
