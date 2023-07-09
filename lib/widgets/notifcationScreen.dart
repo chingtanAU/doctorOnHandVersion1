@@ -4,12 +4,14 @@ import 'package:get/get.dart';
 class NotificationPage extends StatelessWidget {
   final NotificationController controller = Get.put(NotificationController());
 
+   NotificationPage({super.key});
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notifications'),
+        title: const Text('Notifications'),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -33,9 +35,9 @@ class NotificationPage extends StatelessWidget {
           final notification = Get.find<NotificationController>().notifications[index];
           return Card(
             elevation: 3,
-            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: ListTile(
-              leading: CircleAvatar(
+              leading: const CircleAvatar(
                 backgroundColor: Colors.blue,
                 child: Icon(
                   Icons.notifications,
@@ -50,7 +52,7 @@ class NotificationPage extends StatelessWidget {
               ),
               subtitle: Text(notification.message),
               trailing: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.delete,
                   color: Colors.red,
                 ),

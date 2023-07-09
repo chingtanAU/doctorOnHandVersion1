@@ -3,6 +3,8 @@ import 'package:doctorppp/screens/HomePage/home_info.dart';
 import 'package:doctorppp/signin/profile.dart';
 import 'package:doctorppp/screens/search/model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -14,6 +16,7 @@ import '../../validatorsAuth/auth.dart';
 import '../../widgets/appbar.dart';
 import '../../widgets/chat/ChatList.dart';
 import '../../widgets/notifcationScreen.dart';
+import '../ocr/image_input.dart';
 
 class Homepage extends StatefulWidget {
   Homepage({Key? key}) : super(key: key);
@@ -40,6 +43,7 @@ late double height;
 late double width;
 
 class _HomepageState extends State<Homepage> {
+  final AuthController authController = Get.find<AuthController>();
   double xoffset = 0;
   double yoffset = 0;
   double scaleFactor = 1;
@@ -71,12 +75,12 @@ class _HomepageState extends State<Homepage> {
             Container(
               height: height * 0.20,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(15),
                   topRight: Radius.circular(15),
                 ),
                 image: DecorationImage(
-                  image: AssetImage("$image"),
+                  image: AssetImage(image),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -87,7 +91,7 @@ class _HomepageState extends State<Homepage> {
             Container(
               height: size.height * 0.09,
               // color: Colors.green,
-              padding: EdgeInsets.symmetric(horizontal: 9),
+              padding: const EdgeInsets.symmetric(horizontal: 9),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -117,7 +121,7 @@ class _HomepageState extends State<Homepage> {
                       fontSize: 17,
                     ),
                   ),
-                  Row(
+                  const Row(
                     children: [
                       Icon(
                         Icons.star,
@@ -157,27 +161,28 @@ class _HomepageState extends State<Homepage> {
 
   int _currentIndex = 0;
   List page = [
-    HomeInfo(),
-    ChatList(),
-    PatientProfile(),
+    const HomeInfo(),
+    const ChatList(),
+    const PatientProfile(),
   ];
 
   @override
   Widget build(BuildContext context) {
     var actions3 = [
       Obx(() {
-        if (Get.find<NotificationController>().notifications.length == 0) {
+        if (Get.find<NotificationController>().notifications.isEmpty) {
           return IconButton(
-              icon: Icon(Icons.notifications_none),
+              icon: const Icon(Icons.notifications_none),
               onPressed: () {
-                Get.to(NotificationPage());
+                Get.to( NotificationPage());
               });
-        } else
+        } else {
           return IconButton(
-              icon: Icon(Icons.notifications_active),
+              icon: const Icon(Icons.notifications_active),
               onPressed: () {
-                Get.to(NotificationPage());
+                Get.to( NotificationPage());
               });
+        }
       }),
     ];
 
@@ -191,8 +196,8 @@ class _HomepageState extends State<Homepage> {
       drawer: Drawer(
         child: ListView(
           children: [
-            UserAccountsDrawerHeader(
-              decoration: const BoxDecoration(
+             UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
@@ -213,11 +218,12 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.camera),
-              title: Text('OCR'),
+              leading: const Icon(Icons.camera),
+              title: const Text('OCR'),
               onTap: () {
-                widget.authController.logOut();
+
                 // Handle item tap
+                Get.to(() =>  ImageInputScreen());
               },
             ),
             ListTile(
@@ -231,6 +237,9 @@ class _HomepageState extends State<Homepage> {
             ListTile(
               leading: Icon(Icons.logout),
               title: Text('Log out'),
+
+              leading: const Icon(Icons.logout),
+              title: const Text('Log out'),
               onTap: () {
                 widget.authController.logOut();
                 Get.offAllNamed("/login");
@@ -244,13 +253,13 @@ class _HomepageState extends State<Homepage> {
 
 
       appBar: CustomAppBar(
-          IconButton(icon: Icon(Icons.menu), onPressed: _openDrawer), actions3),
+          IconButton(icon: const Icon(Icons.menu), onPressed: _openDrawer), actions3),
 
       body: page[_currentIndex],
       bottomNavigationBar: Container(
         color: Colors.grey.shade100,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           child: GNav(
               tabBackgroundGradient: LinearGradient(
                 begin: Alignment.topRight,
@@ -264,10 +273,10 @@ class _HomepageState extends State<Homepage> {
               iconSize: 20,
               textStyle: const TextStyle(fontSize: 16, color: Colors.white),
               tabBackgroundColor: Colors.grey[900]!,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16.5),
-              duration: Duration(milliseconds: 800),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.5),
+              duration: const Duration(milliseconds: 800),
               gap: 8,
-              tabs: [
+              tabs: const [
                 GButton(
                   icon: Icons.home,
                   text: 'Home',
@@ -292,7 +301,7 @@ class _HomepageState extends State<Homepage> {
 
 Container createDocWidget(String imgName,HealthCarePhacility clinic, String docName ) {
   return Container(
-    margin: EdgeInsets.all(
+    margin: const EdgeInsets.all(
       8,
     ),
     decoration: BoxDecoration(
@@ -300,7 +309,7 @@ Container createDocWidget(String imgName,HealthCarePhacility clinic, String docN
       // color: Theme.of(context as BuildContext).primaryColor.withOpacity(0.8),
       borderRadius: BorderRadius.circular(20),
       //boxShadow: kElevationToShadow[6],
-      boxShadow: [
+      boxShadow: const [
         BoxShadow(
           color: Colors.grey,
           blurRadius: 3.0,
@@ -311,14 +320,14 @@ Container createDocWidget(String imgName,HealthCarePhacility clinic, String docN
     ),
     child: InkWell(
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(
             Radius.circular(12),
           ),
           color: Colors.cyan,
         ),
         child: Container(
-          padding: EdgeInsets.all(7),
+          padding: const EdgeInsets.all(7),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
@@ -330,7 +339,7 @@ Container createDocWidget(String imgName,HealthCarePhacility clinic, String docN
                         image: AssetImage('assets/$imgName'),
                         fit: BoxFit.cover)),
               ),
-               SizedBox(
+              SizedBox(
                 width: width * 0.03,
               ),
               Column(
@@ -345,13 +354,13 @@ Container createDocWidget(String imgName,HealthCarePhacility clinic, String docN
                       fontSize: 18,
                     ),
                   ),
-                   SizedBox(height: height * 0.02),
-                  Container(
+                  SizedBox(height: height * 0.02),
+                  const SizedBox(
                     width: 250,
                     height: 50,
                     child: Text(
                       "A brief about the doctor to be added here. This is more like an introduction about the doctor",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                       ),

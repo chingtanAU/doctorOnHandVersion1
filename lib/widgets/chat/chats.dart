@@ -38,9 +38,9 @@ class _ChatsState extends State<Chats> {
       appBar: AppBar(
         actions: const [
           Icon(Icons.videocam),
-          const SizedBox(width: 15),
+          SizedBox(width: 15),
           Icon(Icons.call),
-          const SizedBox(width: 15),
+          SizedBox(width: 15),
           Icon(Icons.more_vert),
         ],
         titleSpacing: 2,

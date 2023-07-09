@@ -9,7 +9,7 @@ class CallScreen extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         image: DecorationImage(
           alignment: Alignment(0.4, 0),
@@ -30,7 +30,7 @@ class CallScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: AssetImage(
                       "assets/Image6.jpg",
                     ),
@@ -51,7 +51,7 @@ class CallScreen extends StatelessWidget {
                 },
                 child: Container(
                   height: 60,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.red,
                     shape: BoxShape.circle,
                   ),
@@ -71,7 +71,7 @@ class CallScreen extends StatelessWidget {
               bottom: 40,
               width: width,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 // color: Colors.white,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,7 +79,7 @@ class CallScreen extends StatelessWidget {
                     Container(
                       height: 45,
                       width: 45,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white,
                       ),
                       child: Center(
@@ -92,7 +92,7 @@ class CallScreen extends StatelessWidget {
                     Container(
                       height: 45,
                       width: 45,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white,
                       ),
                       child: Center(
