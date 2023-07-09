@@ -1,13 +1,16 @@
 import 'package:doctorppp/globals.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:string_validator/string_validator.dart';
+import '../../validatorsAuth/auth.dart';
 import 'appbar_widget.dart';
 import '../../persistance/userCrud.dart' as crud;
 
 // This class handles the Page to edit the Name Section of the User Profile.
 class EditNameFormPage extends StatefulWidget {
-  const EditNameFormPage({Key? key}) : super(key: key);
-
+  EditNameFormPage({Key? key}) : super(key: key);
+  final authController = Get.find<AuthController>();
   @override
   EditNameFormPageState createState() {
     return EditNameFormPageState();
@@ -27,8 +30,9 @@ class EditNameFormPageState extends State<EditNameFormPage> {
   }
 
     Future<void> updateUserValue(String fName, String lName) async {
-    await crud.updateUser(auth.currentUser!.uid, {"fName":fName,"lName":lName})
-   ;
+    await crud.updateUser(auth.currentUser!.uid, {"fName":fName,"lName":lName});
+    await widget.authController.fetchUserInfo();
+
   }
 
   @override

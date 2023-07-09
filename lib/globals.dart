@@ -19,10 +19,23 @@ final GlobalKey<FormFieldState> fNameKey = GlobalKey<FormFieldState>();
 final GlobalKey<FormFieldState> lNameKey = GlobalKey<FormFieldState>();
 final GlobalKey<FormFieldState> phoneKey = GlobalKey<FormFieldState>();
 final GlobalKey<FormFieldState> addressKey = GlobalKey<FormFieldState>();
-final GlobalKey<FormFieldState> clinicsKey = GlobalKey<FormFieldState>();
+final GlobalKey<FormFieldState> clinicListKey = GlobalKey<FormFieldState>();
+
+final GlobalKey<FormFieldState> clinicNameKey = GlobalKey<FormFieldState>();
+final GlobalKey<FormFieldState> clinicPhoneKey = GlobalKey<FormFieldState>();
+final GlobalKey<FormFieldState> clinicAddressKey = GlobalKey<FormFieldState>();
+final GlobalKey<FormFieldState> doctorSpeciality = GlobalKey<FormFieldState>();
 
 
-final List<GlobalKey<FormFieldState>> regKeys = [passKey, conPassKey, emailKey, fNameKey, lNameKey, roleKey, phoneKey,addressKey];
+
+
+
+
+
+
+final List<GlobalKey<FormFieldState>> regUserKeys = [passKey, conPassKey, emailKey, fNameKey, lNameKey, roleKey, phoneKey,addressKey];
+final List<GlobalKey<FormFieldState>> regDoctorKeys = [passKey, conPassKey, emailKey, fNameKey,
+  lNameKey, roleKey, phoneKey,addressKey,clinicListKey,clinicNameKey,clinicPhoneKey,clinicAddressKey,doctorSpeciality];
 
 final GlobalKey<FormFieldState> passLoginKey = GlobalKey<FormFieldState>();
 final GlobalKey<FormFieldState> emailLoginKey = GlobalKey<FormFieldState>();

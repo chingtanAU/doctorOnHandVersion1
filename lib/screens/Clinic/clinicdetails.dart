@@ -16,31 +16,7 @@ class ClinicDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   elevation: 9,
-      //   flexibleSpace: Container(
-      //     decoration: const BoxDecoration(
-      //         gradient: LinearGradient(
-      //           begin: Alignment.topRight,
-      //           end: Alignment.bottomLeft,
-      //           stops: [
-      //
-      //             0.1,
-      //             0.6,
-      //           ],
-      //           colors: [
-      //
-      //             Colors.blue,
-      //             Colors.teal,
-      //           ],
-      //         )
-      //     ),
-      //   ),
-      //
-      //   title: Align(
-      //       alignment: Alignment.center,
-      //       child: Text("Doctors On Hand")),
-      // ),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: ElevatedButton(
         onPressed: () => {
@@ -54,20 +30,6 @@ class ClinicDetails extends StatelessWidget {
         ),
       ),
       
-
-      //
-      // (
-      //   backgroundColor: Color(MyColors.primary),
-      //   elevation: 10,
-      //   isExtended: true,
-      //   // style: ButtonStyle(
-      //   //   backgroundColor: MaterialStateProperty.all<Color>(
-      //   //     Color(MyColors.primary),
-      //   //   ),
-      //   // ),
-      //   child: Text('Book Appointment'),
-      //   onPressed: () => {},
-      // ),
 
       body: CustomScrollView(
         slivers: [
@@ -157,62 +119,6 @@ class ClinicDetails extends StatelessWidget {
   }
 }
 
-// class DetailBody extends StatelessWidget {
-//   final Clinic clinic;
-//
-//   const DetailBody({
-//     Key? key, required this.clinic
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       padding: EdgeInsets.all(20),
-//       margin: EdgeInsets.only(bottom: 30),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.stretch,
-//         children: [
-//           DetailClinicCard(),
-//           const SizedBox(
-//             height: 15,
-//           ),
-//           ClinicInfo(),
-//           const SizedBox(
-//             height: 30,
-//           ),
-//           Text(
-//             'About Clinic',
-//             style: kTitleStyle,
-//           ),
-//           const SizedBox(
-//             height: 15,
-//           ),
-//           Text(clinic.description,
-//             style: const TextStyle(
-//               color: Color(MyColors.purple01),
-//               fontWeight: FontWeight.w500,
-//               height: 1.5,
-//             ),
-//           ),
-//           const SizedBox(
-//             height: 25,
-//           ),
-//           Text(
-//             'Location',
-//             style: kTitleStyle,
-//           ),
-//           const SizedBox(
-//             height: 25,
-//           ),
-//           ClinicLocation(),
-//           const SizedBox(
-//             height: 25,
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 
 class ClinicLocation extends StatelessWidget {
   const ClinicLocation({
@@ -226,42 +132,7 @@ class ClinicLocation extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.3,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        // child: FlutterMap(
-        //   options: MapOptions(center: latLng.LatLng(0, 0)),
-        //   children: [
-        //     MarkerLayer(
-        //       rotate: true,
-        //       markers: [
-        //         Marker(
-        //           point: latLng.LatLng(0, 0),
-        //           width: 256,
-        //           height: 256,
-        //           anchorPos: AnchorPos.align(AnchorAlign.left),
-        //           builder: (context) => const ColoredBox(
-        //             color: Colors.lightBlue,
-        //             child: Align(
-        //               alignment: Alignment.centerRight,
-        //               child: Text('-->'),
-        //             ),
-        //           ),
-        //         ),
-        //         Marker(
-        //           point: latLng.LatLng(0, 0),
-        //           width: 256,
-        //           height: 256,
-        //           anchorPos: AnchorPos.align(AnchorAlign.right),
-        //           builder: (context) => const ColoredBox(
-        //             color: Colors.pink,
-        //             child: Align(
-        //               alignment: Alignment.centerLeft,
-        //               child: Text('<--'),
-        //             ),
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //   ],
-        // ),
+
         child: FlutterMap(
           options: MapOptions(
             interactiveFlags:
@@ -270,32 +141,6 @@ class ClinicLocation extends StatelessWidget {
             zoom: 16.0,
           ),
           children: [
-            // MarkerLayer(
-            //
-            //     markers: [
-            //     Marker(
-            //       point: latLng.LatLng(53.6363, -113.3733),
-            //       width: 256,
-            //       height: 256,
-            //       anchorPos: AnchorPos.align(AnchorAlign.left),
-            //       builder: (context) => const FlutterLogo(
-            //         // color: Colors.lightBlue,
-            //         // child: Align(
-            //         //   alignment: Alignment.centerRight,
-            //         //   curve: Text('-->'),
-            //
-            //       ),
-            //     ),
-            //       Marker(
-            //
-            //         point:  latLng.LatLng(53.6363, -113.3733),
-            //         builder: (ctx) => const FlutterLogo(
-            //           textColor: Colors.purple,
-            //           key: ObjectKey(Colors.purple),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
 
             TileLayer(
               urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -303,12 +148,7 @@ class ClinicLocation extends StatelessWidget {
             ),
           ],
 
-          // layers: [
-          //   TileLayerOptions(
-          //     subdomains: ['a', 'b', 'c'],
-          //     urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-          //   ),
-          //],
+
         ),
       ),
     );
