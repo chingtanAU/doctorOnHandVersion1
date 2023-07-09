@@ -118,6 +118,7 @@ class MyLogin extends StatelessWidget {
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () {
+
                                       Get.offAllNamed("/home");
                                       // auth.onLogin(context);
 
