@@ -112,6 +112,7 @@ class AuthController extends GetxController {
 
     print(done);
 
+
     if (done) {
       String email = globals.emailKey.currentState!.value;
       String password = globals.passKey.currentState!.value;
