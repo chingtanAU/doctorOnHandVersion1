@@ -72,6 +72,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/home',  page: () => Homepage()),
         GetPage(name: '/book',  page: () => BookingCalendarDemoApp()),
         GetPage(name: '/detail',  page: () => DetailScreen()),
+
         GetPage(name: '/editProfile',  page: () => ProfilePage()),
         GetPage(name: '/video', page: () => VideoCallScreen()),
 
