@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../../Controllers/clinicController.dart';
+import '../../entity/HealthCarePhacility.dart';
 import '../../globals.dart' as globals;
 import '../../validatorsAuth/auth.dart';
 import '../../widgets/appbar.dart';
@@ -19,6 +21,7 @@ import '../ocr/image_input.dart';
 class Homepage extends StatefulWidget {
   Homepage({Key? key}) : super(key: key);
   final authController = Get.find<AuthController>();
+  final clinicController = Get.find<ClinicContoller>();
   final NotificationController controller = Get.put(NotificationController());
 
   @override
@@ -50,49 +53,7 @@ class _HomepageState extends State<Homepage> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
-  // var itemCategory = [
-  //   {
-  //     "image": "/Specialities/heart.svg",
-  //     "name": "Cardiology",
-  //     "stuff": "85 Doctors",
-  //     "color": Colors.red,
-  //   },
-  //   {
-  //     "image": "/Specialities/Teeth.svg",
-  //     "name": "Teeth",
-  //     "stuff": "38 Doctors",
-  //     "color": Colors.white,
-  //   },
-  //   {
-  //     "image": "/Specialities/Bone.svg",
-  //     "name": "Ligaments",
-  //     "stuff": "65 Doctors",
-  //     "color": Colors.white
-  //   },
-  // ];
 
-  // var doctorItem = [
-  //   {
-  //     "image": "assets/Image2.jpg",
-  //     "name": "Dr.Mary Albright",
-  //     "specialist": "Cardiologist"
-  //   },
-  //   {
-  //     "image": "assets/Image3.jpg",
-  //     "name": "Dr.Sara James",
-  //     "specialist": "Dentist"
-  //   },
-  //   {
-  //     "image": "assets/Image4.jpg",
-  //     "name": "Dr.Robert Dean",
-  //     "specialist": "Cardiologist"
-  //   },
-  //   {
-  //     "image": "assets/Image5.jpg",
-  //     "name": "Dr.Anita Silva  ",
-  //     "specialist": "orthopedist"
-  //   },
-  // ];
 
   Widget doctors(
       {required String image,
@@ -229,7 +190,6 @@ class _HomepageState extends State<Homepage> {
     width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
-
       key: _scaffoldKey,
       resizeToAvoidBottomInset: true,
       //new line
@@ -251,9 +211,8 @@ class _HomepageState extends State<Homepage> {
                     ],
                   )),
 
-              accountName: Obx(() => Text(authController.firebaseUser.value?.displayName ?? '')),
-
-              accountEmail: Text('johndoe@example.com'),
+              accountName: Text('${widget.authController.userData.value.fName} ${widget.authController.userData.value.lName}'),
+              accountEmail: Text(widget.authController.userData.value.email),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/profile.jpg'),
               ),
@@ -268,6 +227,17 @@ class _HomepageState extends State<Homepage> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.account_circle_sharp),
+              title: Text('Profile'),
+              onTap: () {
+                Get.offAllNamed("/editProfile");
+                // Handle item tap
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Log out'),
+
               leading: const Icon(Icons.logout),
               title: const Text('Log out'),
               onTap: () {
@@ -280,46 +250,7 @@ class _HomepageState extends State<Homepage> {
         ),
       ),
 
-      // child: ListView.builder(
-      //   padding: EdgeInsets.zero,
-      //   itemCount: 4, // Replace with the actual number of items
-      //   itemBuilder: (BuildContext context, int index) {
-      //     if (index == 0) {
-      //       return UserAccountsDrawerHeader(
-      //         accountName: Text('John Doe'),
-      //         accountEmail: Text('johndoe@example.com'),
-      //         currentAccountPicture: CircleAvatar(
-      //           backgroundImage: AssetImage('assets/profile.jpg'),
-      //         ),
-      //       );
-      //     } else {
-      //       return Column(
-      //         children: <Widget>[
-      //           index != 3
-      //               ? ListTile(
-      //                   leading: Icon(Icons.home),
-      //                   title: Text('Item $index'),
-      //                   onTap: () {
-      //                     Get.toNamed("/home");
-      //                     // Handle item tap
-      //                   },
-      //                 )
-      //               : ListTile(
-      //                   leading: Icon(Icons.logout),
-      //                   title: Text('Log out'),
-      //                   onTap: () {
-      //                     widget.authController.logOut();
-      //                     Get.offAllNamed("/login");
-      //                   },
-      //                 ),
-      //           Divider(
-      //             thickness: 2.0,
-      //           ),
-      //         ],
-      //       );
-      //     }
-      //   },
-      // ),
+
 
       appBar: CustomAppBar(
           IconButton(icon: const Icon(Icons.menu), onPressed: _openDrawer), actions3),
@@ -368,7 +299,7 @@ class _HomepageState extends State<Homepage> {
   }
 }
 
-Container createDocWidget(String imgName, String docName) {
+Container createDocWidget(String imgName,HealthCarePhacility clinic, String docName ) {
   return Container(
     margin: const EdgeInsets.all(
       8,
@@ -447,12 +378,12 @@ Container createDocWidget(String imgName, String docName) {
         Get.to(() => ClinicDetails(
               clinic: Clinic(
                 id: 2,
-                name: 'XYZ Clinic',
-                visits: 10,
+                name: clinic.name,
+                visits:10 ,
                 lastVisit: '2023-02-01',
                 imageUrl: 'assets/doctor.png',
                 description:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                    clinic.desc!,
               ),
             ));
         //Get.offNamed('/detail');

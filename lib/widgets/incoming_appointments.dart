@@ -27,7 +27,7 @@ class IncomingCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           width: width * 1,
-          height: height * 0.21,
+          height: height * 0.25,
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor.withOpacity(0.8),

@@ -1,6 +1,7 @@
 
 import 'package:doctorppp/screens/Clinic/bookingScreen.dart';
 import 'package:doctorppp/screens/detailscreen.dart';
+import 'package:doctorppp/screens/editProfile/profile_page.dart';
 import 'package:doctorppp/screens/video_calll/meet.dart';
 import 'package:doctorppp/screens/video_calll/token_generation.dart';
 import 'package:doctorppp/signin/login.dart';
@@ -10,6 +11,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'Controllers/clinicController.dart';
 import 'screens/HomePage/homepage.dart';
 
 Future<void> main() async {
@@ -18,8 +20,11 @@ Future<void> main() async {
     statusBarColor: Colors.transparent,
   ));
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp().then((value) => Get.put(AuthController()));
   Get.put<AgoraTokenService>(AgoraTokenService());
+  Get.put(ClinicContoller());
+
 
 
   runApp(const MyApp());
@@ -67,6 +72,9 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/home',  page: () => Homepage()),
         GetPage(name: '/book',  page: () => BookingCalendarDemoApp()),
         GetPage(name: '/detail',  page: () => DetailScreen()),
+
+        GetPage(name: '/editProfile',  page: () => ProfilePage()),
+        GetPage(name: '/video', page: () => VideoCallScreen()),
 
       ],
 
