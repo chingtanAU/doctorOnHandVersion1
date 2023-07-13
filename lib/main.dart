@@ -74,7 +74,6 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/detail',  page: () => DetailScreen()),
 
         GetPage(name: '/editProfile',  page: () => ProfilePage()),
-        GetPage(name: '/video', page: () => VideoCallScreen()),
 
       ],
 

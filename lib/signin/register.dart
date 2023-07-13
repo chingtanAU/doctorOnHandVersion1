@@ -23,7 +23,7 @@ const List<String> listClinic = <String>
 
 
 class MyRegister extends StatefulWidget {
-   MyRegister({Key? key}) : super(key: key);
+  MyRegister({Key? key}) : super(key: key);
 
   final authController = Get.find<AuthController>();
   @override
@@ -84,11 +84,11 @@ class _MyRegisterState extends State<MyRegister> {
                           margin: const EdgeInsets.only(left: 35, right: 35),
                           child: Column(
                             children: [
-                                DropdownButtonExample(notifyParent: refresh),
+                              DropdownButtonExample(notifyParent: refresh),
 
 
                               globals.roleKey.currentState?.value=='Doctor' ? const DropdownButtonClinic():
-                                  /////////////////////////////
+                              /////////////////////////////
 
                               const SizedBox(
                                 height: 30,
@@ -148,7 +148,7 @@ class _MyRegisterState extends State<MyRegister> {
 
                               TextFormField(
                                 onChanged: (text) {
-                                 validator.FireError.setEmailUseError(false);
+                                  validator.FireError.setEmailUseError(false);
                                 },
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 key: globals.emailKey,
@@ -208,7 +208,7 @@ class _MyRegisterState extends State<MyRegister> {
                               ),
 
                               IntlPhoneField(
-                                keyField: globals.phoneKey,
+                                // keyField: globals.phoneKey,
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
@@ -236,7 +236,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 },
                               ),
 
-                           /*   TextFormField(
+                              /*   TextFormField(
                                 key:globals.phoneKey,
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
@@ -357,7 +357,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 children: [
                                   TextButton(
                                     onPressed: () {
-                                      Get.offNamed("/login");
+                                      Get.offNamed("/");
                                     },
                                     style: const ButtonStyle(),
                                     child: const Text(
@@ -404,7 +404,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-    autovalidateMode: AutovalidateMode.onUserInteraction,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value)=>(value==null ? 'select an account type' : null ) ,
       hint: const Text("Account Type",style: TextStyle(color: Colors.black)),
       key: globals.roleKey,
@@ -441,7 +441,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value,
-          style:const TextStyle(color: Colors.black) ,),
+            style:const TextStyle(color: Colors.black) ,),
         );
       }).toList(),
     );
@@ -476,50 +476,49 @@ class _DropdownButtonClinicState extends State<DropdownButtonClinic> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value)=>(value==null ? 'clinic is required' : null ) ,
           hint: const Text("Select your clinic",style: TextStyle(color: Colors.black)),
-        key: globals.clinicsKey,
-        decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(
-                color: Colors.black,
+          key: globals.clinicsKey,
+          decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(
+                  color: Colors.black,
+                ),
               ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(
-                color: Colors.black,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(
+                  color: Colors.black,
+                ),
               ),
-            ),
-            hintStyle: const TextStyle(color: Colors.black),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            )) ,
-        isExpanded: true,
-        value: dropdownValue,
-        icon: const Icon(Icons.arrow_downward),
-        elevation: 16,
-        style: const TextStyle(color: Colors.deepPurple),
-        onChanged: (String? value) {
-          print(globals.roleKey.currentState?.value);
-          setState(() {
-            dropdownValue = value!;
-          });
-        },
-        items: listClinic.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value,
-              style:const TextStyle(color: Colors.black) ,),
-          );
-        }).toList(),
-      ),const SizedBox(
+              hintStyle: const TextStyle(color: Colors.black),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              )) ,
+          isExpanded: true,
+          value: dropdownValue,
+          icon: const Icon(Icons.arrow_downward),
+          elevation: 16,
+          style: const TextStyle(color: Colors.deepPurple),
+          onChanged: (String? value) {
+            print(globals.roleKey.currentState?.value);
+            setState(() {
+              dropdownValue = value!;
+            });
+          },
+          items: listClinic.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value,
+                style:const TextStyle(color: Colors.black) ,),
+            );
+          }).toList(),
+        ),const SizedBox(
           height: 40,
         )],
     )
-      ;
+    ;
   }
 }
-
 
 
 

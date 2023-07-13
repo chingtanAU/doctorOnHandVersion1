@@ -161,7 +161,7 @@ class _HomepageState extends State<Homepage> {
 
   int _currentIndex = 0;
   List page = [
-    const HomeInfo(),
+     HomeInfo(),
     const ChatList(),
     const PatientProfile(),
   ];
@@ -238,8 +238,6 @@ class _HomepageState extends State<Homepage> {
               leading: Icon(Icons.logout),
               title: Text('Log out'),
 
-              leading: const Icon(Icons.logout),
-              title: const Text('Log out'),
               onTap: () {
                 widget.authController.logOut();
                 Get.offAllNamed("/login");
