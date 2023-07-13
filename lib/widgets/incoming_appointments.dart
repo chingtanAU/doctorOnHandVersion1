@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
 
+import '../screens/video_calll/meet.dart';
+
 
 class IncomingCard extends StatelessWidget {
   const IncomingCard({
@@ -16,7 +18,10 @@ class IncomingCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-         Get.toNamed('/video');
+        String doctorId = 'doctor1'; // Replace with the actual doctor ID
+        String patientId = 'patient3'; // Replace with the actual patient ID
+        Get.to(
+            VideoCallScreen(doctorId: doctorId, patientId: patientId));
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

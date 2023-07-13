@@ -7,7 +7,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get.dart';
 
 class VideoCallScreen extends StatefulWidget {
-  const VideoCallScreen({Key? key}) : super(key: key);
+  const VideoCallScreen({Key? key,required this.doctorId,
+    required this.patientId,}) : super(key: key);
+    final String doctorId;
+    final String patientId;
 
   @override
   State<VideoCallScreen> createState() => _VideoCallScreenState();
@@ -41,11 +44,11 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _generateToken();
+    _generateToken(widget.doctorId, widget.patientId);
   }
 
-  Future<void> _generateToken() async {
-    await controller.generateToken('doctor1', 'patient3');
+  Future<void> _generateToken(doctorId,patientId) async {
+    await controller.generateToken(doctorId,patientId);
     await _initAgoraRtcEngine();
     await _engine.joinChannel(controller.token.value, controller.channelName.value, null, 0);
   }
