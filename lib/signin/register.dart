@@ -208,7 +208,7 @@ class _MyRegisterState extends State<MyRegister> {
                               ),
 
                               IntlPhoneField(
-                                keyField: globals.phoneKey,
+                               // keyField: globals.phoneKey,
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
@@ -357,7 +357,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 children: [
                                   TextButton(
                                     onPressed: () {
-                                      Get.offNamed("/login");
+                                      Get.offNamed("/");
                                     },
                                     style: const ButtonStyle(),
                                     child: const Text(

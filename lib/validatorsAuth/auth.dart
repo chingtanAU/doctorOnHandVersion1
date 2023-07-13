@@ -13,12 +13,11 @@ import '../persistance/userCrud.dart' as userCrud;
 
 class AuthController extends GetxController {
 
-  Rx<UserProfile> userData = Rx<UserProfile>(UserProfile.empty()) ;
   late Rx<User?> firebaseUser;
 
 
   @override
-   void onReady() async {
+  void onReady() {
     super.onReady();
     firebaseUser = Rx<User?>(auth.currentUser);
     firebaseUser.bindStream(auth.userChanges());
@@ -26,24 +25,19 @@ class AuthController extends GetxController {
 
   }
 
-   Future<void> _setInitialScreen(User? user) async {
-
+  _setInitialScreen(User? user) {
     if (user == null) {
+
       // if the user is not found then the user is navigated to the Register Screen
       Get.offNamed('/login');
 
     } else {
-      await fetchUserInfo();
+
+      // if the user exists and logged in the the user is navigated to the Home Screen
       Get.offNamed('/home');
+
     }
   }
-
-  Future<UserProfile?> fetchUserInfo() async{
-     await  userCrud.fetchUserInfo((auth.currentUser!.uid)).then((value) => userData.value=value!);
-  }
-
-
-
 
 
   Future<UserCredential> signInWithGoogle() async {
@@ -69,7 +63,6 @@ class AuthController extends GetxController {
     bool done = true;
     for (int i = 0; i < globals.loginKeys.length; i++){
       if (!globals.loginKeys[i].currentState!.validate()){
-
         done = false;
       }
     }
@@ -105,12 +98,11 @@ class AuthController extends GetxController {
   }
 
   Future<void> onRegister() async{
-    bool done = true;
 
+
+    bool done = true;
     for (int i = 0; i < globals.regKeys.length; i++){
-      print(globals.regKeys[i].currentState!.value);
       if (!globals.regKeys[i].currentState!.validate()){
-        print(i);
         done = false;
       }
     }

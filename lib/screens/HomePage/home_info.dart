@@ -1,36 +1,22 @@
 
-import 'dart:ui';
-
-
 
 import 'package:doctorppp/screens/history/view.dart';
 
 import 'package:doctorppp/screens/search/view.dart';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import 'package:ionicons/ionicons.dart';
-import '../../Controllers/clinicController.dart';
-import '../../validatorsAuth/auth.dart';
 import '../../widgets/incoming_appointments.dart';
 import 'homepage.dart';
 
-
 class HomeInfo extends StatelessWidget {
-
-  HomeInfo({
+  const HomeInfo({
     super.key,
   });
 
-  final authController = Get.find<AuthController>();
-  final clinicController = Get.find<ClinicContoller>() ;
-
-
   @override
   Widget build(BuildContext context) {
-    width= MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -41,9 +27,8 @@ class HomeInfo extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.all(width * 0.04),
-                  child: Text(
-                    "Hi! ${authController.userData.value.fName}",
-
+                  child: const Text(
+                    "Hi! Jhon",
                      //   "\nHow are you today?",
                     style: TextStyle(
                       fontFamily: "Roboto",
@@ -225,7 +210,63 @@ class HomeInfo extends StatelessWidget {
                       ),
                     ),
 
-
+                    // Card(
+                    //   shape: RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.circular(15),
+                    //   ),
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: Container(
+                    //       height: height * 0.2,
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(15),
+                    //         color: Colors.red.shade100,
+                    //         boxShadow: [
+                    //           BoxShadow(
+                    //             color: Colors.grey,
+                    //             blurRadius: 3.0,
+                    //             spreadRadius: 3.0,
+                    //             offset: Offset(3.0, 3.0), // shadow direction: bottom right
+                    //           )
+                    //         ],
+                    //
+                    //       ),
+                    //       child: Column(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //
+                    //           Column(
+                    //             children: [
+                    //               Padding(
+                    //                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                    //                 child: ClipRRect(
+                    //                   borderRadius: BorderRadius.circular(10),
+                    //                   child: Icon(
+                    //                     Ionicons.calendar_outline,
+                    //                     size: 75,
+                    //                     color: Colors.teal,
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //               Padding(
+                    //                 padding: const EdgeInsets.fromLTRB(8,0,8,0),
+                    //                 child: Text(
+                    //                   "Book an Appointment",
+                    //                   style: const TextStyle(
+                    //                     fontFamily: "Comic Sans",
+                    //                     fontWeight: FontWeight.bold,
+                    //                     fontSize: 15,
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
 
@@ -245,10 +286,88 @@ class HomeInfo extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                createDocWidget("doctor.png", clinicController.clinicList.value[0],"doctor"),
-                createDocWidget("Image2.jpg", clinicController.clinicList.value[0],"doctor"),
-                createDocWidget("Image3.jpg", clinicController.clinicList.value[0],"doctor"),
+                //
+                // Container(
+                //   height: height * 0.22,
+                //   // color: Colors.amber,
+                //   padding: EdgeInsets.only(left:width * 0.04 ),
+                //   child: GridView.builder(
+                //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                //       crossAxisCount: 2,
+                //     ),
+                //
+                //     // scrollDirection: Axis.horizontal,
+                //     itemCount: itemCategory.length,
+                //     itemBuilder: (context, index) {
+                //       return SingleCategory(
+                //         image: itemCategory[index]["image"].toString(),
+                //         name: itemCategory[index]["name"].toString(),
+                //         doctors: itemCategory[index]["stuff"].toString(),
+                //         color: itemCategory[index]["color"] as Color,
+                //       );
+                //     },
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: height * 0.02,
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                //   child: const SizedBox(
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         Text(
+                //           "Top Rated Doctor",
+                //           style: const TextStyle(
+                //             fontFamily: "Comic Sans",
+                //             fontWeight: FontWeight.bold,
+                //             fontSize: 22,
+                //           ),
+                //         ),
+                //         Text(
+                //           "See All",
+                //           style: const TextStyle(
+                //             fontFamily: "Comic Sans",
+                //             fontWeight: FontWeight.w400,
+                //             fontSize: 22,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                // Container(
+                //   margin: EdgeInsets.symmetric(
+                //     horizontal: 15,
+                //   ),
+                //   child: GridView.count(
+                //     shrinkWrap: true,
+                //     crossAxisSpacing: 8.0,
+                //     mainAxisSpacing: 8.0,
+                //     childAspectRatio: 0.85,
+                //     physics: NeverScrollableScrollPhysics(),
+                //     crossAxisCount: 2,
+                //     children: List.generate(doctorItem.length, (index) {
+                //       return GestureDetector(
+                //         onTap: () {
+                //           Navigator.of(context).push(MaterialPageRoute(
+                //             builder: (ctx) => DetailScreen(),
+                //           ));
+                //         },
+                //         child:  doctors(
+                //           image: doctorItem[index]["image"].toString(),
+                //           name: doctorItem[index]["name"].toString(),
+                //           specialist:
+                //               doctorItem[index]["specialist"].toString(),
+                //         ),
+                //       );
+                //     }),
+                //   ),
+                // ),
+                createDocWidget("doctor.png", "ABC Clinic"),
+                createDocWidget("Image2.jpg", "Paul Barbara"),
+                createDocWidget("Image3.jpg", "Nancy Williams"),
               ],
             ),
           ),
