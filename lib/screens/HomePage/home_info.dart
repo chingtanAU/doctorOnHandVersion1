@@ -27,10 +27,10 @@ class HomeInfo extends StatelessWidget {
   final authController = Get.find<AuthController>();
   final clinicController = Get.find<ClinicContoller>() ;
 
-
   @override
   Widget build(BuildContext context) {
-    width= MediaQuery.of(context).size.width;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height; // Add this line
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -246,9 +246,9 @@ class HomeInfo extends StatelessWidget {
                   ),
                 ),
 
-                createDocWidget("doctor.png", clinicController.clinicList.value[0],"doctor"),
-                createDocWidget("Image2.jpg", clinicController.clinicList.value[0],"doctor"),
-                createDocWidget("Image3.jpg", clinicController.clinicList.value[0],"doctor"),
+             //    if (clinicController.clinicList.value.length != 0)
+             //      createDocWidget("doctor.png", clinicController.clinicList.value[0], "doctor"),                createDocWidget("Image2.jpg", clinicController.clinicList.value[0],"doctor"),
+             // //   createDocWidget("Image3.jpg", clinicController.clinicList.value[0],"doctor"),
               ],
             ),
           ),

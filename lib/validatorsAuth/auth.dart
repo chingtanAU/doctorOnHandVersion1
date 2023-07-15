@@ -81,7 +81,8 @@ class AuthController extends GetxController {
             password: globals.passLoginKey.currentState!.value
         );
 
-        Get.offNamed("/home");
+
+        Get.toNamed('/home');
       }
       on FirebaseAuthException catch (e) {
 
