@@ -26,7 +26,9 @@ class Homepage extends StatefulWidget {
 
   @override
   void initState() {
-    globals.auth.authStateChanges().listen((User? user) {
+    globals.auth
+        .authStateChanges()
+        .listen((User? user) {
       if (user == null) {
         print('User is currently signed out!');
       } else {
@@ -35,7 +37,8 @@ class Homepage extends StatefulWidget {
     });
   }
 
-  @override
+
+    @override
   _HomepageState createState() => _HomepageState();
 }
 
@@ -43,7 +46,7 @@ late double height;
 late double width;
 
 class _HomepageState extends State<Homepage> {
-  final AuthController authController = Get.find<AuthController>();
+  //final AuthController authController = Get.find<AuthController>();
   double xoffset = 0;
   double yoffset = 0;
   double scaleFactor = 1;
@@ -297,97 +300,97 @@ class _HomepageState extends State<Homepage> {
   }
 }
 
-Container createDocWidget(String imgName,HealthCarePhacility clinic, String docName ) {
-  return Container(
-    margin: const EdgeInsets.all(
-      8,
-    ),
-    decoration: BoxDecoration(
-      color: Colors.white.withOpacity(0.8),
-      // color: Theme.of(context as BuildContext).primaryColor.withOpacity(0.8),
-      borderRadius: BorderRadius.circular(20),
-      //boxShadow: kElevationToShadow[6],
-      boxShadow: const [
-        BoxShadow(
-          color: Colors.grey,
-          blurRadius: 3.0,
-          spreadRadius: 3.0,
-          offset: Offset(3.0, 3.0), // shadow direction: bottom right
-        )
-      ],
-    ),
-    child: InkWell(
-      child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(12),
-          ),
-          color: Colors.cyan,
-        ),
-        child: Container(
-          padding: const EdgeInsets.all(7),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Container(
-                width: 70,
-                height: 90,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/$imgName'),
-                        fit: BoxFit.cover)),
-              ),
-              SizedBox(
-                width: width * 0.03,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text(
-                    " $docName",
-                    style: const TextStyle(
-                      fontFamily: "Comic Sans",
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                  SizedBox(height: height * 0.02),
-                  const SizedBox(
-                    width: 250,
-                    height: 50,
-                    child: Text(
-                      "A brief about the doctor to be added here. This is more like an introduction about the doctor",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      overflow: TextOverflow.clip,
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-      onTap: () {
-        //Get.to(() => ClinicDetails());
-        Get.to(() => ClinicDetails(
-              clinic: Clinic(
-                id: 2,
-                name: clinic.name,
-                visits:10 ,
-                lastVisit: '2023-02-01',
-                imageUrl: 'assets/doctor.png',
-                description:
-                    clinic.desc!,
-              ),
-            ));
-        //Get.offNamed('/detail');
-
-        print('tapped ');
-      },
-    ),
-  );
-}
+// Container createDocWidget(String imgName,HealthCarePhacility clinic, String docName ) {
+//   return Container(
+//     margin: const EdgeInsets.all(
+//       8,
+//     ),
+//     decoration: BoxDecoration(
+//       color: Colors.white.withOpacity(0.8),
+//       // color: Theme.of(context as BuildContext).primaryColor.withOpacity(0.8),
+//       borderRadius: BorderRadius.circular(20),
+//       //boxShadow: kElevationToShadow[6],
+//       boxShadow: const [
+//         BoxShadow(
+//           color: Colors.grey,
+//           blurRadius: 3.0,
+//           spreadRadius: 3.0,
+//           offset: Offset(3.0, 3.0), // shadow direction: bottom right
+//         )
+//       ],
+//     ),
+//     child: InkWell(
+//       child: Container(
+//         decoration: const BoxDecoration(
+//           borderRadius: BorderRadius.all(
+//             Radius.circular(12),
+//           ),
+//           color: Colors.cyan,
+//         ),
+//         child: Container(
+//           padding: const EdgeInsets.all(7),
+//           child: Row(
+//             crossAxisAlignment: CrossAxisAlignment.end,
+//             children: <Widget>[
+//               Container(
+//                 width: 70,
+//                 height: 90,
+//                 decoration: BoxDecoration(
+//                     image: DecorationImage(
+//                         image: AssetImage('assets/$imgName'),
+//                         fit: BoxFit.cover)),
+//               ),
+//               SizedBox(
+//                 width: width * 0.03,
+//               ),
+//               Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                 children: <Widget>[
+//                   Text(
+//                     " $docName",
+//                     style: const TextStyle(
+//                       fontFamily: "Comic Sans",
+//                       fontWeight: FontWeight.bold,
+//                       fontSize: 18,
+//                     ),
+//                   ),
+//                   SizedBox(height: height * 0.02),
+//                   const SizedBox(
+//                     width: 250,
+//                     height: 50,
+//                     child: Text(
+//                       "A brief about the doctor to be added here. This is more like an introduction about the doctor",
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         fontWeight: FontWeight.w400,
+//                       ),
+//                       overflow: TextOverflow.clip,
+//                     ),
+//                   )
+//                 ],
+//               )
+//             ],
+//           ),
+//         ),
+//       ),
+//       onTap: () {
+//         //Get.to(() => ClinicDetails());
+//         Get.to(() => ClinicDetails(
+//               clinic: Clinic(
+//                 id: 2,
+//                 name: clinic.name,
+//                 visits:10 ,
+//                 lastVisit: '2023-02-01',
+//                 imageUrl: 'assets/doctor.png',
+//                 description:
+//                     clinic.desc!,
+//               ),
+//             ));
+//         //Get.offNamed('/detail');
+//
+//         print('tapped ');
+//       },
+//     ),
+//   );
+// }
