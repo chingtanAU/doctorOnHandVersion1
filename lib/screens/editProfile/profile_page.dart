@@ -51,8 +51,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 onPressed: () {},
               )),
           Obx(() => buildUserInfoDisplay(widget.authController.userData.value.fName+" "+widget.authController.userData.value.lName , 'Name', EditNameFormPage())),
-          buildUserInfoDisplay(widget.authController.userData.value.phone, 'Phone', EditPhoneFormPage()),
-          buildUserInfoDisplay(widget.authController.userData.value.email, 'Email', EditEmailFormPage()),
+      Obx(() => buildUserInfoDisplay(widget.authController.userData.value.phone, 'Phone', EditPhoneFormPage())),
+    Obx(() => buildUserInfoDisplay(widget.authController.userData.value.email, 'Email', EditEmailFormPage())),
          /* Expanded(
             child: buildAbout(user),
             flex: 4,

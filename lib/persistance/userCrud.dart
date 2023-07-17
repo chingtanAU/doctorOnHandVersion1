@@ -4,9 +4,6 @@ import '../globals.dart';
 
 final CollectionReference userCollection = firestore.collection("Users");
 
-
-
-
 Future<void> addUser(String uid,Map<String, dynamic> user) async {
   userCollection.doc(uid).set(user);
 }

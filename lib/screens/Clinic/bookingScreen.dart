@@ -113,13 +113,9 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
         });
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
         title: 'Booking Calendar Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,

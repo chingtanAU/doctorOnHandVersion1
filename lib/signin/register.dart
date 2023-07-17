@@ -1,3 +1,6 @@
+
+import 'package:doctorppp/Controllers/signUpContoller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -17,6 +20,7 @@ const List<String> listClinic = <String>
   'Misericordia Urgent Care Centre',
   'Queen Elizabeth II Hospital',
   'Meadows Medical Clinic',
+  'Other'
 ];
 
 
@@ -26,19 +30,12 @@ class MyRegister extends StatefulWidget {
   MyRegister({Key? key}) : super(key: key);
 
   final authController = Get.find<AuthController>();
+  final SignUpContoller signUpContoller = Get.put(SignUpContoller());
   @override
   _MyRegisterState createState() => _MyRegisterState();
 }
 
 class _MyRegisterState extends State<MyRegister> {
-
-
-
-  refresh() {
-
-    setState(() {});
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -80,19 +77,20 @@ class _MyRegisterState extends State<MyRegister> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
 
-                        Container(
-                          margin: const EdgeInsets.only(left: 35, right: 35),
+                        Obx(()=>Container(
+                          margin: EdgeInsets.only(left: 35, right: 35),
                           child: Column(
                             children: [
-                              DropdownButtonExample(notifyParent: refresh),
-
-
-                              globals.roleKey.currentState?.value=='Doctor' ? const DropdownButtonClinic():
-                              /////////////////////////////
-
-                              const SizedBox(
-                                height: 30,
+                              DropdownButtonExample(),
+                              if(widget.signUpContoller.accountType.value=='Doctor')DropdownButtonClinic()
+                              else  const SizedBox(
+                              height: 40,
                               ),
+
+                              if(widget.signUpContoller.clinic.value=='Other'&&widget.signUpContoller.accountType.value=='Doctor')
+                                const ClinicName(),
+
+
                               TextFormField(
                                 key: globals.fNameKey,
                                 validator: (text)=> validator.nameValidator(text!) ,
@@ -117,7 +115,7 @@ class _MyRegisterState extends State<MyRegister> {
                                     )),
                               ),
                               const SizedBox(
-                                height: 30,
+                                height: 40,
                               ),
                               TextFormField(
                                 key: globals.lNameKey,
@@ -142,9 +140,47 @@ class _MyRegisterState extends State<MyRegister> {
                                       borderRadius: BorderRadius.circular(10),
                                     )),
                               ),
-                              const SizedBox(
-                                height: 30,
-                              ),
+
+                              if(widget.signUpContoller.accountType.value=='Doctor')
+                                 Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: 30,
+                                    )
+                                    ,
+                                    TextFormField(
+                                      key: globals.doctorSpeciality ,
+                                      validator: (text)=> validator.nameValidator(text!) ,
+                                      style: const TextStyle(color: Colors.black),
+                                      decoration: InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                            borderSide: BorderSide(
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                            borderSide: BorderSide(
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          hintText: "Speciality",
+                                          hintStyle: const TextStyle(color: Colors.black),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                          )),
+                                    ),
+                                      const SizedBox(
+                                      height: 30,
+                                      )
+
+                                  ],
+                                )
+                                   else
+                                      const SizedBox(
+                                      height: 30,
+                                      ),
 
                               TextFormField(
                                 onChanged: (text) {
@@ -373,7 +409,7 @@ class _MyRegisterState extends State<MyRegister> {
                               )
                             ],
                           ),
-                        )
+                        ))
                       ],
                     ),
                   ),
@@ -387,12 +423,105 @@ class _MyRegisterState extends State<MyRegister> {
     );
   }}
 
+class ClinicName extends StatelessWidget {
+   const ClinicName({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TextFormField(
+          key: globals.clinicNameKey,
+          validator: (text)=> validator.nameValidator(text!) ,
+          style: const TextStyle(color: Colors.black),
+          decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: Colors.black,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: Colors.black,
+                ),
+              ),
+              hintText: "Clinic Name",
+              hintStyle: const TextStyle(color: Colors.black),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              )),
+        ),
+        const SizedBox(
+          height: 40,
+        ),
+        TextFormField(
+          key: globals.clinicPhoneKey,
+          validator: (text)=> validator.nameValidator(text!) ,
+          style: const TextStyle(color: Colors.black),
+          decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: Colors.black,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: Colors.black,
+                ),
+              ),
+              hintText: "Clinic Phone Number",
+              hintStyle: const TextStyle(color: Colors.black),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              )),
+        ),
+        const SizedBox(
+          height: 40,
+        ),
+        TextFormField(
+          key: globals.clinicAddressKey,
+          validator: (text)=> validator.nameValidator(text!) ,
+          style: const TextStyle(color: Colors.black),
+          decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: Colors.black,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: Colors.black,
+                ),
+              ),
+              hintText: "Clinic address",
+              hintStyle: const TextStyle(color: Colors.black),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              )),
+        ),
+        const SizedBox(
+          height: 40,
+        ),
+
+    ]);
+  }
+}
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////////////
 class DropdownButtonExample extends StatefulWidget {
 
-  final Function() notifyParent;
+   DropdownButtonExample({super.key});
 
-  const DropdownButtonExample({super.key,required this.notifyParent});
+    final signUpContoller = Get.find<SignUpContoller>();
 
   @override
   State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
@@ -431,11 +560,8 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
       elevation: 16,
       style: const TextStyle(color: Colors.deepPurple),
       onChanged: (String? value) {
-        print(globals.roleKey.currentState?.value);
-        setState(() {
-          dropdownValue = value!;
-          widget.notifyParent();
-        });
+        widget.signUpContoller.setAccountType(value);
+        widget.signUpContoller.setClinic("");
       },
       items: list.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
@@ -453,7 +579,9 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
 
 class DropdownButtonClinic extends StatefulWidget {
 
-  const DropdownButtonClinic({super.key});
+   DropdownButtonClinic({super.key});
+
+  final signUpContoller = Get.find<SignUpContoller>();
 
   @override
   _DropdownButtonClinicState createState() => _DropdownButtonClinicState();
@@ -475,14 +603,14 @@ class _DropdownButtonClinicState extends State<DropdownButtonClinic> {
         DropdownButtonFormField<String>(
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value)=>(value==null ? 'clinic is required' : null ) ,
-          hint: const Text("Select your clinic",style: TextStyle(color: Colors.black)),
-          key: globals.clinicsKey,
-          decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(
-                  color: Colors.black,
-                ),
+
+          hint: Text("Select your clinic",style: const TextStyle(color: Colors.black)),
+        key: globals.clinicListKey,
+        decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: Colors.black,
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -490,31 +618,36 @@ class _DropdownButtonClinicState extends State<DropdownButtonClinic> {
                   color: Colors.black,
                 ),
               ),
-              hintStyle: const TextStyle(color: Colors.black),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              )) ,
-          isExpanded: true,
-          value: dropdownValue,
-          icon: const Icon(Icons.arrow_downward),
-          elevation: 16,
-          style: const TextStyle(color: Colors.deepPurple),
-          onChanged: (String? value) {
-            print(globals.roleKey.currentState?.value);
-            setState(() {
-              dropdownValue = value!;
-            });
-          },
-          items: listClinic.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value,
-                style:const TextStyle(color: Colors.black) ,),
-            );
-          }).toList(),
-        ),const SizedBox(
+
+            ),
+            hintStyle: const TextStyle(color: Colors.black),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            )) ,
+        isExpanded: true,
+        value: dropdownValue,
+        icon: const Icon(Icons.arrow_downward),
+        elevation: 16,
+        style: const TextStyle(color: Colors.deepPurple),
+        onChanged: (String? value) {
+          widget.signUpContoller.setClinic(value);
+        },
+        items: listClinic.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value,
+              style:const TextStyle(color: Colors.black) ,),
+          );
+        }).toList(),
+      ),const SizedBox(
+
           height: 40,
-        )],
+        ),
+
+
+      ],
+
+
     )
     ;
   }
