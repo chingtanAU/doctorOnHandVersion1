@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 
+
 import 'package:doctorppp/screens/history/view.dart';
 
 import 'package:doctorppp/screens/search/view.dart';
@@ -26,14 +27,14 @@ class HomeInfo extends StatelessWidget {
   final authController = Get.find<AuthController>();
   final clinicController = Get.find<ClinicContoller>() ;
 
-
   @override
   Widget build(BuildContext context) {
-    width= MediaQuery.of(context).size.width;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height; // Add this line
     return SingleChildScrollView(
       child: Column(
         children: [
-          Container(
+          SizedBox(
             width: width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,8 +43,9 @@ class HomeInfo extends StatelessWidget {
                   padding: EdgeInsets.all(width * 0.04),
                   child: Text(
                     "Hi! ${authController.userData.value.fName}",
+
                      //   "\nHow are you today?",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: "Roboto",
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
@@ -65,9 +67,9 @@ class HomeInfo extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: width * 0.04, vertical: height * 0.01),
-                  child: Text(
+                  child: const Text(
                     "Category",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: "Comic Sans",
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
@@ -104,7 +106,7 @@ class HomeInfo extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               color: Colors.red.shade100,
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   color: Colors.grey,
                                   blurRadius: 3.0,
@@ -125,19 +127,19 @@ class HomeInfo extends StatelessWidget {
                                           0, 0, 0, 20),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
-                                        child: Icon(
+                                        child: const Icon(
                                           Ionicons.calendar_outline,
                                           size: 75,
                                           color: Colors.teal,
                                         ),
                                       ),
                                     ),
-                                    Padding(
+                                    const Padding(
                                       padding:
-                                          const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                                          EdgeInsets.fromLTRB(8, 0, 8, 0),
                                       child: Text(
                                         "Book an Appointment",
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontFamily: "Comic Sans",
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15,
@@ -173,7 +175,7 @@ class HomeInfo extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               color: Colors.red.shade100,
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   color: Colors.grey,
                                   blurRadius: 3.0,
@@ -194,7 +196,7 @@ class HomeInfo extends StatelessWidget {
                                           0, 0, 0, 20),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.medical_information,
                                           size: 75,
                                           color: Colors.red,
@@ -202,12 +204,12 @@ class HomeInfo extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    Padding(
+                                    const Padding(
                                       padding:
-                                          const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                                          EdgeInsets.fromLTRB(8, 0, 8, 0),
                                       child: Text(
                                         "Medical History",
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontFamily: "Comic Sans",
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15,
@@ -234,9 +236,9 @@ class HomeInfo extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: width * 0.04, vertical: height * 0.01),
-                  child: Text(
+                  child: const Text(
                     "Nearby Hospitals/Walk In Clinics",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: "Comic Sans",
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
@@ -244,9 +246,9 @@ class HomeInfo extends StatelessWidget {
                   ),
                 ),
 
-                createDocWidget("doctor.png", clinicController.clinicList.value[0],"doctor"),
-                createDocWidget("Image2.jpg", clinicController.clinicList.value[0],"doctor"),
-                createDocWidget("Image3.jpg", clinicController.clinicList.value[0],"doctor"),
+             //    if (clinicController.clinicList.value.length != 0)
+             //      createDocWidget("doctor.png", clinicController.clinicList.value[0], "doctor"),                createDocWidget("Image2.jpg", clinicController.clinicList.value[0],"doctor"),
+             // //   createDocWidget("Image3.jpg", clinicController.clinicList.value[0],"doctor"),
               ],
             ),
           ),

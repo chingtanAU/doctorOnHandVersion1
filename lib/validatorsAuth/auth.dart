@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../globals.dart' as globals;
 import '../globals.dart';
@@ -80,6 +79,7 @@ class AuthController extends GetxController {
           print('No user found for that email.');
           FireError.userNotFoundError = true;
           globals.emailLoginKey.currentState!.validate();
+
         } else if (e.code == 'wrong-password') {
           print('Wrong password provided for that user.');
           FireError.wrongPassError = true;
@@ -185,8 +185,10 @@ class AuthController extends GetxController {
             textColor: Colors.red,
             fontSize: 16.0);
         Get.offNamed("/home");
+
         ;
       } on FirebaseAuthException catch (e) {
+
         if (e.code == 'email-already-in-use') {
           FireError.setEmailUseError(true);
           globals.emailKey.currentState!.validate();

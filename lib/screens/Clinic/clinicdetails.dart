@@ -22,12 +22,12 @@ class ClinicDetails extends StatelessWidget {
         onPressed: () => {
           Get.toNamed('/book')
         },
-        child: const Text('Book Appointment'),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(
             const Color(0xff575de3),
           ),
         ),
+        child: const Text('Book Appointment'),
       ),
       
 
@@ -72,7 +72,7 @@ class ClinicDetails extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  DetailClinicCard(),
+                  const DetailClinicCard(),
                   const SizedBox(
                     height: 15,
                   ),
@@ -104,7 +104,7 @@ class ClinicDetails extends StatelessWidget {
                   const SizedBox(
                     height: 25,
                   ),
-                  ClinicLocation(),
+                  const ClinicLocation(),
                   const SizedBox(
                     height: 25,
                   ),
@@ -144,7 +144,7 @@ class ClinicLocation extends StatelessWidget {
 
             TileLayer(
               urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-              subdomains: ['a', 'b', 'c'],
+              subdomains: const ['a', 'b', 'c'],
             ),
           ],
 
@@ -166,18 +166,18 @@ class ClinicInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: const [
+        const Row(
+          children: [
             NumberCard(
               label: 'Patients',
               value: '100+',
             ),
-            const SizedBox(width: 15),
+            SizedBox(width: 15),
             NumberCard(
               label: 'Experiences',
               value: '10 years',
             ),
-            const SizedBox(width: 15),
+            SizedBox(width: 15),
             NumberCard(
               label: 'Rating',
               value: '4.0',
@@ -238,7 +238,7 @@ class NumberCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           color: Color(MyColors.bg03),
         ),
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           vertical: 30,
         ),
         child: Column(
@@ -280,7 +280,7 @@ class DetailClinicCard extends StatelessWidget {
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Container(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           width: double.infinity,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -308,7 +308,7 @@ class DetailClinicCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Image(
+              const Image(
                 image: AssetImage('assets/medical1.png'),
                 width: 100,
               )

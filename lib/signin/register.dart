@@ -1,8 +1,8 @@
+
 import 'package:doctorppp/Controllers/signUpContoller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import '../globals.dart' as globals;
 import '../validatorsAuth/Validator.dart' as validator;
@@ -27,7 +27,7 @@ const List<String> listClinic = <String>
 
 
 class MyRegister extends StatefulWidget {
-   MyRegister({Key? key}) : super(key: key);
+  MyRegister({Key? key}) : super(key: key);
 
   final authController = Get.find<AuthController>();
   final SignUpContoller signUpContoller = Get.put(SignUpContoller());
@@ -40,7 +40,7 @@ class _MyRegisterState extends State<MyRegister> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/login.png'), fit: BoxFit.cover),
         ),
@@ -60,9 +60,9 @@ class _MyRegisterState extends State<MyRegister> {
                         .width * 0.15,
                     child: Container(
                       alignment: Alignment.topRight,
-                      child: Text(
+                      child: const Text(
                         'Create\nAccount',
-                        style: const TextStyle(color: Colors.white, fontSize: 33),
+                        style: TextStyle(color: Colors.white, fontSize: 33),
                       ),
                     ),
                   ),
@@ -98,13 +98,13 @@ class _MyRegisterState extends State<MyRegister> {
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.black,
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.black,
                                       ),
                                     ),
@@ -124,13 +124,13 @@ class _MyRegisterState extends State<MyRegister> {
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.black,
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.black,
                                       ),
                                     ),
@@ -193,13 +193,13 @@ class _MyRegisterState extends State<MyRegister> {
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.black,
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.black,
                                       ),
                                     ),
@@ -222,13 +222,13 @@ class _MyRegisterState extends State<MyRegister> {
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.black,
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.black,
                                       ),
                                     ),
@@ -244,17 +244,17 @@ class _MyRegisterState extends State<MyRegister> {
                               ),
 
                               IntlPhoneField(
-                                keyField: globals.phoneKey,
+                                // keyField: globals.phoneKey,
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.black,
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.black,
                                       ),
                                     ),
@@ -268,7 +268,7 @@ class _MyRegisterState extends State<MyRegister> {
                                   print(phone.completeNumber);
                                 },
                                 onCountryChanged: (country) {
-                                  print('Country changed to: ' + country.name);
+                                  print('Country changed to: ${country.name}');
                                 },
                               ),
 
@@ -310,13 +310,13 @@ class _MyRegisterState extends State<MyRegister> {
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.black,
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.black,
                                       ),
                                     ),
@@ -342,13 +342,13 @@ class _MyRegisterState extends State<MyRegister> {
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.black,
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.black,
                                       ),
                                     ),
@@ -365,20 +365,20 @@ class _MyRegisterState extends State<MyRegister> {
                                 mainAxisAlignment: MainAxisAlignment
                                     .spaceBetween,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Sign Up',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 27,
                                         fontWeight: FontWeight.w700),
                                   ),
                                   CircleAvatar(
                                     radius: 30,
-                                    backgroundColor: Color(0xff4c505b),
+                                    backgroundColor: const Color(0xff4c505b),
                                     child: IconButton(
                                         color: Colors.black,
                                         onPressed: () {widget.authController.onRegister();},
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.arrow_forward,
                                         )),
                                   )
@@ -393,17 +393,17 @@ class _MyRegisterState extends State<MyRegister> {
                                 children: [
                                   TextButton(
                                     onPressed: () {
-                                      Get.offNamed("/login");
+                                      Get.offNamed("/");
                                     },
-                                    child: Text(
+                                    style: const ButtonStyle(),
+                                    child: const Text(
                                       'Sign In',
                                       textAlign: TextAlign.left,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           decoration: TextDecoration.underline,
                                           color: Colors.black,
                                           fontSize: 18),
                                     ),
-                                    style: ButtonStyle(),
                                   ),
                                 ],
                               )
@@ -533,20 +533,20 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-    autovalidateMode: AutovalidateMode.onUserInteraction,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value)=>(value==null ? 'select an account type' : null ) ,
-      hint: Text("Account Type",style: const TextStyle(color: Colors.black)),
+      hint: const Text("Account Type",style: TextStyle(color: Colors.black)),
       key: globals.roleKey,
       decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.black,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.black,
             ),
           ),
@@ -567,7 +567,7 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value,
-          style:const TextStyle(color: Colors.black) ,),
+            style:const TextStyle(color: Colors.black) ,),
         );
       }).toList(),
     );
@@ -603,6 +603,7 @@ class _DropdownButtonClinicState extends State<DropdownButtonClinic> {
         DropdownButtonFormField<String>(
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value)=>(value==null ? 'clinic is required' : null ) ,
+
           hint: Text("Select your clinic",style: const TextStyle(color: Colors.black)),
         key: globals.clinicListKey,
         decoration: InputDecoration(
@@ -611,12 +612,13 @@ class _DropdownButtonClinicState extends State<DropdownButtonClinic> {
               borderSide: BorderSide(
                 color: Colors.black,
               ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
-                color: Colors.black,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(
+                  color: Colors.black,
+                ),
               ),
+
             ),
             hintStyle: const TextStyle(color: Colors.black),
             border: OutlineInputBorder(
@@ -638,6 +640,7 @@ class _DropdownButtonClinicState extends State<DropdownButtonClinic> {
           );
         }).toList(),
       ),const SizedBox(
+
           height: 40,
         ),
 
@@ -646,10 +649,9 @@ class _DropdownButtonClinicState extends State<DropdownButtonClinic> {
 
 
     )
-      ;
+    ;
   }
 }
-
 
 
 
