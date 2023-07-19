@@ -225,9 +225,29 @@ class OcrProcessingScreenState extends State<OcrProcessingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //     title: const Text('Extracted Text'),
+      //     backgroundColor: const Color.fromRGBO(36, 86, 43, 1)),
       appBar: AppBar(
-          title: const Text('Extracted Text'),
-          backgroundColor: const Color.fromRGBO(36, 86, 43, 1)),
+        elevation: 9,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            stops: [
+              0.1,
+              0.6,
+            ],
+            colors: [
+              Colors.blue,
+              Colors.teal,
+            ],
+          )),
+        ),
+        title: const Align(
+            alignment: Alignment.centerLeft, child: Text("Doctors On Hand")),
+      ),
       body: _isLoading
           ? LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -309,7 +329,7 @@ class OcrProcessingScreenState extends State<OcrProcessingScreen> {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white,
-                          backgroundColor: const Color.fromRGBO(36, 86, 43, 1),
+                          backgroundColor: Colors.teal,
                         ),
                         onPressed: () async {
                           setState(() {

@@ -149,9 +149,29 @@ class TranslationScreenState extends State<TranslationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      // appBar: AppBar(
+      //   title: const Text('Translated Text'),
+      //   backgroundColor: const Color.fromRGBO(36, 86, 43, 1),
+      // ),
       appBar: AppBar(
-        title: const Text('Translated Text'),
-        backgroundColor: const Color.fromRGBO(36, 86, 43, 1),
+        elevation: 9,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            stops: [
+              0.1,
+              0.6,
+            ],
+            colors: [
+              Colors.blue,
+              Colors.teal,
+            ],
+          )),
+        ),
+        title: const Align(
+            alignment: Alignment.centerLeft, child: Text("Doctors On Hand")),
       ),
       body: _isLoading
           ? const Center(
@@ -280,7 +300,8 @@ class TranslationScreenState extends State<TranslationScreen> {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white,
-                          backgroundColor: const Color.fromRGBO(36, 86, 43, 1),
+                          backgroundColor: Colors
+                              .teal, //const Color.fromRGBO(36, 86, 43, 1),
                         ),
                         onPressed: () async {
                           setState(() {
@@ -296,8 +317,8 @@ class TranslationScreenState extends State<TranslationScreen> {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             foregroundColor: Colors.white,
-                            backgroundColor:
-                                const Color.fromRGBO(36, 86, 43, 1)),
+                            backgroundColor: Colors.teal),
+                        //const Color.fromRGBO(36, 86, 43, 1)),
                         onPressed: () async {
                           await Share.share(_translatedText!);
                         },

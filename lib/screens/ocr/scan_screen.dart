@@ -44,9 +44,29 @@ class _ScanScreenState extends State<ScanScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //     title: Text(widget.scan['title']),
+      //     backgroundColor: const Color.fromRGBO(36, 86, 43, 1)),
       appBar: AppBar(
-          title: Text(widget.scan['title']),
-          backgroundColor: const Color.fromRGBO(36, 86, 43, 1)),
+        elevation: 9,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            stops: [
+              0.1,
+              0.6,
+            ],
+            colors: [
+              Colors.blue,
+              Colors.teal,
+            ],
+          )),
+        ),
+        title: const Align(
+            alignment: Alignment.centerLeft, child: Text("Doctors On Hand")),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: ListView(
@@ -77,7 +97,7 @@ class _ScanScreenState extends State<ScanScreen> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: const Color.fromRGBO(36, 86, 43, 1),
+                    backgroundColor: Colors.teal,
                   ),
                   onPressed: _saveText,
                   child: const Text('Save Text'),
