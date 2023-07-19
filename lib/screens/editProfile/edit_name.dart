@@ -1,4 +1,5 @@
 import 'package:doctorppp/globals.dart';
+import 'package:doctorppp/screens/editProfile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -12,6 +13,7 @@ class EditNameFormPage extends StatefulWidget {
   EditNameFormPage({Key? key}) : super(key: key);
   final authController = Get.find<AuthController>();
   @override
+
   EditNameFormPageState createState() {
     return EditNameFormPageState();
   }
@@ -111,8 +113,8 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                             if (_formKey.currentState!.validate() &&
                                 isAlpha(firstNameController.text +
                                     secondNameController.text)) {
-                              await updateUserValue(firstNameController.text,secondNameController.text);
-                              Navigator.pop(context);
+                              await updateUserValue(firstNameController.text,secondNameController.text).then((value) =>  Get.to(ProfilePage()));
+                              
                             }
                           },
                           child: const Text(

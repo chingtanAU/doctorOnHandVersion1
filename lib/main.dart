@@ -23,10 +23,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp().then((value) => Get.put(AuthController()));
-  Get.put<AgoraTokenService>(AgoraTokenService());
   Get.put(ClinicContoller());
-
-
+  Get.put<AgoraTokenService>(AgoraTokenService());
 
   runApp(const MyApp());
 }

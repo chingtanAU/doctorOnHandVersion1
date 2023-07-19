@@ -1,14 +1,23 @@
+import 'package:doctorppp/entity/DoctorProfile.dart';
+import 'package:doctorppp/entity/clinicDTO.dart';
+import 'package:doctorppp/entity/userProfile.dart';
 import 'package:doctorppp/screens/search/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import "package:latlong2/latlong.dart" as latLng;
+import '../../Controllers/clinicDetailsContoller.dart';
+import '../../persistance/userCrud.dart' as userCrud;
 
 class ClinicDetails extends StatelessWidget {
-  final Clinic clinic;
+  final ClinicDTO clinic;
    ClinicDetails({Key? key, required this.clinic}) : super(key: key);
+
   late String last = clinic.lastVisit.toString() ;
-  late String visit = clinic.visits.toString();
+  late String visit = clinic.visitNumber.toString();
+  final clinicdetailController = Get.find<ClinicDetailsContoller>() ;
+
+
 
 
 
@@ -56,11 +65,11 @@ class ClinicDetails extends StatelessWidget {
               child:
                 FlexibleSpaceBar(
                   background:
-                    Image.asset(clinic.imageUrl),
+                    Image.asset("assets/medical1.png"),
 
                 ),
             ),
-            title: Text(clinic.name),
+            title: Text(clinic.clinicName),
             backgroundColor: const 
             Color(0xff575de3),
             expandedHeight: 200,
@@ -72,7 +81,7 @@ class ClinicDetails extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const DetailClinicCard(),
+                  Obx(() =>  DetailClinicCard(doctor: clinicdetailController.doctorData.value)),
                   const SizedBox(
                     height: 15,
                   ),
@@ -87,13 +96,13 @@ class ClinicDetails extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  Text(clinic.description,
-                    style:  TextStyle(
-                      color: Color(MyColors.purple01),
-                      fontWeight: FontWeight.w500,
-                      height: 1.5,
-                    ),
-                  ),
+                  // Text(clinic.description,
+                  //   style:  TextStyle(
+                  //     color: Color(MyColors.purple01),
+                  //     fontWeight: FontWeight.w500,
+                  //     height: 1.5,
+                  //   ),
+                  // ),
                   const SizedBox(
                     height: 25,
                   ),
@@ -158,7 +167,7 @@ class ClinicLocation extends StatelessWidget {
 class ClinicInfo extends StatelessWidget {
   final String last;
   final String total;
-  const ClinicInfo({
+   const ClinicInfo({
     Key? key, required this.last, required this.total,
   }) : super(key: key);
 
@@ -270,7 +279,11 @@ class NumberCard extends StatelessWidget {
 }
 
 class DetailClinicCard extends StatelessWidget {
-  const DetailClinicCard({
+
+  DoctorProfile? doctor;
+
+  DetailClinicCard({
+    this.doctor,
     Key? key,
   }) : super(key: key);
 
@@ -286,11 +299,12 @@ class DetailClinicCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
-                child: Column(
+                child:  Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Dr. Josua Simorangkir',
+                   Text(
+                      doctor!.fName + " " + doctor!.lName
+                      ,
                       style: TextStyle(
                           color: Color(MyColors.header01),
                           fontWeight: FontWeight.w700),
@@ -299,7 +313,7 @@ class DetailClinicCard extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      'General Practitioner',
+                      doctor!.speciality,
                       style:  TextStyle(
                         color: Color(MyColors.grey02),
                         fontWeight: FontWeight.w500,

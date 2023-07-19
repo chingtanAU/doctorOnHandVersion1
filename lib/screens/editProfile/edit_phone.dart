@@ -1,3 +1,4 @@
+import 'package:doctorppp/screens/editProfile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -86,7 +87,7 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                               if (_formKey.currentState!.validate() &&
                                   isNumeric(phoneController.text)) {
                                 await updateUserValue(phoneController.text);
-                                Navigator.pop(context);
+                                Get.to(ProfilePage());
                               }
                             },
                             child: const Text(

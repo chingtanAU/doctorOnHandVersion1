@@ -1,3 +1,4 @@
+import 'package:doctorppp/entity/HealthCarePhacility.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,7 +36,7 @@ final GlobalKey<FormFieldState> doctorSpeciality = GlobalKey<FormFieldState>();
 
 final List<GlobalKey<FormFieldState>> regUserKeys = [passKey, conPassKey, emailKey, fNameKey, lNameKey, roleKey, phoneKey,addressKey];
 final List<GlobalKey<FormFieldState>> regDoctorKeys = [passKey, conPassKey, emailKey, fNameKey,
-  lNameKey, roleKey, phoneKey,addressKey,clinicListKey,clinicNameKey,clinicPhoneKey,clinicAddressKey,doctorSpeciality];
+  lNameKey, roleKey, phoneKey,addressKey,clinicListKey,doctorSpeciality,clinicNameKey,clinicPhoneKey,clinicAddressKey];
 
 final GlobalKey<FormFieldState> passLoginKey = GlobalKey<FormFieldState>();
 final GlobalKey<FormFieldState> emailLoginKey = GlobalKey<FormFieldState>();

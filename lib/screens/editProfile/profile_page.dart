@@ -44,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ))),
           InkWell(
               onTap: () {
-                navigateSecondPage(EditImagePage());
+                Get.to(const EditImagePage());
               },
               child: DisplayImage(
                 imagePath: widget.authController.userData.value.picture,

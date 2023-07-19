@@ -1,12 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctorppp/entity/DoctorProfile.dart';
+import 'package:doctorppp/entity/visitedClinic.dart';
 import '../entity/userProfile.dart';
 import '../globals.dart';
 
 final CollectionReference userCollection = firestore.collection("Users");
 
+
 Future<void> addUser(String uid,Map<String, dynamic> user) async {
-  userCollection.doc(uid).set(user);
+ await userCollection.doc(uid).set(user);
 }
+
+Future<List<VisitedClinic>> fetchUserVisitedClinic(String id) async{
+
+  QuerySnapshot<Object?> snapshot =
+  await userCollection.doc(id).collection("visitedClinic").get();
+  return snapshot.docs
+      .map((docSnapshot) =>VisitedClinic.fromJson(docSnapshot as DocumentSnapshot<Map<String, dynamic>>))
+      .toList();
+}
+
 
 Future<UserProfile?> fetchUserInfo(String id) async{
   UserProfile? user ;
@@ -20,9 +33,30 @@ Future<UserProfile?> fetchUserInfo(String id) async{
   return user;
 }
 
+Future<DoctorProfile> getDoctorByClinicId(String? clinicId) async{
+  DoctorProfile doctor;
+  QuerySnapshot querySnapshot = await
+       userCollection.where("clinicId", isEqualTo: clinicId)
+      .get();
+  DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+  Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+  doctor= DoctorProfile.fromJson(data);
+  doctor.id=documentSnapshot.id;
+  return doctor;
+
+}
+
+
 Future<void> updateUser(String uid, Map<String, dynamic> value ) async {
   await userCollection.doc(uid).update(value);
 }
+
+
+Future<void> addmeetingUser(String uid,String meetId,Map<String, dynamic> value ) async {
+  await userCollection.doc(uid).collection("oppointment").doc(meetId).set(value);
+}
+
+
 
 
 
