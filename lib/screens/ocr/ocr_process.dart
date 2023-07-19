@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-//import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 //import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'translation.dart';
 import 'dart:math';
 import 'config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OcrProcessingScreen extends StatefulWidget {
   final XFile imageFile;
@@ -19,7 +20,7 @@ class OcrProcessingScreen extends StatefulWidget {
 }
 
 class OcrProcessingScreenState extends State<OcrProcessingScreen> {
-  //final _storage = const FlutterSecureStorage();
+  final _storage = const FlutterSecureStorage();
   String? _extractedText;
   //String? _detectedLanguage;
   bool _isLoading = false;
@@ -41,15 +42,15 @@ class OcrProcessingScreenState extends State<OcrProcessingScreen> {
       _isLoading = true;
     });
 
-    //final apiKey = await _storage.read(key: 'apiKey');
-    //print('api key: $apiKey');
-    // final requestUrl =
-    //     'https://doctorsonhand.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-read:analyze?api-version=2022-08-31';
-    //final apiEndpoint = await _storage.read(key: 'apiEndpoint');
-    //print('api endpoint: $apiEndpoint');
-
     const apiKey = apiKeys;
     const apiEndpoint = apiEndpoints;
+
+    // final apiKey = await _storage.read(key: 'apiKey');
+    // //print('api key: $apiKey');
+    // // final requestUrl =
+    // //     'https://doctorsonhand.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-read:analyze?api-version=2022-08-31';
+    // final apiEndpoint = await _storage.read(key: 'apiEndpoint');
+    //print('api endpoint: $apiEndpoint');
 
     // Check if the endpoint key exists
     if (apiEndpoint == null) {
@@ -57,7 +58,7 @@ class OcrProcessingScreenState extends State<OcrProcessingScreen> {
     }
 
     // Concatenate the endpoint with the rest of the URL
-    const requestUrl =
+    final requestUrl =
         '$apiEndpoint/formrecognizer/documentModels/prebuilt-document:analyze?api-version=2022-08-31';
     final imageBytes = await widget.imageFile.readAsBytes();
 
@@ -213,12 +214,20 @@ class OcrProcessingScreenState extends State<OcrProcessingScreen> {
     "Did you know? Eating a high-fiber diet can help lower risk for heart disease by 40%."
   ];
 
+  // Future<void> _saveScan() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final scans = prefs.getStringList('scans') ?? [];
+  //   scans.add(jsonEncode(
+  //       {'imagePath': widget.imageFile.path, 'text': _extractedText}));
+  //   await prefs.setStringList('scans', scans);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Extracted Text'),
-      ),
+          title: const Text('Extracted Text'),
+          backgroundColor: const Color.fromRGBO(36, 86, 43, 1)),
       body: _isLoading
           ? LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -285,21 +294,35 @@ class OcrProcessingScreenState extends State<OcrProcessingScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
+                      // ElevatedButton(
+                      //   onPressed: () async {
+                      //     setState(() {
+                      //       _extractedText = _textEditingController.text;
+                      //     });
+                      //     await _saveScan();
+                      //     ScaffoldMessenger.of(context).showSnackBar(
+                      //       const SnackBar(content: Text('Saved text!')),
+                      //     );
+                      //   },
+                      //   child: const Text('Save Text'),
+                      // ),
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: const Color.fromRGBO(36, 86, 43, 1),
+                        ),
                         onPressed: () async {
                           setState(() {
                             _extractedText = _textEditingController.text;
                           });
-                        },
-                        child: const Text('Save Text'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => TranslationScreen(
-                                  textToTranslate: _extractedText!),
+                                textToTranslate: _extractedText!,
+                                imagePath: widget.imageFile.path,
+                                extractedText: _extractedText!,
+                              ),
                             ),
                           );
                         },

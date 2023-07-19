@@ -1,4 +1,3 @@
-
 import 'package:doctorppp/screens/Clinic/bookingScreen.dart';
 import 'package:doctorppp/screens/detailscreen.dart';
 import 'package:doctorppp/screens/editProfile/profile_page.dart';
@@ -26,22 +25,16 @@ Future<void> main() async {
   Get.put<AgoraTokenService>(AgoraTokenService());
   Get.put(ClinicContoller());
 
-
-
   runApp(const MyApp());
 }
 
 @override
-void initState() {
-}
-
+void initState() {}
 
 class MyApp extends StatelessWidget {
-
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-
 //     return SafeArea(
 //       child: GetMaterialApp(
 //         debugShowCheckedModeBanner: false,
@@ -70,12 +63,11 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/login', page: () => MyLogin()),
         GetPage(name: '/register', page: () => MyRegister()),
-        GetPage(name: '/home',  page: () => Homepage()),
-        GetPage(name: '/book',  page: () => BookingCalendarDemoApp()),
-        GetPage(name: '/detail',  page: () => DetailScreen()),
-        GetPage(name: '/editProfile',  page: () => ProfilePage()),
+        GetPage(name: '/home', page: () => Homepage()),
+        GetPage(name: '/book', page: () => BookingCalendarDemoApp()),
+        GetPage(name: '/detail', page: () => DetailScreen()),
+        GetPage(name: '/editProfile', page: () => ProfilePage()),
       ],
-
 
 //     return SafeArea(
 //       child: GetMaterialApp(
@@ -96,4 +88,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

@@ -1,22 +1,33 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-//import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:share_plus/share_plus.dart';
 //import 'package:dropdown_search/dropdown_search.dart';
 import 'config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_dropdown_alert/dropdown_alert.dart';
+import 'package:flutter_dropdown_alert/model/data_alert.dart';
 
 class TranslationScreen extends StatefulWidget {
   final String textToTranslate;
+  final String imagePath;
+  final String extractedText;
 
-  const TranslationScreen({super.key, required this.textToTranslate});
+  const TranslationScreen({
+    Key? key,
+    required this.textToTranslate,
+    required this.imagePath,
+    required this.extractedText,
+  }) : super(key: key);
 
   @override
   TranslationScreenState createState() => TranslationScreenState();
 }
 
 class TranslationScreenState extends State<TranslationScreen> {
-  //final _storage = const FlutterSecureStorage();
+  final _storage = const FlutterSecureStorage();
   String? _translatedText;
   bool _isLoading = false;
   String? _detectedLanguage;
@@ -27,10 +38,10 @@ class TranslationScreenState extends State<TranslationScreen> {
   // Define a list of languages and their codes
   Map<String, String> languages = {
     'English': 'en',
-    'Mandarin Chinese': 'zh',
+    'Mandarin': 'zh',
     'Hindi': 'hi',
     'Spanish': 'es',
-    'Standard Arabic': 'ar',
+    'Arabic': 'ar',
     'French': 'fr',
     'Bengali': 'bn',
     'Russian': 'ru',
@@ -41,8 +52,8 @@ class TranslationScreenState extends State<TranslationScreen> {
   // Add this map
   Map<String, String> languageCodes = {
     'en': 'English',
-    'zh-Hans': 'Mandarin Chinese (Simplified)',
-    'zh-Hant': 'Mandarin Chinese (Traditional)',
+    'zh-Hans': 'Mandarin', //Chinese (Simplified)
+    'zh-Hant': 'Mandarin', //Chinese (Traditional)
     'hi': 'Hindi',
     'es': 'Spanish',
     'ar': 'Standard Arabic',
@@ -120,11 +131,27 @@ class TranslationScreenState extends State<TranslationScreen> {
     });
   }
 
+  Future<void> _saveScan() async {
+    final prefs = await SharedPreferences.getInstance();
+    final scans = prefs.getStringList('scans') ?? [];
+    final newScan = {
+      'imagePath': widget.imagePath,
+      'text': widget.extractedText,
+      'translatedText': _translatedText,
+      'title': 'Scan ${scans.length + 1}',
+      'date': DateTime.now().toString().substring(0, 10),
+    };
+    scans.add(jsonEncode(newScan));
+    await prefs.setStringList('scans', scans);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Translated Text'),
+        backgroundColor: const Color.fromRGBO(36, 86, 43, 1),
       ),
       body: _isLoading
           ? const Center(
@@ -135,58 +162,108 @@ class TranslationScreenState extends State<TranslationScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // const Text(
-                  //   'Translation Feature',
-                  //   style: TextStyle(
-                  //     fontFamily: "Roboto",
-                  //     fontWeight: FontWeight.bold,
-                  //     fontSize: 30,
-                  //   ),
-                  // ),
-                  // Divider(
-                  //   color: Colors.grey[300],
-                  //   thickness: 1,
-                  // ),
-                  const SizedBox(height: 10),
-                  Text(
-                    widget.textToTranslate,
-                    style: const TextStyle(fontSize: 16.0),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 50,
+                          height: 60,
+                          padding: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.0),
+                            child: Text(
+                              '$_detectedLanguage',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Container(
+                          width: 50,
+                          height: 60,
+                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              isExpanded: true,
+                              value: currentLanguage,
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  currentLanguage = newValue!;
+                                  _translateText();
+                                });
+                              },
+                              items: languages.keys
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                          child: Text(
+                                        value,
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      )),
+                                      VerticalDivider(
+                                        color: Colors.black,
+                                      ),
+                                      SvgPicture.asset(
+                                        'assets/dropdown_arrow.svg', // replace with your asset path
+                                        height: 16,
+                                        width: 16,
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 10),
-                  Text(
-                    'Detected language: $_detectedLanguage',
-                    style: const TextStyle(
-                        fontSize: 16.0, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  DropdownButton<String>(
-                    value: currentLanguage,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        currentLanguage = newValue!;
-                        _translateText();
-                      });
-                    },
-                    items: languages.keys
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey[300]!),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        widget.textToTranslate,
+                        style: const TextStyle(fontSize: 16.0),
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 20),
                   _translatedText != null
                       ? TextField(
                           controller: _textEditingController
                             ..text = _translatedText!,
-                          maxLines:
-                              null, // Allows the TextField to expand vertically as the text grows
+                          maxLines: null,
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16.0,
                           ),
-                          cursorColor: Colors.blue,
+                          cursorColor: Color.fromRGBO(36, 86, 43, 1),
                           decoration: const InputDecoration(
                             labelText: 'Translated Text',
                             border: OutlineInputBorder(),
@@ -203,20 +280,24 @@ class TranslationScreenState extends State<TranslationScreen> {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white,
-                          backgroundColor: Colors.green,
+                          backgroundColor: const Color.fromRGBO(36, 86, 43, 1),
                         ),
                         onPressed: () async {
                           setState(() {
                             _translatedText = _textEditingController.text;
                           });
+                          await _saveScan();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Saved text!')),
+                          );
                         },
                         child: const Text('Save Text'),
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.blue,
-                        ),
+                            foregroundColor: Colors.white,
+                            backgroundColor:
+                                const Color.fromRGBO(36, 86, 43, 1)),
                         onPressed: () async {
                           await Share.share(_translatedText!);
                         },
@@ -230,6 +311,122 @@ class TranslationScreenState extends State<TranslationScreen> {
     );
   }
 }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Translated Text'),
+//         backgroundColor: const Color.fromRGBO(36, 86, 43, 1),
+//       ),
+//       body: _isLoading
+//           ? const Center(
+//               child: CircularProgressIndicator(),
+//             )
+//           : SingleChildScrollView(
+//               padding: const EdgeInsets.all(20),
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   // const Text(
+//                   //   'Translation Feature',
+//                   //   style: TextStyle(
+//                   //     fontFamily: "Roboto",
+//                   //     fontWeight: FontWeight.bold,
+//                   //     fontSize: 30,
+//                   //   ),
+//                   // ),
+//                   // Divider(
+//                   //   color: Colors.grey[300],
+//                   //   thickness: 1,
+//                   // ),
+//                   const SizedBox(height: 10),
+//                   Text(
+//                     widget.textToTranslate,
+//                     style: const TextStyle(fontSize: 16.0),
+//                   ),
+//                   const SizedBox(height: 10),
+//                   Text(
+//                     'Detected language: $_detectedLanguage',
+//                     style: const TextStyle(
+//                         fontSize: 16.0, fontWeight: FontWeight.bold),
+//                   ),
+//                   const SizedBox(height: 10),
+//                   DropdownButton<String>(
+//                     value: currentLanguage,
+//                     onChanged: (String? newValue) {
+//                       setState(() {
+//                         currentLanguage = newValue!;
+//                         _translateText();
+//                       });
+//                     },
+//                     items: languages.keys
+//                         .map<DropdownMenuItem<String>>((String value) {
+//                       return DropdownMenuItem<String>(
+//                         value: value,
+//                         child: Text(value),
+//                       );
+//                     }).toList(),
+//                   ),
+//                   const SizedBox(height: 20),
+//                   _translatedText != null
+//                       ? TextField(
+//                           controller: _textEditingController
+//                             ..text = _translatedText!,
+//                           maxLines:
+//                               null, // Allows the TextField to expand vertically as the text grows
+//                           style: const TextStyle(
+//                             color: Colors.black,
+//                             fontSize: 16.0,
+//                           ),
+//                           cursorColor: Colors.blue,
+//                           decoration: const InputDecoration(
+//                             labelText: 'Translated Text',
+//                             border: OutlineInputBorder(),
+//                           ),
+//                         )
+//                       : const Text(
+//                           'Failed to translate text. Please try again.',
+//                           style: TextStyle(color: Colors.red),
+//                         ),
+//                   const SizedBox(height: 20),
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                     children: [
+//                       ElevatedButton(
+//                         style: ElevatedButton.styleFrom(
+//                           foregroundColor: Colors.white,
+//                           backgroundColor: const Color.fromRGBO(36, 86, 43, 1),
+//                         ),
+//                         onPressed: () async {
+//                           setState(() {
+//                             _translatedText = _textEditingController.text;
+//                           });
+//                           await _saveScan();
+//                           ScaffoldMessenger.of(context).showSnackBar(
+//                             const SnackBar(content: Text('Saved text!')),
+//                           );
+//                         },
+//                         child: const Text('Save Text'),
+//                       ),
+//                       ElevatedButton(
+//                         style: ElevatedButton.styleFrom(
+//                             foregroundColor: Colors.white,
+//                             backgroundColor:
+//                                 const Color.fromRGBO(36, 86, 43, 1)),
+//                         onPressed: () async {
+//                           await Share.share(_translatedText!);
+//                         },
+//                         child: const Text('Share Text'),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//     );
+//   }
+// }
 
 //   @override
 //   Widget build(BuildContext context) {
