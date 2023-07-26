@@ -12,7 +12,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'Controllers/clinicController.dart';
+import 'doctor_part/Appointments/upcoming.dart';
+import 'doctor_part/HomePage/homepage.dart';
+import 'doctor_part/Report/view.dart';
+import 'doctor_part/completedVisits/view.dart';
+import 'doctor_part/signin/login.dart';
+import 'doctor_part/video_calll/token_generation.dart';
 import 'screens/HomePage/homepage.dart';
+import 'package:doctorppp/doctor_part/main.dart';
 
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -23,6 +30,8 @@ Future<void> main() async {
 
   await Firebase.initializeApp().then((value) => Get.put(AuthController()));
   Get.put<AgoraTokenService>(AgoraTokenService());
+  Get.put<AgoraTokenService1>(AgoraTokenService1());
+
   Get.put(ClinicContoller());
 
   runApp(const MyApp());
@@ -58,15 +67,24 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyLogin(),
+      initialBinding: BindingsBuilder(() {
+        Get.put(CompletedVisitsController());
+      }),
+      home: Homepage(),
       //home: const CircularProgressIndicator(),
       getPages: [
         GetPage(name: '/login', page: () => MyLogin()),
         GetPage(name: '/register', page: () => MyRegister()),
-        GetPage(name: '/home', page: () => Homepage()),
-        GetPage(name: '/book', page: () => BookingCalendarDemoApp()),
-        GetPage(name: '/detail', page: () => DetailScreen()),
-        GetPage(name: '/editProfile', page: () => ProfilePage()),
+
+        GetPage(name: '/home',  page: () => Homepage()),
+        GetPage(name: '/home1',  page: () => DoctorHomepage()),
+        GetPage(name: '/book',  page: () => BookingCalendarDemoApp()),
+        GetPage(name: '/detail',  page: () => DetailScreen()),
+        GetPage(name: '/editProfile',  page: () => ProfilePage()),
+        GetPage(name: '/appointment', page: () => AppointmentScreen()),
+        GetPage(name: '/completed', page: () => CompletedVisitsScreen()),
+        GetPage(name: '/report', page: () => ReportScreen()),
+
       ],
 
 //     return SafeArea(
