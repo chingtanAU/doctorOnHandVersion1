@@ -233,7 +233,7 @@ class _HomepageState extends State<Homepage> {
               leading: Icon(Icons.account_circle_sharp),
               title: Text('Profile'),
               onTap: () {
-                Get.offAllNamed("/editProfile");
+                Get.toNamed("/editProfile");
                 // Handle item tap
               },
             ),

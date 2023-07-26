@@ -6,12 +6,12 @@ class HealthCarePhacility {
   String address;
   String? experience;
   String number;
-  String patientNum ;
+  String? patientNum ;
   String? rating;
   String? desc;
 
 
-  HealthCarePhacility({ this.experience , required this.name, required this.address,required this.number,required this.patientNum, this.rating, this.desc });
+  HealthCarePhacility({ this.experience , required this.name, required this.address,required this.number, this.patientNum, this.rating, this.desc });
 
   factory HealthCarePhacility.fromJson(Map<String, dynamic> json) => HealthCarePhacility(
     name:json["name"],
