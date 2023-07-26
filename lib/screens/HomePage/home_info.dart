@@ -42,7 +42,7 @@ class HomeInfo extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(width * 0.04),
                   child: Text(
-                    "Hi! ${authController.userData.value.fName}",
+                    "Hi! Saurabh ${authController.userData.value.fName}",
 
                      //   "\nHow are you today?",
                     style: TextStyle(

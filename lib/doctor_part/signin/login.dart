@@ -1,17 +1,13 @@
 import 'package:get/get.dart';
 
-import '../../../globals.dart' as globals;
-import '../../../validatorsAuth/Validator.dart' as validator;
-import '../../../validatorsAuth/Validator.dart';
 
 import 'package:flutter/material.dart';
-import '../../../validatorsAuth/auth.dart';
 
-class MyLogin extends StatelessWidget {
-  MyLogin({Key? key}) : super(key: key);
+class MyLogin1 extends StatelessWidget {
+  MyLogin1({Key? key}) : super(key: key);
 
   final TextEditingController _emailResetPass = TextEditingController();
-  final authController = Get.find<AuthController>();
+//  final authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,13 +47,10 @@ class MyLogin extends StatelessWidget {
                         children: [
                           TextFormField(
                             autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            AutovalidateMode.onUserInteraction,
                             onChanged: (text) {
-                              FireError.userNotFoundError = false;
                             },
-                            key: globals.emailLoginKey,
-                            validator: (email) =>
-                                validator.emailValidatro(email!),
+                           // key: globals.emailLoginKey,
                             style: const TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
@@ -72,13 +65,10 @@ class MyLogin extends StatelessWidget {
                           ),
                           TextFormField(
                             autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            AutovalidateMode.onUserInteraction,
                             onChanged: (text) {
-                              FireError.wrongPassError = false;
                             },
-                            key: globals.passLoginKey,
-                            validator: (pass) =>
-                                validator.passwordValidator(pass!),
+                         //   key: globals.passLoginKey,
                             style: const TextStyle(),
                             obscureText: true,
                             decoration: InputDecoration(
@@ -108,7 +98,7 @@ class MyLogin extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Text(
-                                'Sign in',
+                                'Sign in check',
                                 style: TextStyle(
                                     fontSize: 27, fontWeight: FontWeight.w700),
                               ),
@@ -118,11 +108,10 @@ class MyLogin extends StatelessWidget {
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () {
-
                                       Get.offAllNamed("/home1");
                                       // auth.onLogin(context);
 
-                                      authController.onLogin();
+                                     // authController.onLogin();
                                     },
                                     icon: const Icon(
                                       Icons.arrow_forward,
@@ -136,7 +125,7 @@ class MyLogin extends StatelessWidget {
                           OutlinedButton(
                             style: ButtonStyle(
                               backgroundColor:
-                                  MaterialStateProperty.all(Colors.white),
+                              MaterialStateProperty.all(Colors.white),
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(40),
@@ -145,7 +134,7 @@ class MyLogin extends StatelessWidget {
                             ),
 
                             onPressed: () {
-                              authController.signInWithGoogle();
+                            //  authController.signInWithGoogle();
                             },
 
                             child: const Padding(
@@ -201,20 +190,19 @@ class MyLogin extends StatelessWidget {
                                     Get.defaultDialog(
                                         title: 'Enter your email',
                                         content: TextFormField(
-                                          validator: (email) =>
-                                              validator.emailValidatro(email!),
+
                                           controller: _emailResetPass,
                                           decoration: InputDecoration(),
                                         ),
                                         confirm: MaterialButton(
                                           child: Text('Submit'),
                                           onPressed: () async {
-                                            Get.snackbar(
-                                                await authController
-                                                    .resetPassword(
-                                                        email: _emailResetPass
-                                                            .text),
-                                                '');
+                                            // Get.snackbar(
+                                            //     await authController
+                                            //         .resetPassword(
+                                            //         email: _emailResetPass
+                                            //             .text),
+                                            //     '');
                                             _emailResetPass.clear();
                                           },
                                         ));
