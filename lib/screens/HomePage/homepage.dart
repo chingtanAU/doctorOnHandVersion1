@@ -21,7 +21,7 @@ import '../ocr/image_input.dart';
 class Homepage extends StatefulWidget {
   Homepage({Key? key}) : super(key: key);
   final authController = Get.find<AuthController>();
-  final clinicController = Get.find<ClinicContoller>();
+  final clinicController =  Get.find<ClinicContoller>();
   final NotificationController controller = Get.put(NotificationController());
 
   @override
@@ -233,7 +233,7 @@ class _HomepageState extends State<Homepage> {
               leading: Icon(Icons.account_circle_sharp),
               title: Text('Profile'),
               onTap: () {
-                Get.offAllNamed("/editProfile");
+                Get.toNamed("/editProfile");
                 // Handle item tap
               },
             ),

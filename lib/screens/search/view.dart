@@ -1,13 +1,16 @@
+import 'package:doctorppp/Controllers/clinicDetailsContoller.dart';
 import 'package:doctorppp/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../Controllers/clinicController.dart';
 import '../Clinic/clinicdetails.dart';
 import 'model.dart';
 import 'logic.dart';
 
 
 class ClinicSearchPage1 extends StatelessWidget {
-  final ClinicSearchController controller = Get.put(ClinicSearchController());
+  final clinicController =  Get.find<ClinicContoller>();
+  final clinicdetailController = Get.put(ClinicDetailsContoller());
 
   List<Obx> actions4= [];
 
@@ -26,7 +29,7 @@ class ClinicSearchPage1 extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextField(
-                    controller: controller.searchController,
+                    controller: clinicController.searchController,
                     decoration: const InputDecoration(
                       hintText: 'Search',
                       prefixIcon: Icon(Icons.search),
@@ -36,11 +39,11 @@ class ClinicSearchPage1 extends StatelessWidget {
                 const SizedBox(width: 16.0),
                 Obx(() {
                   return DropdownButton<int>(
-                    value: controller.filterValue.value,
+                    value: clinicController.filterValue.value,
                     onChanged: (value) {
                       if (value != null) {
-                        controller.filterValue.value = value;
-                        controller.applyFilter();
+                        clinicController.filterValue.value = value;
+                        clinicController.applyFilter();
                       }
                     },
                     items: const [
@@ -62,13 +65,14 @@ class ClinicSearchPage1 extends StatelessWidget {
             child: Obx(
                   () =>
                   ListView.builder(
-                    itemCount: controller.filteredClinics.length,
+                    itemCount: clinicController.filteredClinics.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                           onTap: () {
+                            clinicdetailController.setDoctordata(clinicController.filteredClinics[index].idClinic);
                             Get.to(() =>
                                 ClinicDetails(
-                                    clinic: controller.filteredClinics[index]));
+                                    clinic: clinicController.filteredClinics[index]));
                           },
                           child: Card(
                             elevation: 4,
@@ -83,11 +87,10 @@ class ClinicSearchPage1 extends StatelessWidget {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8.0),
                                     child: Image.asset(
-                                      controller.filteredClinics[index]
-                                          .imageUrl,
+                                     "assets/medical1.png",
                                       height: 150,
-                                      width: 150,
-                                      fit: BoxFit.cover,
+                                      width:  100,
+
                                     ),
                                   ),
                                   Padding(
@@ -99,23 +102,28 @@ class ClinicSearchPage1 extends StatelessWidget {
                                           .start,
                                       children: [
                                         const SizedBox(height: 16.0),
-                                        Text(
-                                          controller.filteredClinics[index]
-                                              .name,
-                                          style: const TextStyle(
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.bold,
+
+                                        Container(
+                                          width: 260,
+                                          child: Text(
+
+                                            clinicController.filteredClinics[index]
+                                                .clinicName,
+                                            style: const TextStyle(
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
                                         const SizedBox(height: 8.0),
                                         Text(
-                                          'Visits: ${controller
-                                              .filteredClinics[index].visits}',
+                                          'Visits: ${clinicController
+                                              .filteredClinics[index].visitNumber}',
                                           style: const TextStyle(fontSize: 16.0),
                                         ),
                                         const SizedBox(height: 8.0),
                                         Text(
-                                          'Last Visit: ${controller
+                                          'Last Visit: ${clinicController
                                               .filteredClinics[index]
                                               .lastVisit}',
                                           style: const TextStyle(fontSize: 16.0),

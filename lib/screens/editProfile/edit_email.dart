@@ -1,11 +1,18 @@
+import 'package:doctorppp/screens/editProfile/profile_page.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import '../../validatorsAuth/Validator.dart' as validator;
+import '../../globals.dart';
+import '../../validatorsAuth/auth.dart';
 import 'appbar_widget.dart';
 import 'package:email_validator/email_validator.dart';
+import '../../persistance/userCrud.dart' as crud;
 
 // This class handles the Page to edit the Email Section of the User Profile.
 class EditEmailFormPage extends StatefulWidget {
-  const EditEmailFormPage({Key? key}) : super(key: key);
+  EditEmailFormPage({Key? key}) : super(key: key);
+  final authController = Get.find<AuthController>();
 
   @override
   EditEmailFormPageState createState() {
@@ -24,8 +31,10 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
     super.dispose();
   }
 
-  void updateUserValue(String email) {
-   // user.email = email;
+  Future<void> updateUserValue(String email) async {
+    await crud.updateUser(auth.currentUser!.uid, {"email":email});
+    await widget.authController.fetchUserInfo();
+
   }
 
   @override
@@ -53,31 +62,24 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                         width: 320,
                         child: TextFormField(
                           // Handles Form Validation
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your email.';
-                            }
-                            return null;
-                          },
+                          validator: (email)=>validator.emailValidatro(email!),
                           decoration: const InputDecoration(
                               labelText: 'Your email address'),
                           controller: emailController,
                         ))),
                 Padding(
-                    padding: EdgeInsets.only(top: 150),
+                    padding: EdgeInsets.only(top: 10),
                     child: Align(
                         alignment: Alignment.bottomCenter,
                         child: SizedBox(
                           width: 320,
                           height: 50,
                           child: ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               // Validate returns true if the form is valid, or false otherwise.
-                              if (_formKey.currentState!.validate() &&
-                                  EmailValidator.validate(
-                                      emailController.text)) {
-                                updateUserValue(emailController.text);
-                                Navigator.pop(context);
+                              if (_formKey.currentState!.validate()) {
+                                await updateUserValue(emailController.text);
+                                Get.to(ProfilePage());
                               }
                             },
                             child: const Text(

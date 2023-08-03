@@ -44,15 +44,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   ))),
           InkWell(
               onTap: () {
-                navigateSecondPage(EditImagePage());
+                Get.to(const EditImagePage());
               },
               child: DisplayImage(
                 imagePath: widget.authController.userData.value.picture,
                 onPressed: () {},
               )),
           Obx(() => buildUserInfoDisplay(widget.authController.userData.value.fName+" "+widget.authController.userData.value.lName , 'Name', EditNameFormPage())),
-          buildUserInfoDisplay(widget.authController.userData.value.phone, 'Phone', EditPhoneFormPage()),
-          buildUserInfoDisplay(widget.authController.userData.value.email, 'Email', EditEmailFormPage()),
+      Obx(() => buildUserInfoDisplay(widget.authController.userData.value.phone, 'Phone', EditPhoneFormPage())),
+    Obx(() => buildUserInfoDisplay(widget.authController.userData.value.email, 'Email', EditEmailFormPage())),
          /* Expanded(
             child: buildAbout(user),
             flex: 4,

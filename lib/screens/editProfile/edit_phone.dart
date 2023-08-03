@@ -1,11 +1,18 @@
+import 'package:doctorppp/screens/editProfile/profile_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:string_validator/string_validator.dart';
+import '../../globals.dart';
+import '../../validatorsAuth/auth.dart';
 import 'appbar_widget.dart';
 import 'appbar_widget.dart';
+import '../../persistance/userCrud.dart' as crud;
 
 // This class handles the Page to edit the Phone Section of the User Profile.
 class EditPhoneFormPage extends StatefulWidget {
-  const EditPhoneFormPage({Key? key}) : super(key: key);
+   EditPhoneFormPage({Key? key}) : super(key: key);
+  final authController = Get.find<AuthController>();
   @override
   EditPhoneFormPageState createState() {
     return EditPhoneFormPageState();
@@ -23,14 +30,9 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
     super.dispose();
   }
 
-  void updateUserValue(String phone) {
-    String formattedPhoneNumber = "(" +
-        phone.substring(0, 3) +
-        ") " +
-        phone.substring(3, 6) +
-        "-" +
-        phone.substring(6, phone.length);
-   // user.phone = formattedPhoneNumber;
+    Future<void> updateUserValue(String phone) async {
+      await crud.updateUser(auth.currentUser!.uid, {"pNumber":phone});
+      await widget.authController.fetchUserInfo();
   }
 
   @override
@@ -73,19 +75,19 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                           ),
                         ))),
                 Padding(
-                    padding: EdgeInsets.only(top: 150),
+                    padding: EdgeInsets.only(top: 10),
                     child: Align(
                         alignment: Alignment.bottomCenter,
                         child: SizedBox(
                           width: 320,
                           height: 50,
                           child: ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               // Validate returns true if the form is valid, or false otherwise.
                               if (_formKey.currentState!.validate() &&
                                   isNumeric(phoneController.text)) {
-                                updateUserValue(phoneController.text);
-                                Navigator.pop(context);
+                                await updateUserValue(phoneController.text);
+                                Get.to(ProfilePage());
                               }
                             },
                             child: const Text(

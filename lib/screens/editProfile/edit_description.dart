@@ -1,3 +1,4 @@
+import 'package:doctorppp/screens/editProfile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -82,7 +83,7 @@ class _EditDescriptionFormPageState extends State<EditDescriptionFormPage> {
                               // Validate returns true if the form is valid, or false otherwise.
                               if (_formKey.currentState!.validate()) {
                                 updateUserValue(descriptionController.text);
-                                Navigator.pop(context);
+                                Get.to(ProfilePage());
                               }
                             },
                             child: const Text(
