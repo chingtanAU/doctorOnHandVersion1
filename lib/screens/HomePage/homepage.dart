@@ -21,7 +21,7 @@ import '../ocr/image_input.dart';
 class Homepage extends StatefulWidget {
   Homepage({Key? key}) : super(key: key);
   final authController = Get.find<AuthController>();
-  final clinicController = Get.find<ClinicContoller>();
+  final clinicController =  Get.find<ClinicContoller>();
   final NotificationController controller = Get.put(NotificationController());
 
   @override

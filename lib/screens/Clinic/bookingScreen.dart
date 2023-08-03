@@ -1,10 +1,21 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctorppp/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:booking_calendar/booking_calendar.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import '../../persistance/userCrud.dart' as usercrud;
+import '../../Controllers/clinicDetailsContoller.dart';
+import '../../validatorsAuth/auth.dart';
 
 class BookingCalendarDemoApp extends StatefulWidget {
-  const BookingCalendarDemoApp({Key? key}) : super(key: key);
+   BookingCalendarDemoApp({Key? key}) : super(key: key);
+
+  final clinicdetailController = Get.find<ClinicDetailsContoller>() ;
+  final authController = Get.find<AuthController>();
 
   @override
   State<BookingCalendarDemoApp> createState() => _BookingCalendarDemoAppState();
@@ -47,7 +58,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
       {required DateTime end, required DateTime start}) {
     //print(start);
     //print(end);
-    return getBookingStream(doctorId:'eFWgNp9ZQy2453tnKO9j')
+    return getBookingStream(doctorId:widget.clinicdetailController.doctorData.value.id!)
         .snapshots();
   }
 
@@ -63,7 +74,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
     return converted;
   }
 
-  Future<dynamic> uploadBookingFirebase({required BookingService newBooking}) async {
+  Future<dynamic> uploadBookingFirebase({required BookingService newBooking,required BuildContext context}) async {
     await _displayTextInputDesc(context,newBooking);
 
   }
@@ -98,15 +109,27 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
                 textColor: Colors.white,
                 child: const Text('Submit'),
                 onPressed: () async {
-                  // newBooking.description= _descController.text as String?;
+                  newBooking.description= _descController.text;
+                  newBooking.userId= auth.currentUser?.uid;
+                  newBooking.userName= "${widget.authController.userData.value.fName} ${widget.authController.userData.value.lName}";
+                  newBooking.userEmail= widget.authController.userData.value.email;
+                  newBooking.userPhoneNumber= widget.authController.userData.value.phone;
+                  newBooking.serviceId=widget.clinicdetailController.doctorData.value.id;
+                  newBooking.serviceName="${widget.clinicdetailController.doctorData.value.fName} ${widget.clinicdetailController.doctorData.value.lName}";
                   await meeting
-                      .doc('eFWgNp9ZQy2453tnKO9j')
+                      .doc(widget.clinicdetailController.doctorData.value.id!)
                       .collection('DoctorMeetings')
                       .add(newBooking.toJson())
-                      .then((value) => Navigator.pop(context))
+                      .then((value) async {
+                        await usercrud.addmeetingUser(auth.currentUser!.uid, value.id,newBooking.toJson());
+                        Navigator.pop(context);})
                       .catchError((error) => print("Failed to add booking: $error"));
 
+
+
                 },
+
+
               ),
             ],
           );
@@ -158,6 +181,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
               uploadingWidget: const CircularProgressIndicator(),
               locale:'eng',
               startingDayOfWeek: StartingDayOfWeek.monday,
+              disabledDays: [DateTime.thursday],
               wholeDayIsBookedWidget:
               const Text('Sorry, for this day everything is booked'),
               //disabledDates: [DateTime(2023, 1, 20)],

@@ -1,8 +1,10 @@
+import 'package:doctorppp/Controllers/clinicController.dart';
 import 'package:doctorppp/Controllers/signUpContoller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import '../entity/HealthCarePhacility.dart';
 import '../globals.dart' as globals;
 import '../validatorsAuth/Validator.dart' as validator;
 
@@ -35,8 +37,12 @@ class MyRegister extends StatefulWidget {
 
   final authController = Get.find<AuthController>();
   final SignUpContoller signUpContoller = Get.put(SignUpContoller());
+
   @override
   _MyRegisterState createState() => _MyRegisterState();
+
+  @override
+  void initState() {}
 }
 
 class _MyRegisterState extends State<MyRegister> {
@@ -248,7 +254,7 @@ class _MyRegisterState extends State<MyRegister> {
                                 height: 30,
                               ),
                               IntlPhoneField(
-                                // keyField: globals.phoneKey,
+                                keyField: globals.phoneKey,
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
@@ -582,13 +588,14 @@ class DropdownButtonClinic extends StatefulWidget {
   DropdownButtonClinic({super.key});
 
   final signUpContoller = Get.find<SignUpContoller>();
+  final clinicController = Get.find<ClinicContoller>();
 
   @override
   _DropdownButtonClinicState createState() => _DropdownButtonClinicState();
 }
 
 class _DropdownButtonClinicState extends State<DropdownButtonClinic> {
-  String? dropdownValue;
+  HealthCarePhacility? dropdownValue;
 
   @override
   Widget build(BuildContext context) {
@@ -597,7 +604,7 @@ class _DropdownButtonClinicState extends State<DropdownButtonClinic> {
         const SizedBox(
           height: 40,
         ),
-        DropdownButtonFormField<String>(
+        DropdownButtonFormField<HealthCarePhacility>(
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) => (value == null ? 'clinic is required' : null),
           hint: Text("Select your clinic",
@@ -605,15 +612,16 @@ class _DropdownButtonClinicState extends State<DropdownButtonClinic> {
           key: globals.clinicListKey,
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
-                    color: Colors.black,
-                  )),
-              focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
                   color: Colors.black,
                 ),
+                // focusedBorder: OutlineInputBorder(
+                //   borderRadius: BorderRadius.circular(10),
+                //   borderSide: const BorderSide(
+                //     color: Colors.black,
+                //   ),
+                // ),
               ),
               hintStyle: const TextStyle(color: Colors.black),
               border: OutlineInputBorder(
@@ -624,18 +632,23 @@ class _DropdownButtonClinicState extends State<DropdownButtonClinic> {
           icon: const Icon(Icons.arrow_downward),
           elevation: 16,
           style: const TextStyle(color: Colors.deepPurple),
-          onChanged: (String? value) {
-            widget.signUpContoller.setClinic(value);
+          onChanged: (value) {
+            widget.signUpContoller.setClinic(value?.name);
+            print(value?.id);
           },
-          items: listClinic.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
+          items: widget.clinicController.clinicOnlyWithAppointment.value
+              .map((value) {
+            return DropdownMenuItem(
               value: value,
               child: Text(
-                value,
+                value.name,
                 style: const TextStyle(color: Colors.black),
               ),
             );
           }).toList(),
+        ),
+        const SizedBox(
+          height: 40,
         ),
         const SizedBox(
             height:

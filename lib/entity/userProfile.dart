@@ -1,4 +1,5 @@
 import 'package:booking_calendar/booking_calendar.dart';
+import 'package:doctorppp/entity/visitedClinic.dart';
 
 class UserProfile{
   String fName;
@@ -6,8 +7,8 @@ class UserProfile{
   String email;
   String address;
   String phone;
-  List<BookingService>? meets;
   String role ;
+  List<BookingService>? meets;
   String picture;
 
   factory UserProfile.empty()=>UserProfile(role: "", fName: "", lName: "", email: "", address: "", phone: "", picture:"");
@@ -21,7 +22,7 @@ class UserProfile{
     email:json["email"],
     address:json["address"],
     phone: json["pNumber"],
-    meets:json["meets"]!=null ? List<BookingService>.from(json["meets"].map((x) => BookingService.fromJson(x))):null,
+    meets:json["meets"]!=null? List<BookingService>.from(json["meets"].map((x) => BookingService.fromJson(x))):null,
     role: json["role"],
     picture: json["picture"],
   );
@@ -35,7 +36,7 @@ class UserProfile{
         'email': email,
         'address': address,
         'pNumber': phone,
-        'meets': meets,
+        'meets': meets ?? [] ,
         'picture': picture,
 
       };

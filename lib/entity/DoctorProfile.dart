@@ -8,11 +8,16 @@ import 'package:doctorppp/entity/userProfile.dart';
 
 class DoctorProfile extends UserProfile {
 
+  String?id;
   String speciality;
+  String clinicId;
 
-   String clinicName;
+  
 
-  DoctorProfile({role,fName,lName,email,address,phone,meets,picture, required this.speciality ,required this.clinicName }) : super(role:role, fName:fName , lName:lName, email: email, address: address, phone:phone, picture: picture);
+  DoctorProfile({role,fName,lName,email,address,phone,meets,picture, required this.speciality ,required this.clinicId }) : super(role:role, fName:fName , lName:lName, email: email, address: address, phone:phone, picture: picture);
+
+  factory DoctorProfile.empty()=>DoctorProfile(clinicId: "",speciality: "",role: "",fName: "",lName: "",email: "",address: "",phone: "",picture: "");
+
 
   factory DoctorProfile.fromJson(Map<String, dynamic> json) => DoctorProfile(
     fName: json["fName"],
@@ -24,7 +29,7 @@ class DoctorProfile extends UserProfile {
     role: json["role"],
     picture: json["picture"],
     speciality: json["speciality"],
-    clinicName: json["clinic"],
+    clinicId: json["clinicId"],
   );
 
 
@@ -40,7 +45,8 @@ class DoctorProfile extends UserProfile {
         'meets': meets,
         'picture': picture,
         'speciality': speciality,
-        'clinic':clinicName,
+        'clinicId':clinicId,
+
 
       };
 

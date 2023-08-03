@@ -12,6 +12,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'Controllers/clinicController.dart';
+import 'doctor_part/Appointments/upcoming.dart';
+import 'doctor_part/HomePage/homepage.dart';
+import 'doctor_part/Report/view.dart';
+import 'doctor_part/completedVisits/view.dart';
+import 'doctor_part/controller/doctorHomePageBinding.dart';
 import 'screens/HomePage/homepage.dart';
 
 Future<void> main() async {
@@ -22,8 +27,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp().then((value) => Get.put(AuthController()));
-  Get.put<AgoraTokenService>(AgoraTokenService());
   Get.put(ClinicContoller());
+  Get.put<AgoraTokenService>(AgoraTokenService());
 
   runApp(const MyApp());
 }
@@ -67,6 +72,13 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/book', page: () => BookingCalendarDemoApp()),
         GetPage(name: '/detail', page: () => DetailScreen()),
         GetPage(name: '/editProfile', page: () => ProfilePage()),
+        GetPage(
+            name: '/doctorHomePage',
+            page: () => DoctorHomepage(),
+            binding: DoctorHomePageBinding()),
+        GetPage(name: '/appointment', page: () => AppointmentScreen()),
+        GetPage(name: '/completed', page: () => CompletedVisitsScreen()),
+        GetPage(name: '/report', page: () => ReportScreen()),
       ],
 
 //     return SafeArea(

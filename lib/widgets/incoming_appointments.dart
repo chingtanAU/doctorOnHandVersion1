@@ -1,20 +1,25 @@
+import 'package:booking_calendar/booking_calendar.dart';
 import 'package:doctorppp/screens/HomePage/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
 
+import '../Controllers/patientMeetingsController.dart';
 import '../screens/video_calll/meet.dart';
 
 
 class IncomingCard extends StatelessWidget {
-  const IncomingCard({
+   IncomingCard({
     Key? key,
   }) : super(key: key);
+
+  final patientMeetingsController = Get.find<PatientMeetingsController>() ;
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    BookingService earliestMeet= patientMeetingsController.getEaliestMeeting();
 
     return InkWell(
       onTap: () {
@@ -72,7 +77,7 @@ class IncomingCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Dr. David Jacobs",
+                        "Dr. ${patientMeetingsController.earliestdoctor.value.fName} ${patientMeetingsController.earliestdoctor.value.lName} ",
                         style:  TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -81,7 +86,7 @@ class IncomingCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        "General Practitioner",
+                        "${patientMeetingsController.earliestdoctor.value.speciality}",
                         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               color: Colors.white70,
                             ),
@@ -101,7 +106,7 @@ class IncomingCard extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     color: Colors.white10,
                                     borderRadius: BorderRadius.circular(10)),
-                                child: const Row(
+                                child:  Row(
                                   children: [
                                     Icon(
                                       Ionicons.location_outline,
@@ -112,7 +117,7 @@ class IncomingCard extends StatelessWidget {
                                       padding:
                                           EdgeInsets.only(left: 6, right: 14),
                                       child: Text(
-                                        "4316 139 Avenue ",
+                                        "${patientMeetingsController.earliestdoctor.value.address}",
                                         style: TextStyle(color: Colors.white),
                                       ),
                                     ),
@@ -137,7 +142,7 @@ class IncomingCard extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: Colors.white10,
                             borderRadius: BorderRadius.circular(10)),
-                        child: const Row(
+                        child:  Row(
                           children: [
                             Icon(
                               Ionicons.calendar_outline,
@@ -147,7 +152,7 @@ class IncomingCard extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.only(left: 6, right: 14),
                               child: Text(
-                                "Today",
+                                earliestMeet.bookingStart.year.toString()+"-"+earliestMeet.bookingStart.month.toString()+"-"+earliestMeet.bookingStart.day.toString(),
                                 style: TextStyle(color: Colors.white),
                               ),
                             ),
@@ -160,7 +165,8 @@ class IncomingCard extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "14:30 - 15:30 AM",
+                              earliestMeet.bookingStart.hour.toString()+":"+earliestMeet.bookingStart.minute.toString()+" - "+earliestMeet.bookingEnd.hour.toString()+":"+earliestMeet.bookingEnd.minute.toString(),
+
                               style: TextStyle(
                                 color: Colors.white,
                               ),
