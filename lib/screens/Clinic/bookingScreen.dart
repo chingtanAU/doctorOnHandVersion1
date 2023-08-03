@@ -181,6 +181,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
               uploadingWidget: const CircularProgressIndicator(),
               locale:'eng',
               startingDayOfWeek: StartingDayOfWeek.monday,
+              disabledDays: [DateTime.thursday],
               wholeDayIsBookedWidget:
               const Text('Sorry, for this day everything is booked'),
               //disabledDates: [DateTime(2023, 1, 20)],

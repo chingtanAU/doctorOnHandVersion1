@@ -1,3 +1,4 @@
+import 'package:booking_calendar/booking_calendar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctorppp/entity/DoctorProfile.dart';
 import 'package:doctorppp/entity/visitedClinic.dart';
@@ -20,6 +21,18 @@ Future<List<VisitedClinic>> fetchUserVisitedClinic(String id) async{
       .toList();
 }
 
+
+Future<DoctorProfile?> fetchDoctorInfo(String id) async{
+  DoctorProfile? doctor ;
+  await userCollection.doc(id).get().then((doc) {
+    print(doc.data());
+    final data = doc.data() as Map<String, dynamic>;
+    doctor= DoctorProfile.fromJson(data);
+
+  }
+  );
+  return doctor;
+}
 
 Future<UserProfile?> fetchUserInfo(String id) async{
   UserProfile? user ;
@@ -55,6 +68,20 @@ Future<void> updateUser(String uid, Map<String, dynamic> value ) async {
 Future<void> addmeetingUser(String uid,String meetId,Map<String, dynamic> value ) async {
   await userCollection.doc(uid).collection("oppointment").doc(meetId).set(value);
 }
+
+
+Future<List<BookingService>> fetchUserMeetings(String id) async{
+
+  QuerySnapshot<Object?> snapshot =
+  await userCollection.doc(id).collection("oppointment").get();
+  return snapshot.docs
+      .map((docSnapshot) =>BookingService.fromJson(docSnapshot.data() as Map<String, dynamic>))
+      .toList();
+}
+
+
+
+
 
 
 

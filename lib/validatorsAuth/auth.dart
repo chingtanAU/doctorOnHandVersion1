@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../Controllers/clinicController.dart';
+import '../Controllers/patientMeetingsController.dart';
 import '../globals.dart' as globals;
 import '../globals.dart';
 import 'Validator.dart';
@@ -18,6 +19,7 @@ import '../persistance/FacilityService.dart' as clinicCrud;
 
 class AuthController extends GetxController {
   Rx<UserProfile> userData = Rx<UserProfile>(UserProfile.empty());
+
   late Rx<User?> firebaseUser;
 
   @override
@@ -44,7 +46,15 @@ class AuthController extends GetxController {
         .fetchUserInfo((auth.currentUser!.uid))
         .then((value)    {  userData.value = value!;
          Get.find<AuthController>();
-         Get.offAllNamed("/home");
+         Get.put(PatientMeetingsController());
+
+         if(userData.value.role=="Patient") {
+           Get.offAllNamed("/home");
+         }
+
+         else if (userData.value.role=="Doctor"){
+           Get.offAllNamed("/doctorHomePage");
+         }
         });
 
 

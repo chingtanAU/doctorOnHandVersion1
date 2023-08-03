@@ -57,7 +57,7 @@ class HomeInfo extends StatelessWidget {
                   thickness: 0,
                 ),
 
-                const IncomingCard(),
+                 IncomingCard(),
 
                 Divider(
                   color: Colors.grey[300],
