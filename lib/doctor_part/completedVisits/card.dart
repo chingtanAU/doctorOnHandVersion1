@@ -14,6 +14,27 @@ class VisitCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int filledFields = 0;
+
+    if (visit.userName != null) {
+      filledFields++;
+    }
+    if (visit.serviceName != null) {
+      filledFields++;
+    }
+    if (visit.bookingStart != null) {
+      filledFields++;
+    }
+
+    Color cardColor;
+    if (filledFields == 3) {
+      cardColor = Colors.green;
+    } else if (filledFields == 2 || filledFields == 1) {
+      cardColor = Colors.yellow;
+    } else {
+      cardColor = Colors.red;
+    }
+
     return Card(
       elevation: 3,
       shape: RoundedRectangleBorder(
@@ -21,7 +42,7 @@ class VisitCard extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xFFECEFF1),
+          color: cardColor,
           borderRadius: BorderRadius.circular(15),
         ),
         padding: EdgeInsets.all(10),
@@ -46,7 +67,7 @@ class VisitCard extends StatelessWidget {
                 size: 20,
               ),
               title: Text(
-                visit.userName!,
+                visit.userName ?? '',
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -58,8 +79,7 @@ class VisitCard extends StatelessWidget {
                 children: [
                   SizedBox(height: 5),
                   Text(
-                    visit.serviceName!,
-                   // visit.description!,
+                    visit.serviceName ?? '',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.black,
@@ -73,14 +93,6 @@ class VisitCard extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  SizedBox(height: 5),
-                  // Text(
-                  //   visit.visitLocation,
-                  //   style: TextStyle(
-                  //     fontSize: 12,
-                  //     color: Colors.black,
-                  //   ),
-                  // ),
                 ],
               ),
             ),
