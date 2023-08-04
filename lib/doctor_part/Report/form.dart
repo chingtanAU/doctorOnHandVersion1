@@ -4,6 +4,7 @@ import 'model.dart';
 
 class ReportsController extends GetxController {
   RxList<Report> reports = <Report>[].obs;
+  RxInt updatedIndex = RxInt(-1);
 
   void addReport(Report report) {
     reports.add(report);
@@ -13,6 +14,10 @@ class ReportsController extends GetxController {
     reports[index] = newReport;
     update();
   }
+  void setUpdatedIndex(int index) {
+    updatedIndex.value = index;
+  }
+
 
   Future<void> clearReports() async {
     reports.clear();
