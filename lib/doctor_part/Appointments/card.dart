@@ -88,7 +88,8 @@ class AppointmentCard extends StatelessWidget {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          appointment.description!,
+                          appointment.serviceName,
+                         // appointment.description!,
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white70,

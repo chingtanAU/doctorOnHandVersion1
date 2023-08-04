@@ -119,6 +119,7 @@ class MyLogin extends StatelessWidget {
                                     color: Colors.white,
                                     onPressed: () {
                                       authController.onLogin();
+
                                     },
                                     icon: const Icon(
                                       Icons.arrow_forward,

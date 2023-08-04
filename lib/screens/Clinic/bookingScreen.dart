@@ -12,7 +12,7 @@ import '../../Controllers/clinicDetailsContoller.dart';
 import '../../validatorsAuth/auth.dart';
 
 class BookingCalendarDemoApp extends StatefulWidget {
-   BookingCalendarDemoApp({Key? key}) : super(key: key);
+  BookingCalendarDemoApp({Key? key}) : super(key: key);
 
   final clinicdetailController = Get.find<ClinicDetailsContoller>() ;
   final authController = Get.find<AuthController>();
@@ -74,7 +74,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
     return converted;
   }
 
-  Future<dynamic> uploadBookingFirebase({required BookingService newBooking,required BuildContext context}) async {
+  Future<dynamic> uploadBookingFirebase({required BookingService newBooking}) async {
     await _displayTextInputDesc(context,newBooking);
 
   }
@@ -104,33 +104,33 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
             ),
             actions: <Widget>[
 
-              MaterialButton(
-                color: Colors.green,
-                textColor: Colors.white,
-                child: const Text('Submit'),
-                onPressed: () async {
-                  newBooking.description= _descController.text;
-                  newBooking.userId= auth.currentUser?.uid;
-                  newBooking.userName= "${widget.authController.userData.value.fName} ${widget.authController.userData.value.lName}";
-                  newBooking.userEmail= widget.authController.userData.value.email;
-                  newBooking.userPhoneNumber= widget.authController.userData.value.phone;
-                  newBooking.serviceId=widget.clinicdetailController.doctorData.value.id;
-                  newBooking.serviceName="${widget.clinicdetailController.doctorData.value.fName} ${widget.clinicdetailController.doctorData.value.lName}";
-                  await meeting
-                      .doc(widget.clinicdetailController.doctorData.value.id!)
-                      .collection('DoctorMeetings')
-                      .add(newBooking.toJson())
-                      .then((value) async {
-                        await usercrud.addmeetingUser(auth.currentUser!.uid, value.id,newBooking.toJson());
-                        Navigator.pop(context);})
-                      .catchError((error) => print("Failed to add booking: $error"));
-
-
-
-                },
-
-
-              ),
+              // MaterialButton(
+              //   color: Colors.green,
+              //   textColor: Colors.white,
+              //   child: const Text('Submit'),
+              //   onPressed: () async {
+              //     newBooking.description= _descController.text;
+              //     newBooking.userId= auth.currentUser?.uid;
+              //     newBooking.userName= "${widget.authController.userData.value.fName} ${widget.authController.userData.value.lName}";
+              //     newBooking.userEmail= widget.authController.userData.value.email;
+              //     newBooking.userPhoneNumber= widget.authController.userData.value.phone;
+              //     newBooking.serviceId=widget.clinicdetailController.doctorData.value.id;
+              //     newBooking.serviceName="${widget.clinicdetailController.doctorData.value.fName} ${widget.clinicdetailController.doctorData.value.lName}";
+              //     await meeting
+              //         .doc(widget.clinicdetailController.doctorData.value.id!)
+              //         .collection('DoctorMeetings')
+              //         .add(newBooking.toJson())
+              //         .then((value) async {
+              //       await usercrud.addmeetingUser(auth.currentUser!.uid, value.id,newBooking.toJson());
+              //       Navigator.pop(context);})
+              //         .catchError((error) => print("Failed to add booking: $error"));
+              //
+              //
+              //
+              //   },
+              //
+              //
+              // ),
             ],
           );
         });
