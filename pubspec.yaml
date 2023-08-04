@@ -70,7 +70,6 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   share_plus: ^7.0.2
   http: ^0.13.6
-  shared_preferences: ^2.2.0
   flutter_dropdown_alert: ^1.0.7
 
 
