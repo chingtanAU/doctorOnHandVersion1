@@ -58,7 +58,8 @@ class VisitCard extends StatelessWidget {
                 children: [
                   SizedBox(height: 5),
                   Text(
-                    visit.description!,
+                    visit.serviceName!,
+                   // visit.description!,
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.black,

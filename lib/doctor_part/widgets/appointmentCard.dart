@@ -119,7 +119,8 @@ class _IncomingCardState extends State<IncomingCard> {
                                       ),
                                       const SizedBox(height: 5),
                                       Text(
-                                        earliestMeet.description==null? "": earliestMeet.description! ,
+                                        earliestMeet.serviceName!,
+                                        //earliestMeet.description==null? "": earliestMeet.description! ,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyLarge!
