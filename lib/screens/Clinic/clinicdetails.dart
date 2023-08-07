@@ -11,34 +11,33 @@ import '../../persistance/userCrud.dart' as userCrud;
 
 class ClinicDetails extends StatelessWidget {
   final ClinicDTO clinic;
-   ClinicDetails({Key? key, required this.clinic}) : super(key: key);
 
-  late String last = clinic.lastVisit.toString() ;
+  ClinicDetails({Key? key, required this.clinic}) : super(key: key);
+
+  late String last = clinic.lastVisit.toString();
+
   late String visit = clinic.visitNumber.toString();
-  final clinicdetailController = Get.find<ClinicDetailsContoller>() ;
-
-
-
-
+  final clinicdetailController = Get.find<ClinicDetailsContoller>();
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: ElevatedButton(
-        onPressed: () => {
-          Get.toNamed('/book')
-        },
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
-            const Color(0xff575de3),
-          ),
-        ),
-        child: const Text('Book Appointment'),
-      ),
-      
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: ElevatedButton(
+      //   onPressed: () =>
+      //   {
+      //     Get.toNamed('/book')
+      //   },
+      //   style: ButtonStyle(
+      //     backgroundColor: MaterialStateProperty.all<Color>(
+      //       const Color(0xff575de3),
+      //     ),
+      //   ),
+      //   child: const Text('Book Appointment'),
+      // ),
+
 
       body: CustomScrollView(
         slivers: [
@@ -63,62 +62,71 @@ class ClinicDetails extends StatelessWidget {
                   )
               ),
               child:
-                FlexibleSpaceBar(
-                  background:
-                    Image.asset("assets/medical1.png"),
+              FlexibleSpaceBar(
+                background:
+                Image.asset("assets/medical1.png"),
 
-                ),
+              ),
             ),
             title: Text(clinic.clinicName),
-            backgroundColor: const 
+            backgroundColor: const
             Color(0xff575de3),
             expandedHeight: 200,
           ),
           SliverToBoxAdapter(
-            child:  Container(
+            child: Container(
               padding: const EdgeInsets.all(20),
               margin: const EdgeInsets.only(bottom: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Obx(() =>  DetailClinicCard(doctor: clinicdetailController.doctorData.value)),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  ClinicInfo(last: last, total: visit),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    'About Clinic',
-                    style: kTitleStyle,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  // Text(clinic.description,
-                  //   style:  TextStyle(
-                  //     color: Color(MyColors.purple01),
-                  //     fontWeight: FontWeight.w500,
-                  //     height: 1.5,
-                  //   ),
-                  // ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  Text(
-                    'Location',
-                    style: kTitleStyle,
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  const ClinicLocation(),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                ],
-              ),
+              child: Obx(() {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+
+                    // for (var doctor in clinicdetailController.doctorData.value)
+                    // you can add a for loop here to get all the doctors in the clinic
+
+                      DetailClinicCard(doctor: clinicdetailController
+                            .doctorData.value),
+                    DetailClinicCard(doctor: clinicdetailController
+                        .doctorData.value),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    ClinicInfo(last: last, total: visit),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      'About Clinic',
+                      style: kTitleStyle,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    // Text(clinic.description,
+                    //   style:  TextStyle(
+                    //     color: Color(MyColors.purple01),
+                    //     fontWeight: FontWeight.w500,
+                    //     height: 1.5,
+                    //   ),
+                    // ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Text(
+                      'Location',
+                      style: kTitleStyle,
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    const ClinicLocation(),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                  ],
+                );
+              }),
             ),
           )
         ],
@@ -136,9 +144,12 @@ class ClinicLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  SizedBox(
+    return SizedBox(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.3,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height * 0.3,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
 
@@ -167,7 +178,8 @@ class ClinicLocation extends StatelessWidget {
 class ClinicInfo extends StatelessWidget {
   final String last;
   final String total;
-   const ClinicInfo({
+
+  const ClinicInfo({
     Key? key, required this.last, required this.total,
   }) : super(key: key);
 
@@ -195,7 +207,7 @@ class ClinicInfo extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         Row(
-          children:  [
+          children: [
             NumberCard(
               label: 'Last Visit',
               value: last,
@@ -217,6 +229,7 @@ class ClinicInfo extends StatelessWidget {
 class AboutClinic extends StatelessWidget {
   final String title;
   final String desc;
+
   const AboutClinic({
     Key? key,
     required this.title,
@@ -254,7 +267,7 @@ class NumberCard extends StatelessWidget {
           children: [
             Text(
               label,
-              style:  TextStyle(
+              style: TextStyle(
                 color: Color(MyColors.grey02),
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
@@ -265,7 +278,7 @@ class NumberCard extends StatelessWidget {
             ),
             Text(
               value,
-              style:  TextStyle(
+              style: TextStyle(
                 color: Color(MyColors.header01),
                 fontSize: 15,
                 fontWeight: FontWeight.w800,
@@ -299,10 +312,10 @@ class DetailClinicCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
-                child:  Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                   Text(
+                    Text(
                       doctor!.fName + " " + doctor!.lName
                       ,
                       style: TextStyle(
@@ -314,7 +327,7 @@ class DetailClinicCard extends StatelessWidget {
                     ),
                     Text(
                       doctor!.speciality,
-                      style:  TextStyle(
+                      style: TextStyle(
                         color: Color(MyColors.grey02),
                         fontWeight: FontWeight.w500,
                       ),
@@ -322,10 +335,22 @@ class DetailClinicCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const Image(
-                image: AssetImage('assets/medical1.png'),
-                width: 100,
-              )
+              ElevatedButton(
+                onPressed: () =>
+                {
+                  Get.toNamed('/book')
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    const Color(0xff575de3),
+                  ),
+                ),
+                child: const Text('Book Appointment'),
+              ),
+              // const Image(
+              //   image: AssetImage('assets/medical1.png'),
+              //   width: 100,
+              // )
             ],
           ),
         ),
@@ -335,15 +360,12 @@ class DetailClinicCard extends StatelessWidget {
 }
 
 
-
-
-
- TextStyle kTitleStyle =  TextStyle(
+TextStyle kTitleStyle = TextStyle(
   color: Color(MyColors.header01),
   fontWeight: FontWeight.bold,
 );
 
- TextStyle kFilterStyle =  TextStyle(
+TextStyle kFilterStyle = TextStyle(
   color: Color(MyColors.bg02),
   fontWeight: FontWeight.w500,
 );

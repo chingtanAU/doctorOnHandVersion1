@@ -6,9 +6,6 @@ import 'package:doctorppp/doctor_part/Appointments/model.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
-import 'package:doctorppp/doctor_part/completedVisits/view.dart';
-import 'package:doctorppp/doctor_part/completedVisits/model.dart';
-
 
 class AppointmentCard extends StatelessWidget {
   final BookingService appointment;
@@ -22,10 +19,6 @@ class AppointmentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final AppointmentController appointmentController =
-    Get.put(AppointmentController());
-    final CompletedVisitsController completedVisitsController = Get.put(CompletedVisitsController());
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
@@ -58,39 +51,15 @@ class AppointmentCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 1),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Appointments",
-                      style: TextStyle(
-                        fontFamily: "Comic Sans",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        color: Colors.white,
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.cancel,
-                        color: Colors.red,
-                      ),
-                      onPressed: () {
-                        appointmentController.removeAppointment(appointment.userName.toString());
-                        Visit visit = Visit(
-                          patientName: appointment.userName!,
-                          visitTime: DateTime.now ().toString(),
-                          visitDate: DateTime.now ().toString(),
-                          visitLocation: "4316 139 Avenue",
-                          visitReason: "Heart Burn",
-                        );
-
-                        completedVisitsController.addCompletedVisit(visit); // Add the visit to completed visits
-                        completedVisitsController.update();
-                      },
-                    ),
-                  ],
+                padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 16),
+                child: Text(
+                  "Appointments",
+                  style: TextStyle(
+                    fontFamily: "Comic Sans",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               Row(

@@ -1,9 +1,10 @@
 class Report {
   final String doctorName;
   final String patientName;
-   late final String condition;
-   late final String prescription;
-   late final String details;
+  late final String condition;
+  late final String prescription;
+  late final String details;
+  final bool notArrived;
 
   Report({
     required this.doctorName,
@@ -11,5 +12,6 @@ class Report {
     required this.condition,
     required this.prescription,
     required this.details,
+    required this.notArrived,
   });
 }

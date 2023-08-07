@@ -80,17 +80,20 @@ class ClinicSearchPage1 extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(16.0),
+                              padding: const EdgeInsets.all(0.0),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.asset(
-                                     "assets/medical1.png",
-                                      height: 150,
-                                      width:  100,
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: Image.asset(
+                                       "assets/medical1.png",
+                                        height: 150,
+                                        width:  100,
 
+                                      ),
                                     ),
                                   ),
                                   Padding(
