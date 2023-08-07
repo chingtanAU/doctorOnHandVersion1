@@ -70,43 +70,158 @@ class ReportScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               color: cardColor,
-              child: ListTile(
-                contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-                title: Text(
-                  report.patientName ?? '',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                subtitle: Text(
-                  report.condition ?? '',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[600],
-                  ),
-                ),
-                onTap: () {
-                  _showReportDetails(context, report, index);
-                },
-                trailing: ElevatedButton(
-                  onPressed: () {
-                    _showReportDetails(context, report, index);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+              child: Column(
+                children: [
+
+                  Card(
+                    color: Colors.white70,
+
+                    child: Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          if (report.notArrived == true)
+                            const Card(
+                              color: Colors.white,
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(2,0,4,0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(
+                                      Icons.details,
+                                      color: Colors.red,
+                                    ),
+                                    Text(
+                                      'Not Arrived',
+                                      style: TextStyle(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          if (report.notArrived== false && report.condition != null && report.condition.isNotEmpty)
+                            const Card(
+                              color: Colors.white,
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(2,0,4,0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(
+                                      Icons.edit_note,
+                                      color: Colors.yellow,
+                                    ),
+                                    Text(
+                                      'Condition',
+                                      style: TextStyle(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.greenAccent,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          if (report.notArrived== false && report.prescription != null && report.prescription.isNotEmpty)
+                            const Card(
+                              color: Colors.white,
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(2,0,4,0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(
+                                      Icons.receipt_long_rounded,
+                                      color: Colors.yellow,
+                                    ),
+                                    Text(
+                                      'Prescription',
+                                      style: TextStyle(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.greenAccent,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                          if (report.notArrived == false && report.details != null && report.details.isNotEmpty)
+                            const Card(
+                              color: Colors.white,
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(2,0,4,0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(
+                                      Icons.notes,
+                                      color: Colors.yellow,
+                                    ),
+                                    Text(
+                                      'Details',
+                                      style: TextStyle(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.greenAccent,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                        ],
+                      ),
                     ),
                   ),
-                  child: Text(
-                    'Update',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
+
+                  ListTile(
+                    contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                    title: Text(
+                      report.patientName ?? '',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    subtitle: Text(
+                      report.condition ?? '',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    onTap: () {
+                      _showReportDetails(context, report, index);
+                    },
+                    trailing: ElevatedButton(
+                      onPressed: () {
+                        _showReportDetails(context, report, index);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        'Update',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
             );
           },

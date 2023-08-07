@@ -1,4 +1,5 @@
 import 'package:doctorppp/screens/Clinic/bookingScreen.dart';
+import 'package:doctorppp/screens/appointments/upcoming.dart';
 import 'package:doctorppp/screens/detailscreen.dart';
 import 'package:doctorppp/screens/editProfile/profile_page.dart';
 import 'package:doctorppp/screens/homepage.dart';
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/appointment', page: () => AppointmentScreen()),
         GetPage(name: '/completed', page: () => CompletedVisitsScreen()),
         GetPage(name: '/report', page: () => ReportScreen()),
+        GetPage(name: '/patient',page: ()=> PatientAppointmentScreen())
       ],
 
 //     return SafeArea(

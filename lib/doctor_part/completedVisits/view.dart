@@ -31,7 +31,31 @@ class CompletedVisitsController extends GetxController {
     update();
   }
 
-  // void addCompletedVisit(Visit visit) async {
+  void addCompletedVisit(Visit visit) async {
+    // Check if the visit is a duplicate
+    bool isDuplicate = visits.any((v) =>
+    v.userName == visit.patientName &&
+        v.bookingStart == visit.visitDate);
+
+    if (isDuplicate) {
+      // Display an error message and return without adding the visit
+      Get.snackbar(
+        'Error',
+        'This visit has already been completed.',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    }
+    visits.add(visit as BookingService);
+    final prefs = await _prefs;
+    final visitsJson = jsonEncode(visits.toList());
+    prefs.setString('visits', visitsJson);
+    update();
+  }
+
+
+// void addCompletedVisit(Visit visit) async {
   //     // Check if the visit is a duplicate
   //     bool isDuplicate = visits.any((v) =>
   //     v.patientName == visit.patientName &&

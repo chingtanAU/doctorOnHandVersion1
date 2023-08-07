@@ -31,6 +31,7 @@ class ReportForm extends StatefulWidget {
   final bool update;
   final int index;
   final Report? report;
+  final bool notArrived;
 
   ReportForm({
     required this.doctorName,
@@ -39,6 +40,7 @@ class ReportForm extends StatefulWidget {
     this.update = false,
     this.index = -1,
     this.report,
+    this.notArrived = false,
   });
 
   @override
@@ -50,6 +52,7 @@ class _ReportFormState extends State<ReportForm> {
   final _conditionController = TextEditingController();
   final _prescriptionController = TextEditingController();
   final _detailsController = TextEditingController();
+  final _notArrivedController = TextEditingController();
   final ReportsController reportsController = Get.put(ReportsController());
 
   @override
@@ -59,6 +62,7 @@ class _ReportFormState extends State<ReportForm> {
       _conditionController.text = widget.report!.condition;
       _prescriptionController.text = widget.report!.prescription;
       _detailsController.text = widget.report!.details;
+      _notArrivedController.text = widget.report!.notArrived.toString();
     }
   }
 
@@ -74,30 +78,39 @@ class _ReportFormState extends State<ReportForm> {
             children: [
               Text('Doctor: ${widget.doctorName}'),
               Text('Patient: ${widget.patientName}'),
+              // TextFormField(
+              //   controller: _conditionController,
+              //   decoration: InputDecoration(labelText: 'Condition'),
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return 'Please enter a condition';
+              //     }
+              //     return null;
+              //   },
+              // ),
               TextFormField(
-                controller: _conditionController,
+
                 decoration: InputDecoration(labelText: 'Condition'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a condition';
-                  }
-                  return null;
-                },
+                controller: _conditionController,
               ),
               TextFormField(
-                controller: _prescriptionController,
+
                 decoration: InputDecoration(labelText: 'Prescription'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a prescription';
-                  }
-                  return null;
-                },
+                controller: _prescriptionController,
               ),
               TextFormField(
                 controller: _detailsController,
                 decoration: InputDecoration(labelText: 'Details'),
                 maxLines: 3,
+              ),
+              CheckboxListTile(
+                title: Text('Not Arrived'),
+                value: _notArrivedController.text.isNotEmpty ? _notArrivedController.text.toLowerCase() == 'true' : widget.notArrived,
+                onChanged: (value) {
+                  setState(() {
+                    _notArrivedController.text = value.toString();
+                  });
+                },
               ),
             ],
           ),
@@ -119,6 +132,7 @@ class _ReportFormState extends State<ReportForm> {
                 condition: _conditionController.text,
                 prescription: _prescriptionController.text,
                 details: _detailsController.text,
+                notArrived: _notArrivedController.text.isNotEmpty ? _notArrivedController.text.toLowerCase() == 'true' : widget.notArrived,
               );
               if (widget.update) {
                 reportsController.updateReport(widget.index, report);
