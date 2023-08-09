@@ -21,14 +21,12 @@ import '../ocr/image_input.dart';
 class Homepage extends StatefulWidget {
   Homepage({Key? key}) : super(key: key);
   final authController = Get.find<AuthController>();
-  final clinicController =  Get.find<ClinicContoller>();
+  final clinicController = Get.find<ClinicContoller>();
   final NotificationController controller = Get.put(NotificationController());
 
   @override
   void initState() {
-    globals.auth
-        .authStateChanges()
-        .listen((User? user) {
+    globals.auth.authStateChanges().listen((User? user) {
       if (user == null) {
         print('User is currently signed out!');
       } else {
@@ -37,15 +35,14 @@ class Homepage extends StatefulWidget {
     });
   }
 
-
-    @override
+  @override
   _HomepageState createState() => _HomepageState();
 }
 
 late double height;
 late double width;
 
-class _HomepageState extends State<Homepage> {
+class _HomepageState extends State<Homepage> with WidgetsBindingObserver {
   //final AuthController authController = Get.find<AuthController>();
   double xoffset = 0;
   double yoffset = 0;
@@ -56,7 +53,25 @@ class _HomepageState extends State<Homepage> {
     _scaffoldKey.currentState?.openDrawer();
   }
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addObserver(this);
+  }
 
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      setState(() {});
+    }
+  }
 
   Widget doctors(
       {required String image,
@@ -164,7 +179,7 @@ class _HomepageState extends State<Homepage> {
 
   int _currentIndex = 0;
   List page = [
-     HomeInfo(),
+    HomeInfo(),
     const ChatList(),
     const PatientProfile(),
   ];
@@ -177,13 +192,13 @@ class _HomepageState extends State<Homepage> {
           return IconButton(
               icon: const Icon(Icons.notifications_none),
               onPressed: () {
-                Get.to( NotificationPage());
+                Get.to(NotificationPage());
               });
         } else {
           return IconButton(
               icon: const Icon(Icons.notifications_active),
               onPressed: () {
-                Get.to( NotificationPage());
+                Get.to(NotificationPage());
               });
         }
       }),
@@ -199,22 +214,22 @@ class _HomepageState extends State<Homepage> {
       drawer: Drawer(
         child: ListView(
           children: [
-             UserAccountsDrawerHeader(
+            UserAccountsDrawerHeader(
               decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    stops: [
-                      0.1,
-                      0.6,
-                    ],
-                    colors: [
-                      Colors.blue,
-                      Colors.teal,
-                    ],
-                  )),
-
-              accountName: Text('${widget.authController.userData.value.fName} ${widget.authController.userData.value.lName}'),
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                stops: [
+                  0.1,
+                  0.6,
+                ],
+                colors: [
+                  Colors.blue,
+                  Colors.teal,
+                ],
+              )),
+              accountName: Text(
+                  '${widget.authController.userData.value.fName} ${widget.authController.userData.value.lName}'),
               accountEmail: Text(widget.authController.userData.value.email),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage('assets/profile.jpg'),
@@ -224,9 +239,8 @@ class _HomepageState extends State<Homepage> {
               leading: const Icon(Icons.camera),
               title: const Text('OCR'),
               onTap: () {
-
                 // Handle item tap
-                Get.to(() =>  ImageInputScreen());
+                Get.to(() => ImageInputScreen());
               },
             ),
             ListTile(
@@ -240,7 +254,6 @@ class _HomepageState extends State<Homepage> {
             ListTile(
               leading: Icon(Icons.logout),
               title: Text('Log out'),
-
               onTap: () {
                 widget.authController.logOut();
                 Get.offAllNamed("/login");
@@ -251,10 +264,9 @@ class _HomepageState extends State<Homepage> {
         ),
       ),
 
-
-
       appBar: CustomAppBar(
-          IconButton(icon: const Icon(Icons.menu), onPressed: _openDrawer), actions3),
+          IconButton(icon: const Icon(Icons.menu), onPressed: _openDrawer),
+          actions3),
 
       body: page[_currentIndex],
       bottomNavigationBar: Container(
@@ -274,7 +286,8 @@ class _HomepageState extends State<Homepage> {
               iconSize: 20,
               textStyle: const TextStyle(fontSize: 16, color: Colors.white),
               tabBackgroundColor: Colors.grey[900]!,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.5),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 16.5),
               duration: const Duration(milliseconds: 800),
               gap: 8,
               tabs: const [

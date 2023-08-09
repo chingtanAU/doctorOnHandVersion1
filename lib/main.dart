@@ -28,7 +28,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp().then((value) => Get.put(AuthController()));
-  Get.put(ClinicContoller());
+  await Future.delayed(Duration(seconds: 2));
+  Get.lazyPut(() => ClinicContoller(), fenix: true);
+
   Get.put<AgoraTokenService>(AgoraTokenService());
 
   runApp(const MyApp());
@@ -36,6 +38,13 @@ Future<void> main() async {
 
 @override
 void initState() {}
+
+// class ClinicBinding extends Bindings {
+//   @override
+//   void dependencies() {
+//     Get.put(ClinicContoller());
+//   }
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -69,6 +78,8 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/login', page: () => MyLogin()),
         GetPage(name: '/register', page: () => MyRegister()),
+        // GetPage(
+        //     name: '/home', page: () => Homepage(), binding: ClinicBinding()),
         GetPage(name: '/home', page: () => Homepage()),
         GetPage(name: '/book', page: () => BookingCalendarDemoApp()),
         GetPage(name: '/detail', page: () => DetailScreen()),
@@ -80,7 +91,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/appointment', page: () => AppointmentScreen()),
         GetPage(name: '/completed', page: () => CompletedVisitsScreen()),
         GetPage(name: '/report', page: () => ReportScreen()),
-        GetPage(name: '/patient',page: ()=> PatientAppointmentScreen())
+        GetPage(name: '/patient', page: () => PatientAppointmentScreen())
       ],
 
 //     return SafeArea(

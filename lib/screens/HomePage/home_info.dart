@@ -91,7 +91,6 @@ class HomeInfo extends StatelessWidget {
                                 builder: (context) => ClinicSearchPage1(),
                               ),
                             );
-                            print("Going to ClinicSearchPage1");
                           },
                           child: Card(
                             shape: RoundedRectangleBorder(
@@ -280,7 +279,7 @@ class HomeInfo extends StatelessWidget {
                                     const Padding(
                                       padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
                                       child: Text(
-                                        "Medical History",
+                                        "Manage Appointments",
                                         style: TextStyle(
                                           fontFamily: "Comic Sans",
                                           fontWeight: FontWeight.bold,

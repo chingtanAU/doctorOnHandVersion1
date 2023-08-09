@@ -25,7 +25,7 @@ class AuthController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    Get.put(PatientMeetingsController());
+    Get.lazyPut(() => PatientMeetingsController(), fenix: true);
 
     firebaseUser = Rx<User?>(auth.currentUser);
     firebaseUser.bindStream(auth.userChanges());

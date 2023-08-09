@@ -8,6 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import '../../persistance/userCrud.dart' as usercrud;
 import '../../Controllers/clinicDetailsContoller.dart';
+import '../../Controllers/patientMeetingsController.dart';
 import '../../validatorsAuth/auth.dart';
 
 class BookingCalendarDemoApp extends StatefulWidget {
@@ -146,6 +147,8 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
                       .then((value) async {
                     await usercrud.addmeetingUser(
                         auth.currentUser!.uid, value.id, newBooking.toJson());
+                    Get.find<PatientMeetingsController>()
+                        .fetchPatientMeetings(auth.currentUser!.uid);
                     Navigator.pop(context);
                   }).catchError(
                           (error) => print("Failed to add booking: $error"));
