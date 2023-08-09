@@ -42,6 +42,8 @@ class PatientMeetingsController extends GetxController {
     await userCrud
         .fetchDoctorInfo(meeting.serviceId!)
         .then((value) => earliestdoctor.value = value!);
+    print(earliestdoctor.value.fName);
+    update();
   }
 
   List<BookingService> getUpcomingMeetings(

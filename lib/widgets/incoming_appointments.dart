@@ -114,119 +114,123 @@ class IncomingCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 14),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Dr. ${patientMeetingsController.earliestdoctor.value.fName} ${patientMeetingsController.earliestdoctor.value.lName} ",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.onPrimary,
+                  Obx(() {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Dr. ${patientMeetingsController.earliestdoctor.value.fName} ${patientMeetingsController.earliestdoctor.value.lName} ",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        "${patientMeetingsController.earliestdoctor.value.speciality}",
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              color: Colors.white70,
-                            ),
-                      ),
-                      SizedBox(
-                        width: width * 0.61,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 6,
-                                  horizontal: 8.0,
-                                ),
-                                decoration: BoxDecoration(
-                                    color: Colors.white10,
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Ionicons.location_outline,
-                                      size: 18,
-                                      color: Colors.white,
-                                    ),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 6, right: 14),
-                                      child: Text(
-                                        "${patientMeetingsController.earliestdoctor.value.address}",
-                                        style: TextStyle(color: Colors.white),
+                        const SizedBox(height: 5),
+                        Text(
+                          "${patientMeetingsController.earliestdoctor.value.speciality}",
+                          style:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                    color: Colors.white70,
+                                  ),
+                        ),
+                        SizedBox(
+                          width: width * 0.61,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 6,
+                                    horizontal: 8.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white10,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Ionicons.location_outline,
+                                        size: 18,
+                                        color: Colors.white,
                                       ),
-                                    ),
-                                  ],
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.only(left: 6, right: 14),
+                                        child: Text(
+                                          "${patientMeetingsController.earliestdoctor.value.address}",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(height: height * 0.058),
-                            const Icon(
-                              Icons.navigate_next,
-                              color: Colors.white,
-                              size: 18,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 6,
-                          horizontal: 8.0,
-                        ),
-                        decoration: BoxDecoration(
-                            color: Colors.white10,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Ionicons.calendar_outline,
-                              size: 18,
-                              color: Colors.white,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 6, right: 14),
-                              child: Text(
-                                earliestMeet!.bookingStart.year.toString() +
-                                    "-" +
-                                    earliestMeet!.bookingStart.month
-                                        .toString() +
-                                    "-" +
-                                    earliestMeet!.bookingStart.day.toString(),
-                                style: TextStyle(color: Colors.white),
+                              SizedBox(height: height * 0.058),
+                              const Icon(
+                                Icons.navigate_next,
+                                color: Colors.white,
+                                size: 18,
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 8),
-                              child: Icon(
-                                Ionicons.time_outline,
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 6,
+                            horizontal: 8.0,
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.white10,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Ionicons.calendar_outline,
                                 size: 18,
                                 color: Colors.white,
                               ),
-                            ),
-                            Text(
-                              earliestMeet.bookingStart.hour.toString() +
-                                  ":" +
-                                  earliestMeet.bookingStart.minute.toString() +
-                                  " - " +
-                                  earliestMeet.bookingEnd.hour.toString() +
-                                  ":" +
-                                  earliestMeet.bookingEnd.minute.toString(),
-                              style: TextStyle(
-                                color: Colors.white,
+                              Padding(
+                                padding: EdgeInsets.only(left: 6, right: 14),
+                                child: Text(
+                                  earliestMeet!.bookingStart.year.toString() +
+                                      "-" +
+                                      earliestMeet!.bookingStart.month
+                                          .toString() +
+                                      "-" +
+                                      earliestMeet!.bookingStart.day.toString(),
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  )
+                              Padding(
+                                padding: EdgeInsets.only(right: 8),
+                                child: Icon(
+                                  Ionicons.time_outline,
+                                  size: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                earliestMeet.bookingStart.hour.toString() +
+                                    ":" +
+                                    earliestMeet.bookingStart.minute
+                                        .toString() +
+                                    " - " +
+                                    earliestMeet.bookingEnd.hour.toString() +
+                                    ":" +
+                                    earliestMeet.bookingEnd.minute.toString(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    );
+                  }),
                 ],
               ),
             ],
