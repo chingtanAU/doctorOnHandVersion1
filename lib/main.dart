@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'Controllers/clinicController.dart';
+import 'Controllers/patientMeetingsController.dart';
 import 'doctor_part/Appointments/upcoming.dart';
 import 'doctor_part/HomePage/homepage.dart';
 import 'doctor_part/Report/view.dart';
@@ -30,6 +31,7 @@ Future<void> main() async {
   await Firebase.initializeApp().then((value) => Get.put(AuthController()));
   await Future.delayed(Duration(seconds: 2));
   Get.lazyPut(() => ClinicContoller(), fenix: true);
+  Get.lazyPut(() => PatientMeetingsController(), fenix: true);
 
   Get.put<AgoraTokenService>(AgoraTokenService());
 

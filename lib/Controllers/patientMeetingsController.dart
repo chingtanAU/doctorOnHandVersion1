@@ -17,7 +17,7 @@ class PatientMeetingsController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    await fetchPatientMeetings(auth.currentUser!.uid);
+    fetchPatientMeetings(auth.currentUser!.uid);
     print("aaaaaaa ${allPatientMeetings.value.length}");
     // Compute the earliest meeting here
     earliestMeeting.value = getEaliestMeeting();
@@ -65,9 +65,20 @@ class PatientMeetingsController extends GetxController {
     return l;
   }
 
-  Future<List<BookingService>?> fetchPatientMeetings(String id) async {
-    await userCrud
-        .fetchUserMeetings(id)
-        .then((value) => allPatientMeetings.value = value);
+  // Future<List<BookingService>?> fetchPatientMeetings(String id) async {
+  //   await userCrud
+  //       .fetchUserMeetings(id)
+  //       .then((value) => allPatientMeetings.value = value);
+  //   update();
+  // }
+  void fetchPatientMeetings(String id) {
+    userCrud.fetchUserMeetingsStream(id).listen((List<BookingService> data) {
+      allPatientMeetings.value = data;
+      // Update the earliest meeting whenever data changes
+      earliestMeeting.value = getEaliestMeeting();
+      if (earliestMeeting.value != null) {
+        getDoctorData(earliestMeeting.value!);
+      }
+    });
   }
 }

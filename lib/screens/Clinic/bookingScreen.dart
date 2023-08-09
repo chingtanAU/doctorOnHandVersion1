@@ -84,7 +84,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
       converted.add(
           DateTimeRange(start: (item.bookingStart!), end: (item.bookingEnd!)));
     }
-    print(converted);
+    //print(converted);
     return converted;
   }
 
@@ -147,8 +147,15 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
                       .then((value) async {
                     await usercrud.addmeetingUser(
                         auth.currentUser!.uid, value.id, newBooking.toJson());
+                  }).then((_) async {
                     Get.find<PatientMeetingsController>()
                         .fetchPatientMeetings(auth.currentUser!.uid);
+                  }).then((_) {
+                    print("Booking added successfully");
+                    print(Get.find<PatientMeetingsController>()
+                        .earliestMeeting
+                        .value!
+                        .bookingStart);
                     Navigator.pop(context);
                   }).catchError(
                           (error) => print("Failed to add booking: $error"));

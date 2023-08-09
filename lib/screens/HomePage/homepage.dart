@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../../Controllers/clinicController.dart';
+import '../../Controllers/patientMeetingsController.dart';
 import '../../entity/HealthCarePhacility.dart';
 import '../../globals.dart' as globals;
 import '../../validatorsAuth/auth.dart';
@@ -23,6 +24,8 @@ class Homepage extends StatefulWidget {
   final authController = Get.find<AuthController>();
   final clinicController = Get.find<ClinicContoller>();
   final NotificationController controller = Get.put(NotificationController());
+  final PatientMeetingsController patientMeetingsController =
+      Get.put(PatientMeetingsController());
 
   @override
   void initState() {
