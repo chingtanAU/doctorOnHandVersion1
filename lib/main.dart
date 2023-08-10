@@ -20,8 +20,11 @@ import 'doctor_part/Report/view.dart';
 import 'doctor_part/completedVisits/view.dart';
 import 'doctor_part/controller/doctorHomePageBinding.dart';
 import 'screens/HomePage/homepage.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 Future<void> main() async {
+  tz.initializeTimeZones();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarIconBrightness: Brightness.dark,
     statusBarColor: Colors.transparent,

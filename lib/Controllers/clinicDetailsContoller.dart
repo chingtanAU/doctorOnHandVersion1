@@ -9,9 +9,14 @@ class ClinicDetailsContoller extends GetxController {
   RxString doctorId = "".obs;
 
   Future<DoctorProfile?> setDoctordata(String? clinicId) async {
-    await userCrud
-        .getDoctorByClinicId(clinicId)
-        .then((value) => doctorData.value = value!);
+    await userCrud.getDoctorByClinicId(clinicId).then((value) {
+      doctorData.value = value!;
+      doctorId.value = value.id ?? "";
+    });
     print(doctorData.value.email);
+    print(doctorData.value.fName);
+    print(doctorData.value.id);
+    print(doctorData.value.speciality);
+    print(doctorData.value.clinicId);
   }
 }

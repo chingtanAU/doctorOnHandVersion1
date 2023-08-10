@@ -111,14 +111,14 @@ class BookingServiceWrapper {
     _bookingService = BookingService(
       userId: userId ?? _bookingService.userId,
       userName: userName ?? _bookingService.userName,
-      userEmail: _bookingService.userEmail,
-      userPhoneNumber: _bookingService.userPhoneNumber,
-      bookingStart: _bookingService.bookingStart,
-      bookingEnd: _bookingService.bookingEnd,
-      serviceId: _bookingService.serviceId,
-      serviceName: _bookingService.serviceName,
-      serviceDuration: _bookingService.serviceDuration,
-      servicePrice: _bookingService.servicePrice,
+      userEmail: userEmail ?? _bookingService.userEmail,
+      userPhoneNumber: userPhoneNumber ?? _bookingService.userPhoneNumber,
+      bookingStart: bookingStart ?? _bookingService.bookingStart,
+      bookingEnd: bookingEnd ?? _bookingService.bookingEnd,
+      serviceId: serviceId ?? _bookingService.serviceId,
+      serviceName: serviceName ?? _bookingService.serviceName,
+      serviceDuration: serviceDuration ?? _bookingService.serviceDuration,
+      servicePrice: servicePrice ?? _bookingService.servicePrice,
     );
   }
 

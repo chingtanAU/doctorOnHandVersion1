@@ -46,7 +46,6 @@ class ClinicSearchPage1 extends StatelessWidget {
                 ),
                 const SizedBox(width: 16.0),
                 Obx(() {
-                  print("I am in ClinicSearchPage1");
                   return DropdownButton<int>(
                     value: clinicController.filterValue.value,
                     onChanged: (value) {

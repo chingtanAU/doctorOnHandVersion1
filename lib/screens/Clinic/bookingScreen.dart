@@ -10,6 +10,7 @@ import '../../persistance/userCrud.dart' as usercrud;
 import '../../Controllers/clinicDetailsContoller.dart';
 import '../../Controllers/patientMeetingsController.dart';
 import '../../validatorsAuth/auth.dart';
+import 'package:doctorppp/entity/DoctorProfile.dart';
 
 class BookingCalendarDemoApp extends StatefulWidget {
   BookingCalendarDemoApp({Key? key}) : super(key: key);
@@ -28,11 +29,40 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
   final now = DateTime.now();
   //late BookingService consultation;
   late BookingServiceWrapper consultation;
+  String? role;
+  String? fName;
+  String? lName;
+  String? address;
+  String? phone;
+  String? picture;
+  String? specialty;
 
   @override
   void initState() {
     initializeDateFormatting();
     super.initState();
+    DoctorProfile? doctor = Get.arguments as DoctorProfile?;
+    if (doctor != null) {
+      role = doctor.role;
+      fName = doctor.fName;
+      lName = doctor.lName;
+      address = doctor.address;
+      phone = doctor.phone;
+      picture = doctor.picture;
+      specialty = doctor.speciality;
+
+      setState(() {});
+    }
+    print(doctor!.id);
+    print(doctor.role);
+    print(doctor.fName);
+    print(doctor.lName);
+    print(doctor.email);
+    print(doctor.address);
+    print(doctor.phone);
+    print(doctor.picture);
+    print(doctor.speciality);
+    print(doctor.clinicId);
     // DateTime.now().startOfDay
     // DateTime.now().endOfDay
     // consultation = BookingService(
@@ -140,6 +170,21 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
                       widget.clinicdetailController.doctorData.value.id;
                   newBooking.serviceName =
                       "${widget.clinicdetailController.doctorData.value.fName} ${widget.clinicdetailController.doctorData.value.lName}";
+                  // newBooking.role = role;
+                  // newBooking.fName = fName;
+                  // newBooking.lName = lName;
+                  // newBooking.address = address;
+                  // newBooking.phone = phone;
+                  // newBooking.picture = picture;
+                  // newBooking.specialty = specialty;
+                  // print("Doctor's Name: ${newBooking.serviceName}");
+                  // print("Doctor's First Name: ${newBooking.fName}");
+                  // newBooking.serviceId = "TestID";
+                  // print("Service ID: ${newBooking.serviceId}");
+
+                  // print("sdd");
+                  // print(widget.clinicdetailController.doctorData.value.id);
+                  // print(newBooking.serviceId);
                   await meeting
                       .doc(widget.clinicdetailController.doctorData.value.id!)
                       .collection('DoctorMeetings')
@@ -156,6 +201,12 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
                         .earliestMeeting
                         .value!
                         .bookingStart);
+                    //print doctor name
+                    print(Get.find<PatientMeetingsController>()
+                        .earliestdoctor
+                        .value!
+                        .fName);
+
                     Navigator.pop(context);
                   }).catchError(
                           (error) => print("Failed to add booking: $error"));
