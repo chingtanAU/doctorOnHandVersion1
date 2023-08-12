@@ -13,14 +13,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'Controllers/clinicController.dart';
+import 'Controllers/patientMeetingsController.dart';
 import 'doctor_part/Appointments/upcoming.dart';
 import 'doctor_part/HomePage/homepage.dart';
 import 'doctor_part/Report/view.dart';
 import 'doctor_part/completedVisits/view.dart';
 import 'doctor_part/controller/doctorHomePageBinding.dart';
 import 'screens/HomePage/homepage.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 Future<void> main() async {
+  tz.initializeTimeZones();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarIconBrightness: Brightness.dark,
     statusBarColor: Colors.transparent,
@@ -28,7 +32,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp().then((value) => Get.put(AuthController()));
-  Get.put(ClinicContoller());
+  await Future.delayed(Duration(seconds: 2));
+  Get.lazyPut(() => ClinicContoller(), fenix: true);
+  Get.lazyPut(() => PatientMeetingsController(), fenix: true);
+
   Get.put<AgoraTokenService>(AgoraTokenService());
 
   runApp(const MyApp());
@@ -36,6 +43,13 @@ Future<void> main() async {
 
 @override
 void initState() {}
+
+// class ClinicBinding extends Bindings {
+//   @override
+//   void dependencies() {
+//     Get.put(ClinicContoller());
+//   }
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -69,6 +83,8 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/login', page: () => MyLogin()),
         GetPage(name: '/register', page: () => MyRegister()),
+        // GetPage(
+        //     name: '/home', page: () => Homepage(), binding: ClinicBinding()),
         GetPage(name: '/home', page: () => Homepage()),
         GetPage(name: '/book', page: () => BookingCalendarDemoApp()),
         GetPage(name: '/detail', page: () => DetailScreen()),
@@ -80,7 +96,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/appointment', page: () => AppointmentScreen()),
         GetPage(name: '/completed', page: () => CompletedVisitsScreen()),
         GetPage(name: '/report', page: () => ReportScreen()),
-        GetPage(name: '/patient',page: ()=> PatientAppointmentScreen())
+        GetPage(name: '/patient', page: () => PatientAppointmentScreen())
       ],
 
 //     return SafeArea(

@@ -4,8 +4,12 @@ import 'package:doctorppp/entity/userProfile.dart';
 import 'package:doctorppp/globals.dart';
 import 'package:get/get.dart';
 import '../persistance/userCrud.dart' as userCrud;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class PatientMeetingsController extends GetxController {
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
   final Rx<List<BookingService>> allPatientMeetings =
       Rx<List<BookingService>>(List.empty(growable: true));
   final Rx<DoctorProfile> earliestdoctor =
@@ -17,7 +21,8 @@ class PatientMeetingsController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    await fetchPatientMeetings(auth.currentUser!.uid);
+    _initializeNotifications();
+    fetchPatientMeetings(auth.currentUser!.uid);
     print("aaaaaaa ${allPatientMeetings.value.length}");
     // Compute the earliest meeting here
     earliestMeeting.value = getEaliestMeeting();
@@ -25,6 +30,40 @@ class PatientMeetingsController extends GetxController {
       await getDoctorData(earliestMeeting.value!);
       print(earliestdoctor.value.fName);
     }
+  }
+
+  void _initializeNotifications() {
+    final AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('app_icon');
+    final InitializationSettings initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
+  void scheduleNotification(DateTime scheduledDate, String doctorName,
+      String title, String body) async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails('channel_id', 'channel_name',
+            channelDescription: 'channel_description',
+            importance: Importance.max,
+            priority: Priority.high,
+            showWhen: false);
+    const DarwinNotificationDetails darwinNotificationDetails =
+        DarwinNotificationDetails(
+            sound: 'default',
+            presentAlert: true,
+            presentBadge: true,
+            presentSound: true);
+    const NotificationDetails platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+        iOS: darwinNotificationDetails);
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(0, title, body,
+        tz.TZDateTime.from(scheduledDate, tz.local), platformChannelSpecifics,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle);
   }
 
   BookingService? getEaliestMeeting() {
@@ -42,6 +81,8 @@ class PatientMeetingsController extends GetxController {
     await userCrud
         .fetchDoctorInfo(meeting.serviceId!)
         .then((value) => earliestdoctor.value = value!);
+    print(earliestdoctor.value.fName);
+    update();
   }
 
   List<BookingService> getUpcomingMeetings(
@@ -63,9 +104,51 @@ class PatientMeetingsController extends GetxController {
     return l;
   }
 
-  Future<List<BookingService>?> fetchPatientMeetings(String id) async {
-    await userCrud
-        .fetchUserMeetings(id)
-        .then((value) => allPatientMeetings.value = value);
+  // Future<List<BookingService>?> fetchPatientMeetings(String id) async {
+  //   await userCrud
+  //       .fetchUserMeetings(id)
+  //       .then((value) => allPatientMeetings.value = value);
+  //   update();
+  // }
+  void fetchPatientMeetings(String id) {
+    userCrud.fetchUserMeetingsStream(id).listen((List<BookingService> data) {
+      allPatientMeetings.value = data;
+      // Update the earliest meeting whenever data changes
+      earliestMeeting.value = getEaliestMeeting();
+      if (earliestMeeting.value != null) {
+        getDoctorData(earliestMeeting.value!);
+      }
+
+      List<BookingService> upcomingMeetings =
+          getUpcomingMeetings(allPatientMeetings.value, DateTime.now());
+
+      for (var meeting in upcomingMeetings) {
+        getDoctorData(meeting); // Fetch doctor data for the current meeting
+
+        final DateTime oneWeekBefore =
+            meeting.bookingStart.subtract(Duration(days: 7));
+        final DateTime thirtySixHoursBefore =
+            meeting.bookingStart.subtract(Duration(hours: 36));
+        print(thirtySixHoursBefore.toString());
+        final DateTime oneHourBefore =
+            meeting.bookingStart.subtract(Duration(hours: 1));
+
+        scheduleNotification(
+            oneWeekBefore,
+            earliestdoctor.value.fName,
+            'Upcoming Appointment',
+            'You have an appointment with Dr. ${earliestdoctor.value.fName} in one week.');
+        scheduleNotification(
+            thirtySixHoursBefore,
+            earliestdoctor.value.fName,
+            'Appointment Reminder',
+            'You have an appointment with Dr. ${earliestdoctor.value.fName} in 36 hours. Remember, you only have 12 hours left to cancel.');
+        scheduleNotification(
+            oneHourBefore,
+            earliestdoctor.value.fName,
+            'Last Reminder',
+            'Your appointment with Dr. ${earliestdoctor.value.fName} is in one hour.');
+      }
+    });
   }
 }

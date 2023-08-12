@@ -1,7 +1,4 @@
-
 import 'dart:ui';
-
-
 
 import 'package:doctorppp/screens/appointments/upcoming.dart';
 import 'package:doctorppp/screens/history/view.dart';
@@ -18,15 +15,13 @@ import '../../validatorsAuth/auth.dart';
 import '../../widgets/incoming_appointments.dart';
 import 'homepage.dart';
 
-
 class HomeInfo extends StatelessWidget {
-
   HomeInfo({
     super.key,
   });
 
   final authController = Get.find<AuthController>();
-  final clinicController = Get.find<ClinicContoller>() ;
+  final clinicController = Get.find<ClinicContoller>();
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +38,9 @@ class HomeInfo extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(width * 0.04),
                   child: Text(
-                    "Hi! ${authController.userData.value.fName}",
+                    "Hi ${authController.userData.value.fName}!",
 
-                     //   "\nHow are you today?",
+                    //   "\nHow are you today?",
                     style: TextStyle(
                       fontFamily: "Roboto",
                       fontWeight: FontWeight.bold,
@@ -58,7 +53,7 @@ class HomeInfo extends StatelessWidget {
                   thickness: 0,
                 ),
 
-                 IncomingCard(),
+                IncomingCard(),
 
                 Divider(
                   color: Colors.grey[300],
@@ -69,7 +64,7 @@ class HomeInfo extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                       horizontal: width * 0.04, vertical: height * 0.01),
                   child: const Text(
-                    "Category",
+                    "What would you like to do today?",
                     style: TextStyle(
                       fontFamily: "Comic Sans",
                       fontWeight: FontWeight.bold,
@@ -88,8 +83,7 @@ class HomeInfo extends StatelessWidget {
                           onTap: () {
                             // Navigator.pushNamed(context, 'book');
 
-
-                             // Get.offAndToNamed('/book');
+                            // Get.offAndToNamed('/book');
 
                             Navigator.push(
                               context,
@@ -130,7 +124,8 @@ class HomeInfo extends StatelessWidget {
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 0, 0, 20),
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                             child: const Icon(
                                               Ionicons.calendar_outline,
                                               size: 75,
@@ -199,7 +194,8 @@ class HomeInfo extends StatelessWidget {
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 0, 0, 20),
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                             child: const Icon(
                                               Icons.medical_information,
                                               size: 75,
@@ -228,9 +224,6 @@ class HomeInfo extends StatelessWidget {
                             ),
                           ),
                         ),
-
-
-
                       ],
                     ),
                     InkWell(
@@ -284,10 +277,9 @@ class HomeInfo extends StatelessWidget {
                                       ),
                                     ),
                                     const Padding(
-                                      padding:
-                                      EdgeInsets.fromLTRB(8, 0, 8, 0),
+                                      padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
                                       child: Text(
-                                        "Medical History",
+                                        "Manage Appointments",
                                         style: TextStyle(
                                           fontFamily: "Comic Sans",
                                           fontWeight: FontWeight.bold,
@@ -303,30 +295,29 @@ class HomeInfo extends StatelessWidget {
                         ),
                       ),
                     ),
-
                   ],
                 ),
 
-                Divider(
-                  color: Colors.grey[300],
-                  thickness: 0,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: width * 0.04, vertical: height * 0.01),
-                  child: const Text(
-                    "Nearby Hospitals/Walk In Clinics",
-                    style: TextStyle(
-                      fontFamily: "Comic Sans",
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
-                  ),
-                ),
+                // Divider(
+                //   color: Colors.grey[300],
+                //   thickness: 0,
+                // ),
+                // Padding(
+                //   padding: EdgeInsets.symmetric(
+                //       horizontal: width * 0.04, vertical: height * 0.01),
+                //   child: const Text(
+                //     "Nearby Hospitals/Walk In Clinics",
+                //     style: TextStyle(
+                //       fontFamily: "Comic Sans",
+                //       fontWeight: FontWeight.bold,
+                //       fontSize: 25,
+                //     ),
+                //   ),
+                // ),
 
-             //    if (clinicController.clinicList.value.length != 0)
-             //      createDocWidget("doctor.png", clinicController.clinicList.value[0], "doctor"),                createDocWidget("Image2.jpg", clinicController.clinicList.value[0],"doctor"),
-             // //   createDocWidget("Image3.jpg", clinicController.clinicList.value[0],"doctor"),
+                //    if (clinicController.clinicList.value.length != 0)
+                //      createDocWidget("doctor.png", clinicController.clinicList.value[0], "doctor"),                createDocWidget("Image2.jpg", clinicController.clinicList.value[0],"doctor"),
+                // //   createDocWidget("Image3.jpg", clinicController.clinicList.value[0],"doctor"),
               ],
             ),
           ),
