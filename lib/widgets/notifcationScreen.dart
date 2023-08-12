@@ -67,13 +67,6 @@ class NotificationPage extends StatelessWidget {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.showTestNotification();
-        },
-        child: Icon(Icons.notifications),
-        tooltip: 'Show Test Notification',
-      ),
     );
   }
 }
@@ -88,39 +81,6 @@ class Notification {
 class NotificationController extends GetxController {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
-
-  void showTestNotification() async {
-    print("Inside showTestNotification");
-
-    // Android-specific details
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails('test_channel_id', 'Test Channel',
-            channelDescription: 'Description for Test Channel',
-            importance: Importance.max,
-            priority: Priority.high,
-            showWhen: false);
-
-    // iOS-specific details
-    const DarwinNotificationDetails darwinPlatformChannelSpecifics =
-        DarwinNotificationDetails(
-            subtitle: 'Test Notification Subtitle',
-            presentAlert: true, // Display notification as an alert
-            presentBadge: true, // Display badge value
-            presentSound: true, // Play a sound
-            sound: 'default'); // Use the default notification sound
-
-    // Notification details for both platforms
-    const NotificationDetails platformChannelSpecifics = NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: darwinPlatformChannelSpecifics);
-
-    await flutterLocalNotificationsPlugin.show(
-      0, // Notification ID
-      'Test Notification',
-      'This is a test notification to check if notifications are working.',
-      platformChannelSpecifics,
-    );
-  }
 
   final notifications = <Notification>[
     Notification(

@@ -129,6 +129,7 @@ class PatientMeetingsController extends GetxController {
             meeting.bookingStart.subtract(Duration(days: 7));
         final DateTime thirtySixHoursBefore =
             meeting.bookingStart.subtract(Duration(hours: 36));
+        print(thirtySixHoursBefore.toString());
         final DateTime oneHourBefore =
             meeting.bookingStart.subtract(Duration(hours: 1));
 
