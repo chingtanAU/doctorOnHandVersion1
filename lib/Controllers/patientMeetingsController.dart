@@ -69,13 +69,13 @@ class PatientMeetingsController extends GetxController {
         matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle);
 
-    final newNotification = Notification(
-      id: DateTime.now()
-          .millisecondsSinceEpoch, // Using timestamp as a unique ID
-      title: title,
-      message: body,
-    );
-    Get.find<NotificationController>().addNotification(newNotification);
+    // final newNotification = Notification(
+    //   id: DateTime.now()
+    //       .millisecondsSinceEpoch, // Using timestamp as a unique ID
+    //   title: title,
+    //   message: body,
+    // );
+    // Get.find<NotificationController>().addNotification(newNotification);
   }
 
   BookingService? getEaliestMeeting() {
