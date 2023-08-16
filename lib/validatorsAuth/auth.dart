@@ -16,6 +16,7 @@ import '../globals.dart';
 import 'Validator.dart';
 import '../persistance/userCrud.dart' as userCrud;
 import '../persistance/FacilityService.dart' as clinicCrud;
+import '../../widgets/notifcationScreen.dart';
 
 class AuthController extends GetxController {
   Rx<UserProfile> userData = Rx<UserProfile>(UserProfile.empty());
@@ -26,6 +27,7 @@ class AuthController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     Get.put(PatientMeetingsController());
+    Get.put(NotificationController());
 
     firebaseUser = Rx<User?>(auth.currentUser);
     firebaseUser.bindStream(auth.userChanges());

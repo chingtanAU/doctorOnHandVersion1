@@ -4,23 +4,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'model.dart';
 
-
 class AppointmentController extends GetxController {
   final RxList<PatientAppointment> appointments = RxList<PatientAppointment>([
-    PatientAppointment(
-      doctorName: "Doctor 1",
-      appointmentTime: "14:30 - 15:30 AM",
-      appointmentDate: "Today",
-      appointmentLocation: "436 139 Avenue",
-      appointmentReason: "Heart Burn",
-    ),
-    PatientAppointment(
-      doctorName: "Doctor 2",
-      appointmentTime: "10:00 - 11:00 AM",
-      appointmentDate: "Tomorrow",
-      appointmentLocation: "1234 Main Street",
-      appointmentReason: "Checkup",
-    ),
+    //example appointments
+    // PatientAppointment(
+    //   doctorName: "Doctor 1",
+    //   appointmentTime: "14:30 - 15:30 AM",
+    //   appointmentDate: "Today",
+    //   appointmentLocation: "436 139 Avenue",
+    //   appointmentReason: "Heart Burn",
+    // ),
+    // PatientAppointment(
+    //   doctorName: "Doctor 2",
+    //   appointmentTime: "10:00 - 11:00 AM",
+    //   appointmentDate: "Tomorrow",
+    //   appointmentLocation: "1234 Main Street",
+    //   appointmentReason: "Checkup",
+    // ),
   ]);
 
 // Rest of the code...
@@ -28,7 +28,7 @@ class AppointmentController extends GetxController {
 
 class PatientAppointmentScreen extends StatelessWidget {
   final AppointmentController appointmentController =
-  Get.put(AppointmentController());
+      Get.put(AppointmentController());
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class PatientAppointmentScreen extends StatelessWidget {
         ),
       ),
       body: Obx(
-            () {
+        () {
           return ListView.builder(
             itemCount: appointmentController.appointments.length,
             itemBuilder: (context, index) {
@@ -71,9 +71,9 @@ class PatientAppointmentScreen extends StatelessWidget {
 class AppointmentCard extends StatelessWidget {
   final PatientAppointment appointment;
   final AppointmentController appointmentController =
-  Get.put(AppointmentController());
+      Get.put(AppointmentController());
 
-   AppointmentCard({required this.appointment});
+  AppointmentCard({required this.appointment});
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +118,6 @@ class AppointmentCard extends StatelessWidget {
                 ),
               ],
             ),
-
             SizedBox(height: 8),
             Text(
               appointment.appointmentTime,

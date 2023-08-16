@@ -258,6 +258,8 @@ class _HomepageState extends State<Homepage> with WidgetsBindingObserver {
               leading: Icon(Icons.logout),
               title: Text('Log out'),
               onTap: () {
+                Get.delete<NotificationController>();
+                Get.delete<PatientMeetingsController>();
                 widget.authController.logOut();
                 Get.offAllNamed("/login");
                 // Handle item tap

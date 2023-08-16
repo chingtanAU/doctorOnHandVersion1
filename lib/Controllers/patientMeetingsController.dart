@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../persistance/userCrud.dart' as userCrud;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
+import '../widgets/notifcationScreen.dart';
 
 class PatientMeetingsController extends GetxController {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -58,12 +59,23 @@ class PatientMeetingsController extends GetxController {
         android: androidPlatformChannelSpecifics,
         iOS: darwinNotificationDetails);
 
+    final payload = '$title|$body';
+
     await flutterLocalNotificationsPlugin.zonedSchedule(0, title, body,
         tz.TZDateTime.from(scheduledDate, tz.local), platformChannelSpecifics,
+        payload: payload,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle);
+
+    final newNotification = Notification(
+      id: DateTime.now()
+          .millisecondsSinceEpoch, // Using timestamp as a unique ID
+      title: title,
+      message: body,
+    );
+    Get.find<NotificationController>().addNotification(newNotification);
   }
 
   BookingService? getEaliestMeeting() {
