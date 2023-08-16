@@ -125,10 +125,17 @@ class AuthController extends GetxController {
         y = 10;
       }
       for (int i = 0; i < y; i++) {
-        print(globals.regDoctorKeys[i].currentState!.value);
-        if (!globals.regDoctorKeys[i].currentState!.validate()) {
-          print(i);
-          done = false;
+        final currentState = globals.regDoctorKeys[i].currentState;
+
+        if (currentState != null) {
+          print(currentState.value);
+
+          if (!currentState.validate()) {
+            print(i);
+            done = false;
+          }
+        } else {
+          print('Current state is null for doctor key at index $i');
         }
       }
     }

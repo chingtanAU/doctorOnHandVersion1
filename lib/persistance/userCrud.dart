@@ -34,8 +34,12 @@ Future<UserProfile?> fetchUserInfo(String id) async {
   UserProfile? user;
   await userCollection.doc(id).get().then((doc) {
     print(doc.data());
-    final data = doc.data() as Map<String, dynamic>;
-    user = UserProfile.fromJson(data);
+    final data = doc.data();
+    if (data != null) {
+      user = UserProfile.fromJson(data as Map<String, dynamic>);
+      print(user?.address);
+    }
+
     print(user?.address);
   });
   return user;
