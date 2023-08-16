@@ -72,10 +72,11 @@ class NotificationPage extends StatelessWidget {
 }
 
 class Notification {
+  final int id;
   final String title;
   final String message;
 
-  Notification({required this.title, required this.message});
+  Notification({required this.id, required this.title, required this.message});
 }
 
 class NotificationController extends GetxController {
@@ -83,14 +84,14 @@ class NotificationController extends GetxController {
       FlutterLocalNotificationsPlugin();
 
   final notifications = <Notification>[
-    Notification(
-      title: 'New Medical Appointment',
-      message: 'You have a medical appointment tomorrow at 10:00 AM.',
-    ),
-    Notification(
-      title: 'Medication Reminder',
-      message: 'Remember to take your medication at 8:00 PM.',
-    ),
+    // Notification(
+    //   title: 'New Medical Appointment',
+    //   message: 'You have a medical appointment tomorrow at 10:00 AM.',
+    // ),
+    // Notification(
+    //   title: 'Medication Reminder',
+    //   message: 'Remember to take your medication at 8:00 PM.',
+    // ),
   ].obs;
 
   @override
@@ -115,7 +116,31 @@ class NotificationController extends GetxController {
         InitializationSettings(
             android: initializationSettingsAndroid,
             iOS: initializationSettingsDarwin);
-    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onDidReceiveNotificationResponse: handleNotificationResponse);
+  }
+
+  void handleNotificationResponse(NotificationResponse response) {
+    final payload = response.payload ?? '';
+    final splitPayload =
+        payload.split('|'); // Splitting the payload to get title and body
+
+    if (splitPayload.length >= 2) {
+      final title = splitPayload[0];
+      final body = splitPayload[1];
+
+      final notificationDetails = Notification(
+          id: DateTime.now()
+              .millisecondsSinceEpoch, // Using timestamp as a unique ID
+          title: title,
+          message: body);
+      addNotification(notificationDetails);
+    }
+  }
+
+  void addNotification(Notification notification) {
+    notifications.add(notification);
+    update();
   }
 
   void removeNotification(int index) {

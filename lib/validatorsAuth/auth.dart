@@ -16,6 +16,7 @@ import '../globals.dart';
 import 'Validator.dart';
 import '../persistance/userCrud.dart' as userCrud;
 import '../persistance/FacilityService.dart' as clinicCrud;
+import '../../widgets/notifcationScreen.dart';
 
 class AuthController extends GetxController {
   Rx<UserProfile> userData = Rx<UserProfile>(UserProfile.empty());
@@ -26,6 +27,7 @@ class AuthController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     Get.put(PatientMeetingsController());
+    Get.put(NotificationController());
 
     firebaseUser = Rx<User?>(auth.currentUser);
     firebaseUser.bindStream(auth.userChanges());
@@ -123,10 +125,17 @@ class AuthController extends GetxController {
         y = 10;
       }
       for (int i = 0; i < y; i++) {
-        print(globals.regDoctorKeys[i].currentState!.value);
-        if (!globals.regDoctorKeys[i].currentState!.validate()) {
-          print(i);
-          done = false;
+        final currentState = globals.regDoctorKeys[i].currentState;
+
+        if (currentState != null) {
+          print(currentState.value);
+
+          if (!currentState.validate()) {
+            print(i);
+            done = false;
+          }
+        } else {
+          print('Current state is null for doctor key at index $i');
         }
       }
     }
