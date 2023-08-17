@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../search/view.dart';
 import 'model.dart';
 
 class AppointmentController extends GetxController {
@@ -33,6 +34,23 @@ class PatientAppointmentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: ElevatedButton(
+        onPressed: () {
+          // Navigator.pushNamed(context, 'book');
+
+          // Get.offAndToNamed('/book');
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ClinicSearchPage1(),
+            ),
+          );
+        },
+
+        child: const Text('Book Appointment'),
+      ),
       appBar: AppBar(
         title: Text("Upcoming Appointments"),
         flexibleSpace: Container(
@@ -54,7 +72,14 @@ class PatientAppointmentScreen extends StatelessWidget {
       ),
       body: Obx(
         () {
-          return ListView.builder(
+          return appointmentController.appointments.isEmpty
+              ? Center(
+            child: Text(
+              'No upcoming appointments.',
+              style: TextStyle(fontSize: 16),
+            ),
+          )
+              : ListView.builder(
             itemCount: appointmentController.appointments.length,
             itemBuilder: (context, index) {
               return AppointmentCard(
