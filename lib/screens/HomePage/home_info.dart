@@ -81,14 +81,10 @@ class HomeInfo extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            // Navigator.pushNamed(context, 'book');
-
-                            // Get.offAndToNamed('/book');
-
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ClinicSearchPage1(),
+                                builder: (context) => PatientAppointmentScreen(),
                               ),
                             );
                           },
@@ -124,20 +120,19 @@ class HomeInfo extends StatelessWidget {
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 0, 0, 20),
                                           child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
+                                            borderRadius: BorderRadius.circular(10),
                                             child: const Icon(
-                                              Ionicons.calendar_outline,
+                                              Icons.update,
                                               size: 75,
-                                              color: Colors.teal,
+                                              color: Colors.red,
+                                              //AssetImage("assets/medical1.png"),
                                             ),
                                           ),
                                         ),
                                         const Padding(
-                                          padding:
-                                              EdgeInsets.fromLTRB(8, 0, 8, 0),
+                                          padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
                                           child: Text(
-                                            "Book an Appointment",
+                                            "Appointments",
                                             style: TextStyle(
                                               fontFamily: "Comic Sans",
                                               fontWeight: FontWeight.bold,
@@ -226,75 +221,81 @@ class HomeInfo extends StatelessWidget {
                         ),
                       ],
                     ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PatientAppointmentScreen(),
-                          ),
-                        );
-                      },
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: height * 0.2,
-                            width: width * 0.42,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.red.shade100,
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  blurRadius: 3.0,
-                                  spreadRadius: 3.0,
-                                  offset: Offset(3.0,
-                                      3.0), // shadow direction: bottom right
-                                )
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 0, 0, 20),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: const Icon(
-                                          Icons.update,
-                                          size: 75,
-                                          color: Colors.red,
-                                          //AssetImage("assets/medical1.png"),
-                                        ),
-                                      ),
-                                    ),
-                                    const Padding(
-                                      padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-                                      child: Text(
-                                        "Manage Appointments",
-                                        style: TextStyle(
-                                          fontFamily: "Comic Sans",
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // InkWell(
+                    //   onTap: () {
+                    //     // Navigator.pushNamed(context, 'book');
+                    //
+                    //     // Get.offAndToNamed('/book');
+                    //
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //         builder: (context) => ClinicSearchPage1(),
+                    //       ),
+                    //     );
+                    //   },
+                    //   child: Card(
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(15),
+                    //     ),
+                    //     child: Padding(
+                    //       padding: const EdgeInsets.all(8.0),
+                    //       child: Container(
+                    //         height: height * 0.2,
+                    //         width: width * 0.42,
+                    //         decoration: BoxDecoration(
+                    //           borderRadius: BorderRadius.circular(15),
+                    //           color: Colors.red.shade100,
+                    //           boxShadow: const [
+                    //             BoxShadow(
+                    //               color: Colors.grey,
+                    //               blurRadius: 3.0,
+                    //               spreadRadius: 3.0,
+                    //               offset: Offset(3.0,
+                    //                   3.0), // shadow direction: bottom right
+                    //             )
+                    //           ],
+                    //         ),
+                    //         child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           crossAxisAlignment: CrossAxisAlignment.center,
+                    //           children: [
+                    //             Column(
+                    //               children: [
+                    //                 Padding(
+                    //                   padding: const EdgeInsets.fromLTRB(
+                    //                       0, 0, 0, 20),
+                    //                   child: ClipRRect(
+                    //                     borderRadius:
+                    //                     BorderRadius.circular(10),
+                    //                     child: const Icon(
+                    //                       Ionicons.calendar_outline,
+                    //                       size: 75,
+                    //                       color: Colors.teal,
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //                 const Padding(
+                    //                   padding:
+                    //                   EdgeInsets.fromLTRB(8, 0, 8, 0),
+                    //                   child: Text(
+                    //                     "Book an Appointment",
+                    //                     style: TextStyle(
+                    //                       fontFamily: "Comic Sans",
+                    //                       fontWeight: FontWeight.bold,
+                    //                       fontSize: 15,
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+
                   ],
                 ),
 
