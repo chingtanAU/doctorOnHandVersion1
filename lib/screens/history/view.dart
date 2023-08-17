@@ -20,10 +20,22 @@ class PreviousVisitsPage extends StatelessWidget {
           itemCount: visitsController.visits.length,
           itemBuilder: (context, index) {
             final visit = visitsController.visits[index];
-            return MedicalVisitCard(
-              visitDate: visit.visitDate,
-              doctorName: visit.doctorName,
-              diagnosis: visit.diagnosis,
+            return GestureDetector(
+              onTap: () {
+                visitsController.openAppointmentDetails(
+                  visitDate: visit.visitDate,
+                  doctorName: visit.doctorName,
+                  diagnosis: visit.diagnosis,
+                  prescription: visit.prescription,
+                  labTest: visit.labTest,
+
+                );
+              },
+              child: MedicalVisitCard(
+                visitDate: visit.visitDate,
+                doctorName: visit.doctorName,
+                diagnosis: visit.diagnosis,
+              ),
             );
           },
         ),
@@ -37,11 +49,16 @@ class Visit {
   final String visitDate;
   final String doctorName;
   final String diagnosis;
+  final String prescription;
+  final String labTest;
 
   Visit({
     required this.visitDate,
     required this.doctorName,
-    required this.diagnosis,
+     required this.diagnosis,
+    required this.prescription,
+    required this.labTest,
+
   });
 }
 
