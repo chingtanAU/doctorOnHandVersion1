@@ -1,6 +1,3 @@
-
-
-
 import 'package:booking_calendar/booking_calendar.dart';
 import 'package:doctorppp/doctor_part/widgets/appointmentCard.dart';
 
@@ -19,13 +16,8 @@ class HomeInfo extends StatelessWidget {
 
   final authController = Get.find<AuthController>();
 
-
   @override
   Widget build(BuildContext context) {
-
-
-
-
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -36,9 +28,9 @@ class HomeInfo extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.all(width * 0.04),
-                  child:  Text(
+                  child: Text(
                     "Hi Doctor ${authController.userData.value.fName}",
-                     //   "\nHow are you today?",
+                    //   "\nHow are you today?",
                     style: TextStyle(
                       fontFamily: "Roboto",
                       fontWeight: FontWeight.bold,
@@ -50,7 +42,7 @@ class HomeInfo extends StatelessWidget {
                   color: Colors.grey[300],
                   thickness: 0,
                 ),
-                  IncomingCard(),
+                IncomingCard(),
                 Divider(
                   color: Colors.grey[300],
                   thickness: 0,
@@ -77,8 +69,7 @@ class HomeInfo extends StatelessWidget {
                         Get.toNamed('/appointment');
                         // Navigator.pushNamed(context, 'book');
 
-
-                         // Get.offAndToNamed('/book');
+                        // Get.offAndToNamed('/book');
 
                         // Navigator.push(
                         //   context,
@@ -128,8 +119,7 @@ class HomeInfo extends StatelessWidget {
                                       ),
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(8, 0, 8, 0),
+                                      padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
                                       child: Text(
                                         "Appointments",
                                         style: TextStyle(
@@ -193,8 +183,7 @@ class HomeInfo extends StatelessWidget {
                                       ),
                                     ),
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(8, 0, 8, 0),
+                                      padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
                                       child: Text(
                                         "Completed Visits",
                                         style: TextStyle(
@@ -285,7 +274,6 @@ class HomeInfo extends StatelessWidget {
                       onTap: () {
                         // Navigator.pushNamed(context, 'book');
 
-
                         // Get.offAndToNamed('/book');
 
                         // Navigator.push(
@@ -336,8 +324,7 @@ class HomeInfo extends StatelessWidget {
                                       ),
                                     ),
                                     const Padding(
-                                      padding:
-                                      EdgeInsets.fromLTRB(8, 0, 8, 0),
+                                      padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
                                       child: Text(
                                         "Schedule",
                                         style: TextStyle(
@@ -407,8 +394,7 @@ class HomeInfo extends StatelessWidget {
                                       ),
                                     ),
                                     const Padding(
-                                      padding:
-                                      EdgeInsets.fromLTRB(8, 0, 8, 0),
+                                      padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
                                       child: Text(
                                         "Reports",
                                         style: TextStyle(
