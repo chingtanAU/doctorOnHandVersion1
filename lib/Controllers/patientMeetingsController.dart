@@ -7,17 +7,22 @@ import '../persistance/userCrud.dart' as userCrud;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import '../widgets/notifcationScreen.dart';
+import '../../screens/Clinic/booking_service_wrapper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PatientMeetingsController extends GetxController {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
-  final Rx<List<BookingService>> allPatientMeetings =
-      Rx<List<BookingService>>(List.empty(growable: true));
+  final Rx<List<BookingServiceWrapper>> allPatientMeetings =
+      Rx<List<BookingServiceWrapper>>(List.empty(growable: true));
   final Rx<DoctorProfile> earliestdoctor =
       Rx<DoctorProfile>(DoctorProfile.empty());
 
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+
   // Add a variable to store the earliest meeting
-  final Rx<BookingService?> earliestMeeting = Rx<BookingService?>(null);
+  final Rx<BookingServiceWrapper?> earliestMeeting =
+      Rx<BookingServiceWrapper?>(null);
 
   @override
   Future<void> onInit() async {
@@ -78,7 +83,7 @@ class PatientMeetingsController extends GetxController {
     // Get.find<NotificationController>().addNotification(newNotification);
   }
 
-  BookingService? getEaliestMeeting() {
+  BookingServiceWrapper? getEaliestMeeting() {
     final meetings =
         getUpcomingMeetings(allPatientMeetings.value, DateTime.now());
     print(DateTime.now().toString());
@@ -89,7 +94,7 @@ class PatientMeetingsController extends GetxController {
         current.bookingStart.isBefore(next.bookingStart) ? current : next);
   }
 
-  Future<DoctorProfile?> getDoctorData(BookingService meeting) async {
+  Future<DoctorProfile?> getDoctorData(BookingServiceWrapper meeting) async {
     await userCrud
         .fetchDoctorInfo(meeting.serviceId!)
         .then((value) => earliestdoctor.value = value!);
@@ -97,8 +102,8 @@ class PatientMeetingsController extends GetxController {
     update();
   }
 
-  List<BookingService> getUpcomingMeetings(
-      List<BookingService> meetings, DateTime presentTime) {
+  List<BookingServiceWrapper> getUpcomingMeetings(
+      List<BookingServiceWrapper> meetings, DateTime presentTime) {
     final l = meetings
         .where((meeting) => meeting.bookingStart.isAfter(presentTime))
         .toList();
@@ -106,8 +111,8 @@ class PatientMeetingsController extends GetxController {
     return l;
   }
 
-  List<BookingService> getPassedMeetings(
-      List<BookingService> meetings, DateTime presentTime) {
+  List<BookingServiceWrapper> getPassedMeetings(
+      List<BookingServiceWrapper> meetings, DateTime presentTime) {
     final l = meetings
         .where((meeting) => meeting.bookingStart.isBefore(presentTime))
         .toList();
@@ -116,14 +121,34 @@ class PatientMeetingsController extends GetxController {
     return l;
   }
 
-  // Future<List<BookingService>?> fetchPatientMeetings(String id) async {
+  Future<void> deleteAppointment(String userId, String bookingId) async {
+    // Remove appointment from the user's collection
+    await _db
+        .collection('Users')
+        .doc(userId)
+        .collection('oppointment')
+        .doc(bookingId)
+        .delete();
+
+    // Remove appointment from the Meetings collection
+    await _db
+        .collection('Meetings')
+        .doc(bookingId)
+        .collection('DoctorMeetings')
+        .doc(bookingId)
+        .delete();
+  }
+
+  // Future<List<BookingServiceWrapper>?> fetchPatientMeetings(String id) async {
   //   await userCrud
   //       .fetchUserMeetings(id)
   //       .then((value) => allPatientMeetings.value = value);
   //   update();
   // }
   void fetchPatientMeetings(String id) {
-    userCrud.fetchUserMeetingsStream(id).listen((List<BookingService> data) {
+    userCrud
+        .fetchUserMeetingsStream(id)
+        .listen((List<BookingServiceWrapper> data) {
       allPatientMeetings.value = data;
       // Update the earliest meeting whenever data changes
       earliestMeeting.value = getEaliestMeeting();
@@ -131,7 +156,7 @@ class PatientMeetingsController extends GetxController {
         getDoctorData(earliestMeeting.value!);
       }
 
-      List<BookingService> upcomingMeetings =
+      List<BookingServiceWrapper> upcomingMeetings =
           getUpcomingMeetings(allPatientMeetings.value, DateTime.now());
 
       for (var meeting in upcomingMeetings) {

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../Controllers/patientMeetingsController.dart';
 import '../screens/video_calll/meet.dart';
+import '../screens/Clinic/booking_service_wrapper.dart';
 
 class IncomingCard extends StatelessWidget {
   IncomingCard({
@@ -18,11 +19,11 @@ class IncomingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    // BookingService? earliestMeet =
+    // BookingServiceWrapper? earliestMeet =
     //     patientMeetingsController.earliestMeeting.value;
     //get the earliest meeting in obx
     return Obx(() {
-      BookingService? earliestMeet =
+      BookingServiceWrapper? earliestMeet =
           patientMeetingsController.earliestMeeting.value;
 
       // if (earliestMeet == null) {

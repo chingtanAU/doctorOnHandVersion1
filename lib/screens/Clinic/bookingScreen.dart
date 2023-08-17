@@ -53,16 +53,6 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
 
       setState(() {});
     }
-    print(doctor!.id);
-    print(doctor.role);
-    print(doctor.fName);
-    print(doctor.lName);
-    print(doctor.email);
-    print(doctor.address);
-    print(doctor.phone);
-    print(doctor.picture);
-    print(doctor.speciality);
-    print(doctor.clinicId);
     // DateTime.now().startOfDay
     // DateTime.now().endOfDay
     // consultation = BookingService(
@@ -170,46 +160,36 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
                       widget.clinicdetailController.doctorData.value.id;
                   newBooking.serviceName =
                       "${widget.clinicdetailController.doctorData.value.fName} ${widget.clinicdetailController.doctorData.value.lName}";
-                  // newBooking.role = role;
-                  // newBooking.fName = fName;
-                  // newBooking.lName = lName;
-                  // newBooking.address = address;
-                  // newBooking.phone = phone;
-                  // newBooking.picture = picture;
-                  // newBooking.specialty = specialty;
-                  // print("Doctor's Name: ${newBooking.serviceName}");
-                  // print("Doctor's First Name: ${newBooking.fName}");
-                  // newBooking.serviceId = "TestID";
-                  // print("Service ID: ${newBooking.serviceId}");
 
-                  // print("sdd");
-                  // print(widget.clinicdetailController.doctorData.value.id);
-                  // print(newBooking.serviceId);
-                  await meeting
+                  // Here's the modification
+                  var newBookingRef = meeting
                       .doc(widget.clinicdetailController.doctorData.value.id!)
                       .collection('DoctorMeetings')
-                      .add(newBooking.toJson())
-                      .then((value) async {
-                    await usercrud.addmeetingUser(
-                        auth.currentUser!.uid, value.id, newBooking.toJson());
+                      .doc(); // This creates a new document reference with a unique ID
+
+                  await newBookingRef.set({
+                    'docId': newBookingRef
+                        .id, // Store the unique document ID as an attribute
+                    ...newBooking.toJson() // Rest of the booking data
+                  }).then((value) async {
+                    await usercrud.addmeetingUser(auth.currentUser!.uid,
+                        newBookingRef.id, newBooking.toJson());
                   }).then((_) async {
                     Get.find<PatientMeetingsController>()
                         .fetchPatientMeetings(auth.currentUser!.uid);
                   }).then((_) {
                     print("Booking added successfully");
-                    print(Get.find<PatientMeetingsController>()
-                        .earliestMeeting
-                        .value!
-                        .bookingStart);
-                    //print doctor name
-                    print(Get.find<PatientMeetingsController>()
-                        .earliestdoctor
-                        .value!
-                        .fName);
-
+                    // print(Get.find<PatientMeetingsController>()
+                    //     .earliestMeeting
+                    //     .value!
+                    //     .bookingStart);
+                    // print(Get.find<PatientMeetingsController>()
+                    //     .earliestdoctor
+                    //     .value!
+                    //     .fName);
                     Navigator.pop(context);
                   }).catchError(
-                          (error) => print("Failed to add booking: $error"));
+                      (error) => print("Failed to add booking: $error"));
                 },
               ),
             ],
