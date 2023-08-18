@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../validatorsAuth/auth.dart';
+import '../../entity/userProfile.dart';
 
 class ReportsController extends GetxController {
   RxList<Report> reports = <Report>[].obs;
@@ -69,11 +70,14 @@ class _ReportFormState extends State<ReportForm> {
   final _detailsController = TextEditingController();
   final _notArrivedController = TextEditingController();
   final ReportsController reportsController = Get.put(ReportsController());
-  final authController = Get.find<AuthController>();
+  final AuthController authController = Get.find<AuthController>();
+
+  UserProfile? userProfile;
 
   @override
   void initState() {
     super.initState();
+    userProfile = authController.userData.value;
     if (widget.update && widget.report != null) {
       _conditionController.text = widget.report!.condition;
       _prescriptionController.text = widget.report!.prescription;
@@ -84,8 +88,6 @@ class _ReportFormState extends State<ReportForm> {
 
   @override
   Widget build(BuildContext context) {
-    final authController = Get.find<AuthController>();
-
     return AlertDialog(
       title: Text(widget.update ? 'Update Report' : 'Complete Appointment'),
       content: SingleChildScrollView(
@@ -159,7 +161,9 @@ class _ReportFormState extends State<ReportForm> {
               } else {
                 reportsController.addReport(report);
                 await reportsController.saveReportToFirebase(
-                    report, authController.user!.uid);
+                    report, authController.currentUserId!);
+                //print current user id
+                print("current user id: ${authController.currentUserId}");
               }
               Navigator.of(context).pop();
             }
@@ -170,96 +174,3 @@ class _ReportFormState extends State<ReportForm> {
     );
   }
 }
-
-// class _ReportFormState extends State<ReportForm> {
-//   final _formKey = GlobalKey<FormState>();
-//
-//   final _conditionController = TextEditingController();
-//
-//   final _prescriptionController = TextEditingController();
-//
-//   final _detailsController = TextEditingController();
-//
-//   final reportsController = Get.find<ReportsController>();
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     if (widget.update && widget.report != null) {
-//       _conditionController.text = widget.report!.condition;
-//       _prescriptionController.text = widget.report!.prescription;
-//       _detailsController.text = widget.report!.details;
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return AlertDialog(
-//       title: Text(widget.update ? 'Update Report' : 'Complete Appointment'),
-//       content: Form(
-//         key: _formKey,
-//         child: Column(
-//           mainAxisSize: MainAxisSize.min,
-//           children: [
-//             Text('Doctor: ${widget.doctorName}'),
-//             Text('Patient: ${widget.patientName}'),
-//             TextFormField(
-//               controller: _conditionController,
-//               decoration: InputDecoration(labelText: 'Condition'),
-//               validator: (value) {
-//                 if (value == null || value.isEmpty) {
-//                   return 'Please enter a condition';
-//                 }
-//                 return null;
-//               },
-//             ),
-//             TextFormField(
-//               controller: _prescriptionController,
-//               decoration: InputDecoration(labelText: 'Prescription'),
-//               validator: (value) {
-//                 if (value == null || value.isEmpty) {
-//                   return 'Please enter a prescription';
-//                 }
-//                 return null;
-//               },
-//             ),
-//             TextFormField(
-//               controller: _detailsController,
-//               decoration: InputDecoration(labelText: 'Details'),
-//               maxLines: 3,
-//             ),
-//           ],
-//         ),
-//       ),
-//       actions: [
-//         TextButton(
-//           onPressed: () {
-//             Navigator.of(context).pop();
-//           },
-//           child: Text('Cancel'),
-//         ),
-//         ElevatedButton(
-//           onPressed: () {
-//             if (_formKey.currentState!.validate()) {
-//               final report = Report(
-//                 doctorName: widget.doctorName,
-//                 patientName: widget.patientName,
-//                 condition: _conditionController.text,
-//                 prescription: _prescriptionController.text,
-//                 details: _detailsController.text,
-//               );
-//               if (widget.update) {
-//                 reportsController.updateReport(widget.index, report);
-//               } else {
-//                 reportsController.addReport(report);
-//               }
-//               widget.onSave(report);
-//               Navigator.of(context).pop();
-//             }
-//           },
-//           child: Text(widget.update ? 'Update' : 'Save'),
-//         ),
-//       ],
-//     );
-//   }
-// }
