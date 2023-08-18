@@ -121,24 +121,6 @@ class PatientMeetingsController extends GetxController {
     return l;
   }
 
-  Future<void> deleteAppointment(String userId, String bookingId) async {
-    // Remove appointment from the user's collection
-    await _db
-        .collection('Users')
-        .doc(userId)
-        .collection('oppointment')
-        .doc(bookingId)
-        .delete();
-
-    // Remove appointment from the Meetings collection
-    await _db
-        .collection('Meetings')
-        .doc(bookingId)
-        .collection('DoctorMeetings')
-        .doc(bookingId)
-        .delete();
-  }
-
   // Future<List<BookingServiceWrapper>?> fetchPatientMeetings(String id) async {
   //   await userCrud
   //       .fetchUserMeetings(id)

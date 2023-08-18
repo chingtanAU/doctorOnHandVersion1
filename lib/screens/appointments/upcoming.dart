@@ -48,6 +48,10 @@ Future<void> deleteAppointment(
     return;
   }
 
+  //print all doc id
+  userAppointments.docs.forEach((element) {
+    print(element.id);
+  });
   DocumentSnapshot appointmentDoc = userAppointments.docs.first;
   print("Found matching appointment: ${appointmentDoc.id}");
 
@@ -56,7 +60,7 @@ Future<void> deleteAppointment(
     throw Exception('Document data is null');
   }
   String serviceId = data['serviceId'];
-  print("serviceID: $serviceId");
+  print("serviceId: $serviceId");
 
   await firestore
       .collection('Users')

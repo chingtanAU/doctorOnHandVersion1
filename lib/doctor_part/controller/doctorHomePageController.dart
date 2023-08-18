@@ -25,6 +25,7 @@ class DoctorHomePageController extends GetxController {
     if (meetings.isEmpty) {
       return null;
     }
+    print(meetings[0].bookingStart.toString());
     return meetings.reduce((current, next) =>
         current.bookingStart.isBefore(next.bookingStart) ? current : next);
   }

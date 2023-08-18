@@ -165,7 +165,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
                   var newBookingRef = meeting
                       .doc(widget.clinicdetailController.doctorData.value.id!)
                       .collection('DoctorMeetings')
-                      .doc(); // This creates a new document reference with a unique ID
+                      .doc();
 
                   await newBookingRef.set({
                     'docId': newBookingRef
