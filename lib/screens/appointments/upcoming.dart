@@ -7,21 +7,21 @@ import 'model.dart';
 
 class AppointmentController extends GetxController {
   final RxList<PatientAppointment> appointments = RxList<PatientAppointment>([
-    //example appointments
-    // PatientAppointment(
-    //   doctorName: "Doctor 1",
-    //   appointmentTime: "14:30 - 15:30 AM",
-    //   appointmentDate: "Today",
-    //   appointmentLocation: "436 139 Avenue",
-    //   appointmentReason: "Heart Burn",
-    // ),
-    // PatientAppointment(
-    //   doctorName: "Doctor 2",
-    //   appointmentTime: "10:00 - 11:00 AM",
-    //   appointmentDate: "Tomorrow",
-    //   appointmentLocation: "1234 Main Street",
-    //   appointmentReason: "Checkup",
-    // ),
+    // example appointments
+    PatientAppointment(
+      doctorName: "Doctor 1",
+      appointmentTime: "14:30 - 15:30 AM",
+      appointmentDate: "Today",
+      appointmentLocation: "436 139 Avenue",
+      appointmentReason: "Heart Burn",
+    ),
+    PatientAppointment(
+      doctorName: "Doctor 2",
+      appointmentTime: "10:00 - 11:00 AM",
+      appointmentDate: "Tomorrow",
+      appointmentLocation: "1234 Main Street",
+      appointmentReason: "Checkup",
+    ),
   ]);
 
 // Rest of the code...
