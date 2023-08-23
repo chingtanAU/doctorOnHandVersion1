@@ -3,15 +3,17 @@ import 'package:doctorppp/doctor_part/video_calll/meet.dart';
 import 'package:doctorppp/doctor_part/video_calll/token_generation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../../validatorsAuth/auth.dart';
 import '../../entity/userProfile.dart';
 import '../../screens/video_calll/token_generation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PatientPage extends StatelessWidget {
   final PatientController _controller = Get.put(PatientController());
   final agora = Get.put(AgoraTokenService1());
   UserProfile? u;
   PatientPage({super.key, this.u});
+  final AuthController authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -165,12 +167,31 @@ class PatientPage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: ElevatedButton(
-        onPressed: () {
-          String doctorId = 'doctor1'; // Replace with the actual doctor ID
-          String patientId = 'patient3'; // Replace with the actual patient ID
-          Get.to(
-              () => VideoCallScreen(doctorId: doctorId, patientId: patientId));
+        onPressed: () async {
+          String? doctorId = authController.currentUserId; // This is nullable
+
+          // Fetch the patient ID from Firestore
+          String patientId = '';
+          QuerySnapshot snapshot = await FirebaseFirestore.instance
+              .collection('Users')
+              .where('fName', isEqualTo: u?.fName)
+              .where('lName', isEqualTo: u?.lName)
+              .where('email', isEqualTo: u?.email)
+              .get();
+
+          if (snapshot.docs.isNotEmpty) {
+            patientId = snapshot.docs.first.id;
+          }
+
+          if (doctorId != null && patientId != null) {
+            Get.to(() =>
+                VideoCallScreen(doctorId: doctorId, patientId: patientId));
+          } else {
+            // Handle scenario where doctorId or patientId is not found
+            // Maybe show a toast or alert.
+          }
         },
+        // ... other properties of the button
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(
             const Color(0xff575de3),

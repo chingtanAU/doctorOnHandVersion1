@@ -244,8 +244,10 @@ class ReportScreen extends StatelessWidget {
       builder: (context) => ReportForm(
         doctorName: report.doctorName,
         patientName: report.patientName,
+        patientId: report.patientId,
         onSave: (newReport) {
-          reportsController.updateReport(index, newReport);
+          reportsController.updateReport(
+              index, newReport, report.id!, report.patientId!);
         },
         update: true,
         index: index,
