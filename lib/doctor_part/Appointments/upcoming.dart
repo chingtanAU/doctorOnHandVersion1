@@ -10,9 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/doctorHomePageController.dart';
 
-
 class AppointmentController extends GetxController {
-
   final RxList<Appointment> appointments = RxList<Appointment>([
     Appointment(
       patientName: "Patient 3",
@@ -65,7 +63,6 @@ class AppointmentController extends GetxController {
   // }
   final _prefs = SharedPreferences.getInstance();
 
-
   Future<void> _saveAppointments() async {
     final prefs = await SharedPreferences.getInstance();
     final appointmentsJson = jsonEncode(appointments.toList());
@@ -73,69 +70,66 @@ class AppointmentController extends GetxController {
   }
 
   void removeAppointment(String patientName) {
-    appointments.removeWhere((appointment) => appointment.patientName == patientName);
+    appointments
+        .removeWhere((appointment) => appointment.patientName == patientName);
     _saveAppointments();
   }
 }
 
-
 class AppointmentScreen extends StatelessWidget {
   final AppointmentController appointmentController =
-  Get.put(AppointmentController());
+      Get.put(AppointmentController());
 
   final doctorHomePageController = Get.find<DoctorHomePageController>();
 
-
-
   @override
   Widget build(BuildContext context) {
-
-
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Upcoming Appointments"),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                stops: [
-                  0.1,
-                  0.6,
-                ],
-                colors: [
-                  Colors.blue,
-                  Colors.teal,
-                ],
-              )),
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            stops: [
+              0.1,
+              0.6,
+            ],
+            colors: [
+              Colors.blue,
+              Colors.teal,
+            ],
+          )),
         ),
-
       ),
       body: Obx(
-            () {
-              final List<BookingService> upComingApp= doctorHomePageController.getUpcomingMeetings(doctorHomePageController.allDoctrorMeetings.value, DateTime.now());
-              return ListView.builder(
-                itemCount: upComingApp.length,
-                itemBuilder: (context, index) {
-                  return AppointmentCard(
-                    appointment: upComingApp[index],
-                    onPressed: () {
-                      String patientId =
-                          appointmentController.appointments[index].patientName;
-                      Get.to(
-                        VideoCallScreen(
-                            doctorId: 'doctor1', patientId: patientId),);
-                      // )?.then((value) {
-                      //   if (value == true) {
-                      //     appointmentController
-                      //         .removeAppointment(appointmentController.appointments[index]);
-                      //   }
-                      // });
-                    },
+        () {
+          final List<BookingService> upComingApp =
+              doctorHomePageController.getUpcomingMeetings(
+                  doctorHomePageController.allDoctrorMeetings.value,
+                  DateTime.now());
+          return ListView.builder(
+            itemCount: upComingApp.length,
+            itemBuilder: (context, index) {
+              return AppointmentCard(
+                appointment: upComingApp[index],
+                onPressed: () {
+                  String patientId =
+                      appointmentController.appointments[index].patientName;
+                  Get.to(
+                    VideoCallScreen(doctorId: 'doctor1', patientId: patientId),
                   );
+                  // )?.then((value) {
+                  //   if (value == true) {
+                  //     appointmentController
+                  //         .removeAppointment(appointmentController.appointments[index]);
+                  //   }
+                  // });
                 },
               );
+            },
+          );
         },
       ),
     );

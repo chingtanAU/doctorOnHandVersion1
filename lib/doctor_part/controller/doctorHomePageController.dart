@@ -18,13 +18,14 @@ class DoctorHomePageController extends GetxController {
     Get.put(CompletedVisitsController());
   }
 
-  BookingService getEaliestMeeting() {
+  BookingService? getEaliestMeeting() {
     final meetings =
         getUpcomingMeetings(allDoctrorMeetings.value, DateTime.now());
     print(DateTime.now().toString());
     if (meetings.isEmpty) {
-      throw Exception("List of meetings is empty");
+      return null;
     }
+    print(meetings[0].bookingStart.toString());
     return meetings.reduce((current, next) =>
         current.bookingStart.isBefore(next.bookingStart) ? current : next);
   }

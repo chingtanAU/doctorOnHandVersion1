@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../Controllers/patientMeetingsController.dart';
 import '../screens/video_calll/meet.dart';
+import '../screens/Clinic/booking_service_wrapper.dart';
 
 class IncomingCard extends StatelessWidget {
   IncomingCard({
@@ -18,11 +19,11 @@ class IncomingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    // BookingService? earliestMeet =
+    // BookingServiceWrapper? earliestMeet =
     //     patientMeetingsController.earliestMeeting.value;
     //get the earliest meeting in obx
     return Obx(() {
-      BookingService? earliestMeet =
+      BookingServiceWrapper? earliestMeet =
           patientMeetingsController.earliestMeeting.value;
 
       // if (earliestMeet == null) {
@@ -69,8 +70,14 @@ class IncomingCard extends StatelessWidget {
 
       return InkWell(
         onTap: () {
-          String doctorId = 'doctor1'; // Replace with the actual doctor ID
-          String patientId = 'patient3'; // Replace with the actual patient ID
+          // BookingServiceWrapper bookingServiceWrapper =
+          //     patientMeetingsController.earliestMeeting.value!;
+          // String doctorId = bookingServiceWrapper.serviceId!;
+          // String patientId = bookingServiceWrapper.userId!;
+          String doctorId = earliestMeet!.serviceId!;
+          String patientId = earliestMeet.userId!;
+          // String doctorId = 'doctor1'; // Replace with the actual doctor ID
+          // String patientId = 'patient3'; // Replace with the actual patient ID
           Get.to(VideoCallScreen(doctorId: doctorId, patientId: patientId));
         },
         child: Padding(
@@ -123,7 +130,7 @@ class IncomingCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Dr. ${patientMeetingsController.earliestdoctor.value.fName} ${patientMeetingsController.earliestdoctor.value.lName} ",
+                            "Dr. ${patientMeetingsController.earliestdoctor.value.fName} ${patientMeetingsController.earliestdoctor.value.lName}",
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -201,13 +208,7 @@ class IncomingCard extends StatelessWidget {
                                 Padding(
                                   padding: EdgeInsets.only(left: 6, right: 14),
                                   child: Text(
-                                    earliestMeet!.bookingStart.year.toString() +
-                                        "-" +
-                                        earliestMeet!.bookingStart.month
-                                            .toString() +
-                                        "-" +
-                                        earliestMeet!.bookingStart.day
-                                            .toString(),
+                                    "${earliestMeet!.bookingStart.year}-${earliestMeet.bookingStart.month}-${earliestMeet.bookingStart.day}",
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ),
@@ -220,14 +221,7 @@ class IncomingCard extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  earliestMeet.bookingStart.hour.toString() +
-                                      ":" +
-                                      earliestMeet.bookingStart.minute
-                                          .toString() +
-                                      " - " +
-                                      earliestMeet.bookingEnd.hour.toString() +
-                                      ":" +
-                                      earliestMeet.bookingEnd.minute.toString(),
+                                  "${earliestMeet.bookingStart.hour}:${earliestMeet.bookingStart.minute} - ${earliestMeet.bookingEnd.hour}:${earliestMeet.bookingEnd.minute}",
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),

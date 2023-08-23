@@ -4,6 +4,7 @@ import 'package:doctorppp/entity/DoctorProfile.dart';
 import 'package:doctorppp/entity/visitedClinic.dart';
 import '../entity/userProfile.dart';
 import '../globals.dart';
+import '../../screens/Clinic/booking_service_wrapper.dart';
 
 final CollectionReference userCollection = firestore.collection("Users");
 
@@ -69,19 +70,19 @@ Future<void> addmeetingUser(
       .set(value);
 }
 
-Future<List<BookingService>> fetchUserMeetings(String id) async {
+Future<List<BookingServiceWrapper>> fetchUserMeetings(String id) async {
   QuerySnapshot<Object?> snapshot =
       await userCollection.doc(id).collection("oppointment").get();
   return snapshot.docs
-      .map((docSnapshot) =>
-          BookingService.fromJson(docSnapshot.data() as Map<String, dynamic>))
+      .map((docSnapshot) => BookingServiceWrapper.fromJson(
+          docSnapshot.data() as Map<String, dynamic>))
       .toList();
 }
 
-Stream<List<BookingService>> fetchUserMeetingsStream(String id) {
+Stream<List<BookingServiceWrapper>> fetchUserMeetingsStream(String id) {
   return userCollection.doc(id).collection("oppointment").snapshots().map(
       (querySnapshot) => querySnapshot.docs
-          .map((doc) =>
-              BookingService.fromJson(doc.data() as Map<String, dynamic>))
+          .map((doc) => BookingServiceWrapper.fromJson(
+              doc.data() as Map<String, dynamic>))
           .toList());
 }

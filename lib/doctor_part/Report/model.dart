@@ -14,4 +14,15 @@ class Report {
     required this.details,
     required this.notArrived,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'doctorName': doctorName,
+      'patientName': patientName,
+      'condition': condition,
+      'prescription': prescription,
+      'details': details,
+      'notArrived': notArrived,
+    };
+  }
 }

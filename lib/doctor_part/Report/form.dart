@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../validatorsAuth/auth.dart';
+import '../../entity/userProfile.dart';
 
 class ReportsController extends GetxController {
   RxList<Report> reports = <Report>[].obs;
   RxInt updatedIndex = RxInt(-1);
+
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection('Users');
+
+  Future<void> saveReportToFirebase(Report report, String userId) async {
+    try {
+      await users.doc(userId).collection('report').add(report.toJson());
+    } catch (e) {
+      print("Error adding report to Firestore: $e");
+      throw e;
+    }
+  }
 
   void addReport(Report report) {
     reports.add(report);
@@ -14,16 +29,17 @@ class ReportsController extends GetxController {
     reports[index] = newReport;
     update();
   }
+
   void setUpdatedIndex(int index) {
     updatedIndex.value = index;
   }
-
 
   Future<void> clearReports() async {
     reports.clear();
     update();
   }
 }
+
 class ReportForm extends StatefulWidget {
   final String doctorName;
   final String patientName;
@@ -54,10 +70,14 @@ class _ReportFormState extends State<ReportForm> {
   final _detailsController = TextEditingController();
   final _notArrivedController = TextEditingController();
   final ReportsController reportsController = Get.put(ReportsController());
+  final AuthController authController = Get.find<AuthController>();
+
+  UserProfile? userProfile;
 
   @override
   void initState() {
     super.initState();
+    userProfile = authController.userData.value;
     if (widget.update && widget.report != null) {
       _conditionController.text = widget.report!.condition;
       _prescriptionController.text = widget.report!.prescription;
@@ -89,12 +109,10 @@ class _ReportFormState extends State<ReportForm> {
               //   },
               // ),
               TextFormField(
-
                 decoration: InputDecoration(labelText: 'Condition'),
                 controller: _conditionController,
               ),
               TextFormField(
-
                 decoration: InputDecoration(labelText: 'Prescription'),
                 controller: _prescriptionController,
               ),
@@ -105,7 +123,9 @@ class _ReportFormState extends State<ReportForm> {
               ),
               CheckboxListTile(
                 title: Text('Not Arrived'),
-                value: _notArrivedController.text.isNotEmpty ? _notArrivedController.text.toLowerCase() == 'true' : widget.notArrived,
+                value: _notArrivedController.text.isNotEmpty
+                    ? _notArrivedController.text.toLowerCase() == 'true'
+                    : widget.notArrived,
                 onChanged: (value) {
                   setState(() {
                     _notArrivedController.text = value.toString();
@@ -124,7 +144,7 @@ class _ReportFormState extends State<ReportForm> {
           child: Text('Cancel'),
         ),
         ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
             if (_formKey.currentState!.validate()) {
               final report = Report(
                 doctorName: widget.doctorName,
@@ -132,12 +152,18 @@ class _ReportFormState extends State<ReportForm> {
                 condition: _conditionController.text,
                 prescription: _prescriptionController.text,
                 details: _detailsController.text,
-                notArrived: _notArrivedController.text.isNotEmpty ? _notArrivedController.text.toLowerCase() == 'true' : widget.notArrived,
+                notArrived: _notArrivedController.text.isNotEmpty
+                    ? _notArrivedController.text.toLowerCase() == 'true'
+                    : widget.notArrived,
               );
               if (widget.update) {
                 reportsController.updateReport(widget.index, report);
               } else {
                 reportsController.addReport(report);
+                await reportsController.saveReportToFirebase(
+                    report, authController.currentUserId!);
+                //print current user id
+                print("current user id: ${authController.currentUserId}");
               }
               Navigator.of(context).pop();
             }
@@ -148,96 +174,3 @@ class _ReportFormState extends State<ReportForm> {
     );
   }
 }
-
-// class _ReportFormState extends State<ReportForm> {
-//   final _formKey = GlobalKey<FormState>();
-//
-//   final _conditionController = TextEditingController();
-//
-//   final _prescriptionController = TextEditingController();
-//
-//   final _detailsController = TextEditingController();
-//
-//   final reportsController = Get.find<ReportsController>();
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     if (widget.update && widget.report != null) {
-//       _conditionController.text = widget.report!.condition;
-//       _prescriptionController.text = widget.report!.prescription;
-//       _detailsController.text = widget.report!.details;
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return AlertDialog(
-//       title: Text(widget.update ? 'Update Report' : 'Complete Appointment'),
-//       content: Form(
-//         key: _formKey,
-//         child: Column(
-//           mainAxisSize: MainAxisSize.min,
-//           children: [
-//             Text('Doctor: ${widget.doctorName}'),
-//             Text('Patient: ${widget.patientName}'),
-//             TextFormField(
-//               controller: _conditionController,
-//               decoration: InputDecoration(labelText: 'Condition'),
-//               validator: (value) {
-//                 if (value == null || value.isEmpty) {
-//                   return 'Please enter a condition';
-//                 }
-//                 return null;
-//               },
-//             ),
-//             TextFormField(
-//               controller: _prescriptionController,
-//               decoration: InputDecoration(labelText: 'Prescription'),
-//               validator: (value) {
-//                 if (value == null || value.isEmpty) {
-//                   return 'Please enter a prescription';
-//                 }
-//                 return null;
-//               },
-//             ),
-//             TextFormField(
-//               controller: _detailsController,
-//               decoration: InputDecoration(labelText: 'Details'),
-//               maxLines: 3,
-//             ),
-//           ],
-//         ),
-//       ),
-//       actions: [
-//         TextButton(
-//           onPressed: () {
-//             Navigator.of(context).pop();
-//           },
-//           child: Text('Cancel'),
-//         ),
-//         ElevatedButton(
-//           onPressed: () {
-//             if (_formKey.currentState!.validate()) {
-//               final report = Report(
-//                 doctorName: widget.doctorName,
-//                 patientName: widget.patientName,
-//                 condition: _conditionController.text,
-//                 prescription: _prescriptionController.text,
-//                 details: _detailsController.text,
-//               );
-//               if (widget.update) {
-//                 reportsController.updateReport(widget.index, report);
-//               } else {
-//                 reportsController.addReport(report);
-//               }
-//               widget.onSave(report);
-//               Navigator.of(context).pop();
-//             }
-//           },
-//           child: Text(widget.update ? 'Update' : 'Save'),
-//         ),
-//       ],
-//     );
-//   }
-// }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'model.dart';
 import 'form.dart';
+import '../../validatorsAuth/auth.dart';
 
 class ReportScreen extends StatelessWidget {
   final ReportsController reportsController = Get.put(ReportsController());
@@ -37,7 +38,7 @@ class ReportScreen extends StatelessWidget {
         ],
       ),
       body: Obx(
-            () => ListView.builder(
+        () => ListView.builder(
           itemCount: reportsController.reports.length,
           itemBuilder: (context, index) {
             final report = reportsController.reports[index];
@@ -72,10 +73,8 @@ class ReportScreen extends StatelessWidget {
               color: cardColor,
               child: Column(
                 children: [
-
                   Card(
                     color: Colors.white70,
-
                     child: Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,9 +83,10 @@ class ReportScreen extends StatelessWidget {
                             const Card(
                               color: Colors.white,
                               child: Padding(
-                                padding: EdgeInsets.fromLTRB(2,0,4,0),
+                                padding: EdgeInsets.fromLTRB(2, 0, 4, 0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Icon(
                                       Icons.details,
@@ -104,13 +104,16 @@ class ReportScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          if (report.notArrived== false && report.condition != null && report.condition.isNotEmpty)
+                          if (report.notArrived == false &&
+                              report.condition != null &&
+                              report.condition.isNotEmpty)
                             const Card(
                               color: Colors.white,
                               child: Padding(
-                                padding: EdgeInsets.fromLTRB(2,0,4,0),
+                                padding: EdgeInsets.fromLTRB(2, 0, 4, 0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Icon(
                                       Icons.edit_note,
@@ -128,13 +131,16 @@ class ReportScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          if (report.notArrived== false && report.prescription != null && report.prescription.isNotEmpty)
+                          if (report.notArrived == false &&
+                              report.prescription != null &&
+                              report.prescription.isNotEmpty)
                             const Card(
                               color: Colors.white,
                               child: Padding(
-                                padding: EdgeInsets.fromLTRB(2,0,4,0),
+                                padding: EdgeInsets.fromLTRB(2, 0, 4, 0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Icon(
                                       Icons.receipt_long_rounded,
@@ -152,14 +158,16 @@ class ReportScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-
-                          if (report.notArrived == false && report.details != null && report.details.isNotEmpty)
+                          if (report.notArrived == false &&
+                              report.details != null &&
+                              report.details.isNotEmpty)
                             const Card(
                               color: Colors.white,
                               child: Padding(
-                                padding: EdgeInsets.fromLTRB(2,0,4,0),
+                                padding: EdgeInsets.fromLTRB(2, 0, 4, 0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Icon(
                                       Icons.notes,
@@ -177,14 +185,13 @@ class ReportScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-
                         ],
                       ),
                     ),
                   ),
-
                   ListTile(
-                    contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                     title: Text(
                       report.patientName ?? '',
                       style: TextStyle(
@@ -230,22 +237,20 @@ class ReportScreen extends StatelessWidget {
     );
   }
 
-  void _showReportDetails(BuildContext context, Report report,
-      int index) async {
+  void _showReportDetails(
+      BuildContext context, Report report, int index) async {
     final result = await showDialog(
       context: context,
-      builder: (context) =>
-          ReportForm(
-            doctorName: report.doctorName,
-            patientName: report.patientName,
-
-            onSave: (newReport) {
-              reportsController.updateReport(index, newReport);
-            },
-            update: true,
-            index: index,
-            report: report,
-          ),
+      builder: (context) => ReportForm(
+        doctorName: report.doctorName,
+        patientName: report.patientName,
+        onSave: (newReport) {
+          reportsController.updateReport(index, newReport);
+        },
+        update: true,
+        index: index,
+        report: report,
+      ),
     );
     if (result != null && result) {
       // Show a snackbar to indicate that the report was updated
