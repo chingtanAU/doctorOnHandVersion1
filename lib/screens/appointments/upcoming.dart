@@ -78,6 +78,7 @@ Future<void> deleteAppointment(
 }
 
 class AppointmentController extends GetxController {
+
   final RxList<PatientAppointment> appointments =
       RxList<PatientAppointment>([]);
   final PatientMeetingsController patientMeetingsController = Get.find();
