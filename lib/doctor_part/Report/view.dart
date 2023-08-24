@@ -5,7 +5,10 @@ import 'form.dart';
 import '../../validatorsAuth/auth.dart';
 
 class ReportScreen extends StatelessWidget {
-  final ReportsController reportsController = Get.put(ReportsController());
+  final AuthController authController = Get.find<AuthController>();
+
+  final ReportsController reportsController = Get.put(
+      ReportsController(doctorId: Get.find<AuthController>().currentUserId));
 
   @override
   Widget build(BuildContext context) {
@@ -245,9 +248,9 @@ class ReportScreen extends StatelessWidget {
         doctorName: report.doctorName,
         patientName: report.patientName,
         patientId: report.patientId,
+        doctorId: report.doctorId,
         onSave: (newReport) {
-          reportsController.updateReport(
-              index, newReport, report.id!, report.patientId!);
+          reportsController.updateReport(index, newReport, report.id!);
         },
         update: true,
         index: index,

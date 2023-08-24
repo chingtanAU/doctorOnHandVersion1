@@ -9,22 +9,45 @@ class ReportsController extends GetxController {
   RxList<Report> reports = <Report>[].obs;
   RxInt updatedIndex = RxInt(-1);
 
-  final CollectionReference users =
-      FirebaseFirestore.instance.collection('Users');
+  // final CollectionReference users =
+  //     FirebaseFirestore.instance.collection('Users');
 
-  String? patientId;
+  //String? patientId;
 
-  ReportsController({this.patientId});
+  //ReportsController({this.patientId});
 
-  Future<void> fetchReportsFromFirebase(String patientId) async {
+  final CollectionReference reportsRef =
+      FirebaseFirestore.instance.collection('Reports');
+
+  // Future<void> fetchAllReportsFromFirebase() async {
+  //   try {
+  //     QuerySnapshot querySnapshot = await reportsRef.get();
+  //     reports.value = querySnapshot.docs.map((doc) {
+  //       var reportData = Report.fromJson(doc.data() as Map<String, dynamic>);
+  //       reportData.id = doc.id;
+  //       return reportData;
+  //     }).toList();
+  //   } catch (e) {
+  //     print("Error fetching reports from Firestore: $e");
+  //     throw e;
+  //   }
+  // }
+
+  final String? doctorId;
+
+  ReportsController({this.doctorId});
+
+  Future<void> fetchAllReportsFromFirebase() async {
+    if (doctorId == null) {
+      print("Error: doctorId is null. Cannot fetch reports.");
+      return;
+    }
     try {
       QuerySnapshot querySnapshot =
-          await users.doc(patientId).collection('report').get();
+          await reportsRef.where('doctorId', isEqualTo: doctorId).get();
       reports.value = querySnapshot.docs.map((doc) {
         var reportData = Report.fromJson(doc.data() as Map<String, dynamic>);
         reportData.id = doc.id;
-        reportData.patientId = patientId;
-        print("Report: $reportData");
         return reportData;
       }).toList();
     } catch (e) {
@@ -33,21 +56,25 @@ class ReportsController extends GetxController {
     }
   }
 
-  Future<void> saveReportToFirebase(Report report, String patientId) async {
+  Future<void> saveReportToFirebase(Report report) async {
     try {
-      DocumentReference ref =
-          await users.doc(patientId).collection('report').add(report.toJson());
+      DocumentReference ref = await reportsRef.add(report.toJson());
       report.id = ref.id;
+
+      // Update the document in Firestore with its ID
+      await ref.set({'id': report.id}, SetOptions(merge: true));
+
+      // If you're updating the local reports list
+      //reports[reports.length - 1] = report;
     } catch (e) {
       print("Error adding report to Firestore: $e");
       throw e;
     }
   }
 
-  Future<void> deleteReportFromFirebase(
-      String patientId, String reportId) async {
+  Future<void> deleteReportFromFirebase(String reportId) async {
     try {
-      await users.doc(patientId).collection('report').doc(reportId).delete();
+      await reportsRef.doc(reportId).delete();
       reports.removeWhere((report) => report.id == reportId);
     } catch (e) {
       print("Error deleting report from Firestore: $e");
@@ -56,13 +83,9 @@ class ReportsController extends GetxController {
   }
 
   Future<void> updateReportOnFirebase(
-      String patientId, String reportId, Report updatedReport) async {
+      String? reportId, Report updatedReport) async {
     try {
-      await users
-          .doc(patientId)
-          .collection('report')
-          .doc(reportId)
-          .update(updatedReport.toJson());
+      await reportsRef.doc(reportId).update(updatedReport.toJson());
     } catch (e) {
       print("Error updating report on Firestore: $e");
       throw e;
@@ -73,10 +96,10 @@ class ReportsController extends GetxController {
     reports.add(report);
   }
 
-  void updateReport(
-      int index, Report newReport, String reportId, String patientId) {
+  Future<void> updateReport(
+      int index, Report newReport, String? reportId) async {
     reports[index] = newReport;
-    updateReportOnFirebase(patientId, reportId, newReport);
+    await updateReportOnFirebase(reportId, newReport);
     update();
   }
 
@@ -92,10 +115,7 @@ class ReportsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if (patientId != null) {
-      fetchReportsFromFirebase(
-          patientId!); // Ensure it's not null before using.
-    }
+    fetchAllReportsFromFirebase();
   }
 }
 
@@ -140,7 +160,8 @@ class _ReportFormState extends State<ReportForm> {
   @override
   void initState() {
     super.initState();
-    reportsController = Get.put(ReportsController(patientId: widget.patientId));
+    reportsController =
+        Get.put(ReportsController(doctorId: authController.currentUserId!));
     userProfile = authController.userData.value;
     if (widget.update && widget.report != null) {
       _conditionController.text = widget.report!.condition;
@@ -211,8 +232,11 @@ class _ReportFormState extends State<ReportForm> {
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
               final report = Report(
+                id: widget.report?.id,
                 doctorName: widget.doctorName,
                 patientName: widget.patientName,
+                patientId: widget.patientId,
+                doctorId: widget.doctorId,
                 condition: _conditionController.text,
                 prescription: _prescriptionController.text,
                 details: _detailsController.text,
@@ -221,12 +245,15 @@ class _ReportFormState extends State<ReportForm> {
                     : widget.notArrived,
               );
               if (widget.update) {
-                reportsController.updateReport(widget.index, report,
-                    widget.report?.id ?? '', widget.patientId!);
+                if (widget.report != null && widget.report!.id != null) {
+                  await reportsController.updateReport(
+                      widget.index, report, widget.report!.id);
+                } else {
+                  print('Error: report or report id is missing for update!');
+                }
               } else {
+                await reportsController.saveReportToFirebase(report);
                 reportsController.addReport(report);
-                await reportsController.saveReportToFirebase(
-                    report, widget.patientId!);
               }
 
               Navigator.of(context).pop();
