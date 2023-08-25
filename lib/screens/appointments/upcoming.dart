@@ -26,6 +26,11 @@ PatientAppointment convertToPatientAppointment(
   );
 }
 
+bool canCancelAppointment(DateTime appointmentTime) {
+  final difference = appointmentTime.difference(DateTime.now()).inHours;
+  return difference > 24;
+}
+
 Future<void> deleteAppointment(
     String? userId, DateTime bookingStart, DateTime bookingEnd) async {
   final firestore = FirebaseFirestore.instance;
@@ -78,7 +83,6 @@ Future<void> deleteAppointment(
 }
 
 class AppointmentController extends GetxController {
-
   final RxList<PatientAppointment> appointments =
       RxList<PatientAppointment>([]);
   final PatientMeetingsController patientMeetingsController = Get.find();
@@ -212,11 +216,55 @@ class AppointmentCard extends StatelessWidget {
                     color: Colors.red,
                   ),
                   onPressed: () async {
-                    appointmentController.appointments.remove(appointment);
+                    if (canCancelAppointment(appointment.bookingStart)) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text('Confirm Cancellation'),
+                          content: Text(
+                              'Do you really want to cancel the appointment?'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('Yes'),
+                              onPressed: () async {
+                                appointmentController.appointments
+                                    .remove(appointment);
 
-                    String? userId = appointment.userId;
-                    await deleteAppointment(userId, appointment.bookingStart,
-                        appointment.bookingEnd);
+                                String? userId = appointment.userId;
+                                await deleteAppointment(
+                                    userId,
+                                    appointment.bookingStart,
+                                    appointment.bookingEnd);
+                                Navigator.of(context).pop(); // Close the dialog
+                              },
+                            ),
+                            TextButton(
+                              child: Text('No'),
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Close the dialog
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text('Cancellation Not Allowed'),
+                          content: Text(
+                              'Sorry, you can\'t cancel within 24 hours of your appointment.'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('OK'),
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Close the dialog
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    }
                   },
                 ),
               ],

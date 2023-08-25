@@ -60,5 +60,5 @@ class UserProfile {
         'picture': picture,
       };
 
-  String get fullName => fName + " " + lName;
+  String get fullName => "$fName $lName";
 }
