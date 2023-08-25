@@ -33,7 +33,7 @@ class DoctorHomePageController extends GetxController {
   Future<UserProfile?> getPatientData(BookingService meeting) async {
     UserProfile? u;
     await userCrud.fetchUserInfo(meeting.userId!).then((value) => u = value);
-    print('mmmmmmmmmm ${u?.address}');
+    //print('mmmmmmmmmm ${u?.address}');
     return u;
   }
 

@@ -23,6 +23,8 @@ class AuthController extends GetxController {
 
   late Rx<User?> firebaseUser;
   String? get currentUserId => auth.currentUser?.uid;
+  String? get currentUserFullName =>
+      "${userData.value.fName} ${userData.value.lName}";
 
   @override
   Future<void> onInit() async {

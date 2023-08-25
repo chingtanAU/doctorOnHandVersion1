@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
 import 'package:doctorppp/doctor_part/video_calll/meet.dart';
-
+import '../../validatorsAuth/auth.dart';
 import '../controller/doctorHomePageController.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class IncomingCard extends StatefulWidget {
   IncomingCard({
@@ -23,6 +24,7 @@ class _IncomingCardState extends State<IncomingCard> {
   final AppointmentController appointmentController =
       Get.put(AppointmentController());
 
+  final AuthController authController = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     BookingService? earliestMeet = doctorHomePageController.getEaliestMeeting();
@@ -36,6 +38,21 @@ class _IncomingCardState extends State<IncomingCard> {
 
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
+    Future<String?> getPatientIdByAttributes(
+        String fName, String lName, String email) async {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('Users')
+          .where('fName', isEqualTo: fName)
+          .where('lName', isEqualTo: lName)
+          .where('email', isEqualTo: email)
+          .get();
+
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs.first.id;
+      }
+      return null;
+    }
 
     return InkWell(
       onTap: () {
@@ -218,14 +235,27 @@ class _IncomingCardState extends State<IncomingCard> {
                                         child: IconButton(
                                           icon: Icon(Icons.call),
                                           color: Colors.greenAccent,
-                                          onPressed: () {
+                                          onPressed: () async {
                                             String doctorId =
-                                                'doctor1'; // Replace with the actual doctor ID
-                                            String patientId =
-                                                'patient3'; // Replace with the actual patient ID
-                                            Get.to(VideoCallScreen(
-                                                doctorId: doctorId,
-                                                patientId: patientId));
+                                                authController.currentUserId!;
+                                            String? patientId =
+                                                await getPatientIdByAttributes(
+                                                    patientData?.fName ??
+                                                        'defaultFName',
+                                                    patientData?.lName ??
+                                                        'defaultLName',
+                                                    patientData?.email ??
+                                                        'defaultEmail');
+
+                                            if (patientId != null) {
+                                              Get.to(VideoCallScreen(
+                                                  doctorId: doctorId,
+                                                  patientId: patientId));
+                                            } else {
+                                              // Handle the null value, maybe show an error message to the user
+                                              print(
+                                                  "Error: Patient ID not found.");
+                                            }
                                           },
                                         ),
                                       ),

@@ -7,6 +7,6 @@ import 'doctorHomePageController.dart';
 class DoctorHomePageBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => DoctorHomePageController());
+    Get.put(DoctorHomePageController());
   }
 }
