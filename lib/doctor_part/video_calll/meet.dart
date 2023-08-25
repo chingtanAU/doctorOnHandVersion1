@@ -238,7 +238,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
           builder: (context) {
             return ReportForm(
               doctorName: fullName!,
-              patientName: patientFullName!,
+              patientName: patientFullName ?? "Unknown",
               patientId: widget.patientId,
               doctorId: authController.currentUserId!,
               onSave: (report) {

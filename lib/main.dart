@@ -40,7 +40,7 @@ Future<void> main() async {
   //Get.lazyPut(() => PatientMeetingsController(), fenix: true);
 
   Get.put<AgoraTokenService>(AgoraTokenService());
-  Get.lazyPut(()=>AgoraTokenService1());
+  Get.lazyPut(() => AgoraTokenService1());
 
   runApp(const MyApp());
 }

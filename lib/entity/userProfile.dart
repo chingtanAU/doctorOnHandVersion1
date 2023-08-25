@@ -64,5 +64,5 @@ class UserProfile {
         'speciality': speciality1,
       };
 
-  String get fullName => fName + " " + lName;
+  String get fullName => "$fName $lName";
 }

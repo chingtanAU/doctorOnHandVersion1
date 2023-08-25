@@ -184,11 +184,42 @@ class PatientPage extends StatelessWidget {
           }
 
           if (doctorId != null && patientId != null) {
-            Get.to(() =>
-                VideoCallScreen(doctorId: doctorId, patientId: patientId));
+            // Get.to(() =>
+            //     VideoCallScreen(doctorId: doctorId, patientId: patientId));
+            Get.to(VideoCallScreen(
+                doctorId: authController.userData.value.fName +
+                    authController.userData.value.lName,
+                patientId:
+                    '${u?.fName ?? 'defaultFName'}${u?.lName ?? 'defaultLName'}'));
           } else {
-            // Handle scenario where doctorId or patientId is not found
-            // Maybe show a toast or alert.
+            //Toast message
+            // Get.snackbar(
+            //   'Error',
+            //   'Doctor ID or Patient ID not found',
+            //   snackPosition: SnackPosition.BOTTOM,
+            //   backgroundColor: Colors.red,
+            //   colorText: Colors.white,
+            // );
+
+            //Alert message
+            Get.defaultDialog(
+              title: 'Error',
+              middleText: 'Doctor ID or Patient ID not found',
+              backgroundColor: Colors.red,
+              titleStyle: TextStyle(color: Colors.white),
+              middleTextStyle: TextStyle(color: Colors.white),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: Text(
+                    'OK',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            );
           }
         },
         // ... other properties of the button
