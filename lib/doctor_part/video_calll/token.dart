@@ -52,6 +52,6 @@ class VideoCallController extends GetxController {
 
 
   String generateChannelName(String doctorId, String patientId) {
-    return 'meeting_${doctorId}_$patientId';
+    return 'meeting_${doctorId}';
   }
 }

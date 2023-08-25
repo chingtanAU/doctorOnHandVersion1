@@ -1,5 +1,6 @@
 import 'package:booking_calendar/booking_calendar.dart';
 import 'package:doctorppp/screens/HomePage/homepage.dart';
+import 'package:doctorppp/validatorsAuth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,7 @@ class IncomingCard extends StatelessWidget {
   }) : super(key: key);
 
   final patientMeetingsController = Get.find<PatientMeetingsController>();
+  final AuthController authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +76,8 @@ class IncomingCard extends StatelessWidget {
           //     patientMeetingsController.earliestMeeting.value!;
           // String doctorId = bookingServiceWrapper.serviceId!;
           // String patientId = bookingServiceWrapper.userId!;
-          String doctorId = earliestMeet!.serviceId!;
-          String patientId = earliestMeet.userId!;
+          String doctorId =patientMeetingsController.earliestdoctor.value.fName+patientMeetingsController.earliestdoctor.value.lName;
+          String patientId = '${authController.userData.value.fName}${authController.userData.value.lName} ' ;
           // String doctorId = 'doctor1'; // Replace with the actual doctor ID
           // String patientId = 'patient3'; // Replace with the actual patient ID
           Get.to(VideoCallScreen(doctorId: doctorId, patientId: patientId));

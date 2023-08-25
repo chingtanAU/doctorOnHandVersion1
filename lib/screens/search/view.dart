@@ -98,7 +98,7 @@ class ClinicSearchPage1 extends StatelessWidget {
                                   child: Image.asset(
                                     "assets/medical1.png",
                                     height: 150,
-                                    width: 100,
+                                    width: 90,
                                   ),
                                 ),
                               ),

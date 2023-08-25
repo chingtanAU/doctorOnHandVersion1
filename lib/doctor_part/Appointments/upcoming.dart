@@ -8,6 +8,7 @@ import 'package:doctorppp/doctor_part/Appointments/model.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../validatorsAuth/auth.dart';
 import '../controller/doctorHomePageController.dart';
 
 class AppointmentController extends GetxController {
@@ -79,6 +80,7 @@ class AppointmentController extends GetxController {
 class AppointmentScreen extends StatelessWidget {
   final AppointmentController appointmentController =
       Get.put(AppointmentController());
+  final AuthController authController = Get.find<AuthController>();
 
   final doctorHomePageController = Get.find<DoctorHomePageController>();
 
@@ -116,9 +118,11 @@ class AppointmentScreen extends StatelessWidget {
                 appointment: upComingApp[index],
                 onPressed: () {
                   String patientId =
-                      appointmentController.appointments[index].patientName;
+                      doctorHomePageController.allDoctrorMeetings.value[index]
+                          .userName!;
                   Get.to(
-                    VideoCallScreen(doctorId: 'doctor1', patientId: patientId),
+                    VideoCallScreen(doctorId: authController.userData.value.fName+authController.userData.value.lName,
+                        patientId: patientId)
                   );
                   // )?.then((value) {
                   //   if (value == true) {
