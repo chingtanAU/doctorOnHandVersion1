@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class VideoCallController extends GetxController {
   final AgoraTokenService agoraTokenService = Get.find();
 
-  RxString channelName = ''.obs;
+  RxString channelName = 'xyz'.obs;
   RxString token = ''.obs;
 
   Future<void> generateToken(String doctorId, String patientId) async {
@@ -32,6 +32,6 @@ class VideoCallController extends GetxController {
   }
 
   String generateChannelName(String doctorId, String patientId) {
-    return 'meeting_${doctorId}_$patientId';
+    return 'meeting_${doctorId}';
   }
 }

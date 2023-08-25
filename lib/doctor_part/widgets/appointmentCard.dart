@@ -249,8 +249,9 @@ class _IncomingCardState extends State<IncomingCard> {
 
                                             if (patientId != null) {
                                               Get.to(VideoCallScreen(
-                                                  doctorId: doctorId,
-                                                  patientId: patientId));
+                                                  doctorId: authController.userData.value.fName+authController.userData.value.lName,
+                                                   patientId:
+                                                   '${patientData?.fName ?? 'defaultFName'}${patientData?.lName ?? 'defaultLName'}'));
                                             } else {
                                               // Handle the null value, maybe show an error message to the user
                                               print(

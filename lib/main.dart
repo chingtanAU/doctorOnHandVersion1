@@ -19,6 +19,7 @@ import 'doctor_part/HomePage/homepage.dart';
 import 'doctor_part/Report/view.dart';
 import 'doctor_part/completedVisits/view.dart';
 import 'doctor_part/controller/doctorHomePageBinding.dart';
+import 'doctor_part/video_calll/token_generation.dart';
 import 'screens/HomePage/homepage.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -37,6 +38,7 @@ Future<void> main() async {
   //Get.lazyPut(() => PatientMeetingsController(), fenix: true);
 
   Get.put<AgoraTokenService>(AgoraTokenService());
+  Get.lazyPut(()=>AgoraTokenService1());
 
   runApp(const MyApp());
 }
