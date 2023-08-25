@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../validatorsAuth/auth.dart';
 import '../controller/doctorHomePageController.dart';
+import '../schedule/schedule.dart';
 import 'homepage.dart';
 import 'package:get/get.dart';
 
@@ -210,7 +211,8 @@ class HomeInfo extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        // Navigator.pushNamed(context, 'book');
+                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) { return DoctorAvailabilityForm(); }));
+                        // Navigator.pshNuamed(context, 'book');
 
                         // Get.offAndToNamed('/book');
 

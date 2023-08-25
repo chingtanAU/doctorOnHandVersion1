@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../validatorsAuth/auth.dart';
+
 class DoctorProfileScreen extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController specializationController = TextEditingController();
@@ -24,6 +26,8 @@ class DoctorProfileScreen extends StatelessWidget {
     clinicAddressController.text = clinicAddress.value;
     clinicPhoneController.text = clinicPhone.value;
     descriptionController.text = description.value; // Set the text field value
+    final authController = Get.find<AuthController>();
+
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -50,7 +54,8 @@ class DoctorProfileScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              name.value,
+              " ${authController.userData.value.fName ?? ""} ${authController.userData.value.lName ?? ""}",
+              //   "\nHow are you today?",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -58,7 +63,8 @@ class DoctorProfileScreen extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              specialization.value,
+              "Hi Doctor ${authController.userData.value.fName}",
+
               style: TextStyle(
                 fontSize: 18,
               ),
