@@ -17,6 +17,7 @@ import '../../validatorsAuth/auth.dart';
 import '../../widgets/appbar.dart';
 import '../../widgets/chat/ChatList.dart';
 import '../../widgets/notifcationScreen.dart';
+import '../editProfile/profile_page.dart';
 import '../ocr/image_input.dart';
 
 class Homepage extends StatefulWidget {
@@ -183,8 +184,8 @@ class _HomepageState extends State<Homepage> with WidgetsBindingObserver {
   int _currentIndex = 0;
   List page = [
     HomeInfo(),
-    const ChatList(),
-    const PatientProfile(),
+    // const ChatList(),
+     ProfilePage(),
   ];
 
   @override
@@ -300,10 +301,10 @@ class _HomepageState extends State<Homepage> with WidgetsBindingObserver {
                   icon: Icons.home,
                   text: 'Home',
                 ),
-                GButton(
-                  icon: Icons.message_sharp,
-                  text: 'Messages',
-                ),
+                // GButton(
+                //   icon: Icons.message_sharp,
+                //   text: 'Messages',
+                // ),
                 GButton(
                   icon: Icons.person,
                   text: 'Profile',

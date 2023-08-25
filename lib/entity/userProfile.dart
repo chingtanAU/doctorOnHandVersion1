@@ -10,6 +10,7 @@ class UserProfile {
   String role;
   List<BookingService>? meets;
   String picture;
+  String? speciality1;
 
   factory UserProfile.empty() => UserProfile(
       role: "",
@@ -27,12 +28,13 @@ class UserProfile {
       required this.email,
       required this.address,
       required this.phone,
+        this.speciality1,
       this.meets,
       this.picture = ""});
 
   @override
   String toString() {
-    return 'UserProfile{fName: $fName, lName: $lName, email: $email, address: $address, phone: $phone, role: $role, meets: $meets, picture: $picture}';
+    return 'UserProfile{fName: $fName, lName: $lName, email: $email, address: $address, phone: $phone, role: $role, meets: $meets, picture: $picture , speciality: $speciality1}';
   }
 
   factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
@@ -47,6 +49,7 @@ class UserProfile {
             : null,
         role: json["role"],
         picture: json["picture"],
+        speciality1: json["speciality"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -58,6 +61,7 @@ class UserProfile {
         'pNumber': phone,
         'meets': meets ?? [],
         'picture': picture,
+        'speciality': speciality1,
       };
 
   String get fullName => "$fName $lName";
