@@ -12,25 +12,36 @@ import 'package:doctorppp/doctor_part/Appointments/upcoming.dart';
 import 'package:doctorppp/doctor_part/Report/form.dart';
 import 'package:doctorppp/doctor_part/Report/model.dart';
 import 'package:doctorppp/doctor_part/Report/view.dart';
+import '../../validatorsAuth/auth.dart';
+import '../../entity/userProfile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class VideoCallScreen extends StatefulWidget {
-  const VideoCallScreen({Key? key,required this.doctorId,
-    required this.patientId,}) : super(key: key);
+  const VideoCallScreen({
+    Key? key,
+    required this.doctorId,
+    required this.patientId,
+  }) : super(key: key);
   final String doctorId;
   final String patientId;
-
 
   @override
   State<VideoCallScreen> createState() => _VideoCallScreenState();
 }
 
 class _VideoCallScreenState extends State<VideoCallScreen> {
-  final agora=  Get.put<AgoraTokenService>(AgoraTokenService());
+  final agora = Get.put<AgoraTokenService>(AgoraTokenService());
   final VideoCallController controller = Get.put(VideoCallController());
-  final CompletedVisitsController completedVisitsController = Get.put(CompletedVisitsController());
-  final AppointmentController appointmentController = Get.put(AppointmentController());
+  final CompletedVisitsController completedVisitsController =
+      Get.put(CompletedVisitsController());
+  final AppointmentController appointmentController =
+      Get.put(AppointmentController());
 
+  final AuthController authController = Get.find<AuthController>();
 
+  String? patientFullName;
+
+  UserProfile? userProfile;
   // final  AgoraClient _client = AgoraClient(
   //     agoraConnectionData:
   //     AgoraConnectionData(
@@ -50,9 +61,9 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   //String channelName = "test";
   //String token = "007eJxTYKh6svzC93t7jup9N/uw0CUtNua9+DkrkXn/jF+wxjpE+3MqMJilGBknmxqkpaWZmZoYmRgkmRinpJkYWZgmGpolGidZFK5ZmtIQyMjgt/kqKyMDBIL4LAwlqcUlDAwA0zYg4A==";
 
-
   void initState() {
     super.initState();
+    _fetchPatientDetails();
     _initAgora();
   }
 
@@ -65,10 +76,9 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   Future<void> _generateToken(doctorid, patientid) async {
     await controller.generateToken(doctorid, patientid);
     await _initAgoraRtcEngine();
-    await _engine.joinChannel(controller.token.value, controller.channelName.value, null, 0);
+    await _engine.joinChannel(
+        controller.token.value, controller.channelName.value, null, 0);
   }
-
-
 
   @override
   void dispose() {
@@ -83,7 +93,21 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     super.dispose();
   }
 
+  // Fetch the patient's details using the patientId
+  Future<void> _fetchPatientDetails() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(widget.patientId)
+        .get();
 
+    if (snapshot.exists) {
+      UserProfile userProfile =
+          UserProfile.fromJson(snapshot.data() as Map<String, dynamic>);
+      setState(() {
+        patientFullName = userProfile.fullName;
+      });
+    }
+  }
 
   Future<void> _initAgora() async {
     await _initAgoraRtcEngine();
@@ -99,7 +123,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
 
   void endMeeting() {
     Visit visit = Visit(
-      patientName: widget.patientId,
+      patientName: patientFullName ?? "Unknown",
       visitTime: getCurrentTime(),
       visitDate: getCurrentDate(),
       visitLocation: "4316 139 Avenue",
@@ -108,12 +132,12 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
 
     //completedVisitsController.addCompletedVisit(visit);
     completedVisitsController.update();
-    print(completedVisitsController.visits      );
+    print(completedVisitsController.visits);
     appointmentController.removeAppointment(widget.patientId);
 
     //Get.back(result: true);
-
   }
+
   String getCurrentTime() {
     DateTime now = DateTime.now();
     String formattedTime = "${now.hour}:${now.minute}";
@@ -139,7 +163,8 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     await _engine.enableAudio();
 
     // Set the audio mode to communication
-    await _engine.setAudioProfile(AudioProfile.SpeechStandard, AudioScenario.MEETING);
+    await _engine.setAudioProfile(
+        AudioProfile.SpeechStandard, AudioScenario.MEETING);
 
     // Set the video encoder configuration
     await _engine.setVideoEncoderConfiguration(VideoEncoderConfiguration(
@@ -202,15 +227,20 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
       },
     ));
   }
+
   void _showReportForm(BuildContext context) {
+    String? fullName = authController.currentUserFullName;
+
     showDialog(
       context: context,
       builder: (context) {
         return Builder(
           builder: (context) {
             return ReportForm(
-              doctorName: 'Dr. John Doe',
-              patientName: widget.patientId,
+              doctorName: fullName!,
+              patientName: patientFullName!,
+              patientId: widget.patientId,
+              doctorId: authController.currentUserId!,
               onSave: (report) {
                 //onComplete();
                 // TODO: Save the report to the list of cards in the report screen
@@ -238,11 +268,10 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   //   );
   // }
 
-  Widget _showViewCounter(){
+  Widget _showViewCounter() {
     return Container(
       height: 20.0,
       width: 30.0,
-
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(15)),
         color: Colors.grey[700],
@@ -256,7 +285,10 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
             size: 15.0,
             textDirection: TextDirection.ltr,
           ),
-          Text('${_infoStrings.length}',style: TextStyle(color: Colors.white,fontSize: 15),)
+          Text(
+            '${_infoStrings.length}',
+            style: TextStyle(color: Colors.white, fontSize: 15),
+          )
         ],
       ),
     );
@@ -322,19 +354,18 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                stops: [
-                  0.1,
-                  0.6,
-                ],
-                colors: [
-                  Colors.blue,
-                  Colors.teal,
-                ],
-              )),
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            stops: [
+              0.1,
+              0.6,
+            ],
+            colors: [
+              Colors.blue,
+              Colors.teal,
+            ],
+          )),
         ),
-
       ),
       backgroundColor: Colors.black,
       body: Center(
@@ -342,10 +373,9 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
           children: <Widget>[
             _viewRows(),
             Positioned(
-                left:  MediaQuery.of(context).size.width *0.9,
+                left: MediaQuery.of(context).size.width * 0.9,
                 child: _showViewCounter()),
             _toolbar(),
-
             Positioned(
               left: 70,
               bottom: 10,
@@ -384,7 +414,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                       //     //   ],
                       //     // );
                       //   },
-                     // );
+                      // );
                       _showReportForm(context);
                     },
                     style: ButtonStyle(
@@ -394,12 +424,13 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                     ),
                     child: const Text('Add Report'),
                   ),
-                  SizedBox(width: 10,),
+                  SizedBox(
+                    width: 10,
+                  ),
                   ElevatedButton(
                     onPressed: () {
                       _onCallEnd(context);
                       endMeeting();
-
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
@@ -408,13 +439,10 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                     ),
                     child: const Text('End appointment '),
                   ),
-
                 ],
               ),
             ),
-
           ],
-
         ),
       ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -482,7 +510,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     final List<StatefulWidget> list = [];
     list.add(rtc_local_view.SurfaceView());
     _users.forEach(
-          (int uid) => list.add(
+      (int uid) => list.add(
         rtc_remote_view.SurfaceView(
           uid: uid,
           channelId: '',
@@ -507,7 +535,6 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     );
   }
 
-
   /// Video layout wrapper
   Widget _viewRows() {
     final views = _getRenderViews();
@@ -520,11 +547,11 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     } else if (views.length == 2) {
       return Container(
           child: Column(
-            children: <Widget>[
-              _expandedVideoRow([views[0]]),
-              _expandedVideoRow([views[1]])
-            ],
-          ));
+        children: <Widget>[
+          _expandedVideoRow([views[0]]),
+          _expandedVideoRow([views[1]])
+        ],
+      ));
     } else if (views.length > 2 && views.length % 2 == 0) {
       return Container(
         child: Column(
@@ -591,5 +618,4 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
 //     ),
 //   );
 // }
-
 }

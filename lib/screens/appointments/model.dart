@@ -4,6 +4,9 @@ class PatientAppointment {
   final String appointmentDate;
   final String appointmentLocation;
   final String appointmentReason;
+  final DateTime bookingStart;
+  final DateTime bookingEnd;
+  final String? userId;
 
   PatientAppointment({
     required this.doctorName,
@@ -11,5 +14,8 @@ class PatientAppointment {
     required this.appointmentDate,
     required this.appointmentLocation,
     required this.appointmentReason,
+    required this.bookingStart,
+    required this.bookingEnd,
+    required this.userId,
   });
 }

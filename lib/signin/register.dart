@@ -281,8 +281,8 @@ class _MyRegisterState extends State<MyRegister> {
                                 onCountryChanged: (country) {
                                   print('Country changed to: ${country.name}');
                                 },
-                                validator: (phone) =>
-                                    validator.phoneValidator(phone! as String),
+                                // validator: (phone) =>
+                                //     validator.phoneValidator(phone! as String),
                               ),
 
                               /*   TextFormField(

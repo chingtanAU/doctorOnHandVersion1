@@ -6,11 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
 import 'package:doctorppp/doctor_part/video_calll/meet.dart';
-
+import '../../validatorsAuth/auth.dart';
 import '../controller/doctorHomePageController.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class IncomingCard extends StatefulWidget {
-   IncomingCard({
+  IncomingCard({
     Key? key,
   }) : super(key: key);
 
@@ -19,25 +20,45 @@ class IncomingCard extends StatefulWidget {
 }
 
 class _IncomingCardState extends State<IncomingCard> {
-
   final doctorHomePageController = Get.find<DoctorHomePageController>();
-  final AppointmentController appointmentController = Get.put(AppointmentController());
+  final AppointmentController appointmentController =
+      Get.put(AppointmentController());
 
-
+  final AuthController authController = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
-    BookingService earliestMeet= doctorHomePageController.getEaliestMeeting();
+    BookingService? earliestMeet = doctorHomePageController.getEaliestMeeting();
     UserProfile? patientData;
-    doctorHomePageController.getPatientData(earliestMeet).then((value) => patientData=value);
+
+    if (earliestMeet != null) {
+      doctorHomePageController
+          .getPatientData(earliestMeet)
+          .then((value) => patientData = value);
+    }
 
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
+    Future<String?> getPatientIdByAttributes(
+        String fName, String lName, String email) async {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('Users')
+          .where('fName', isEqualTo: fName)
+          .where('lName', isEqualTo: lName)
+          .where('email', isEqualTo: email)
+          .get();
+
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs.first.id;
+      }
+      return null;
+    }
 
     return InkWell(
       onTap: () {
         print('qssssssssssssssss ${patientData}');
 
-        Get.to(()=>PatientPage(u: patientData));
+        Get.to(() => PatientPage(u: patientData));
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -63,201 +84,249 @@ class _IncomingCardState extends State<IncomingCard> {
               )
             ],
           ),
-          child: Row(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 016),
-                    child: Text(
-                      "Appointments",
-                      style: TextStyle(
-                        fontFamily: "Comic Sans",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                      ),
+          child: earliestMeet == null
+              ? Center(
+                  child: Text(
+                    "No upcoming appointments",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onPrimary,
                     ),
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          'assets/img.png',
-                          width: width * 0.2,
-                          fit: BoxFit.cover,
+                )
+              : Row(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 016),
+                          child: Text(
+                            "Appointments",
+                            style: TextStyle(
+                              fontFamily: "Comic Sans",
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 14),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: width * 0.62,
-                            child: Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset(
+                                'assets/img.png',
+                                width: width * 0.2,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const SizedBox(width: 14),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(2.0, 0, 0, 0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                SizedBox(
+                                  width: width * 0.62,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        earliestMeet.userName!,
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimary,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Text(
-                                        earliestMeet.serviceName!,
-                                        //earliestMeet.description==null? "": earliestMeet.description! ,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .copyWith(
-                                              color: Colors.white70,
-                                            ),
-                                      ),
-                                      SizedBox(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            2.0, 0, 0, 0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Container(
-                                                padding: const EdgeInsets
-                                                    .symmetric(
-                                                  vertical: 6,
-                                                  horizontal: 8.0,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white10,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                                child:  Row(
-                                                  children: [
-                                                    Icon(
-                                                      Ionicons
-                                                          .location_outline,
-                                                      size: 18,
-                                                      color: Colors.white,
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsets.only(
-                                                              left: 6,
-                                                              right: 14),
-                                                      child: Text(
-                                                          appointmentController
-                                                              .appointments[0].appointmentLocation,
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                            Text(
+                                              earliestMeet.userName!,
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onPrimary,
                                               ),
                                             ),
-                                            SizedBox(height: height * 0.058),
-                                            //  IconButton(
-                                            //  icon: Icon(Icons.call , color: Colors.greenAccent,),
-                                            //   iconSize: 30,
-                                            //   color: Colors.white,
-                                            //   onPressed: () {  String doctorId = 'doctor1'; // Replace with the actual doctor ID
-                                            //   String patientId = 'patient3'; // Replace with the actual patient ID
-                                            //   Get.to(
-                                            //       VideoCallScreen(doctorId: doctorId, patientId: patientId)); },
-                                            // ),
+                                            const SizedBox(height: 5),
+                                            Text(
+                                              earliestMeet.serviceName!,
+                                              //earliestMeet.description==null? "": earliestMeet.description! ,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge!
+                                                  .copyWith(
+                                                    color: Colors.white70,
+                                                  ),
+                                            ),
+                                            SizedBox(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    child: Container(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                        vertical: 6,
+                                                        horizontal: 8.0,
+                                                      ),
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.white10,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10)),
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(
+                                                            Ionicons
+                                                                .location_outline,
+                                                            size: 18,
+                                                            color: Colors.white,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left: 6,
+                                                                    right: 14),
+                                                            child: Text(
+                                                              appointmentController
+                                                                  .appointments[
+                                                                      0]
+                                                                  .appointmentLocation,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                      height: height * 0.058),
+                                                  //  IconButton(
+                                                  //  icon: Icon(Icons.call , color: Colors.greenAccent,),
+                                                  //   iconSize: 30,
+                                                  //   color: Colors.white,
+                                                  //   onPressed: () {  String doctorId = 'doctor1'; // Replace with the actual doctor ID
+                                                  //   String patientId = 'patient3'; // Replace with the actual patient ID
+                                                  //   Get.to(
+                                                  //       VideoCallScreen(doctorId: doctorId, patientId: patientId)); },
+                                                  // ),
+                                                ],
+                                              ),
+                                            ),
                                           ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 50,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[300],
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: IconButton(
+                                          icon: Icon(Icons.call),
+                                          color: Colors.greenAccent,
+                                          onPressed: () async {
+                                            String doctorId =
+                                                authController.currentUserId!;
+                                            String? patientId =
+                                                await getPatientIdByAttributes(
+                                                    patientData?.fName ??
+                                                        'defaultFName',
+                                                    patientData?.lName ??
+                                                        'defaultLName',
+                                                    patientData?.email ??
+                                                        'defaultEmail');
+
+                                            if (patientId != null) {
+                                              Get.to(VideoCallScreen(
+                                                  doctorId: doctorId,
+                                                  patientId: patientId));
+                                            } else {
+                                              // Handle the null value, maybe show an error message to the user
+                                              print(
+                                                  "Error: Patient ID not found.");
+                                            }
+                                          },
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                                 Container(
-                                  width: 50,
-                                  height: 50,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 6,
+                                    horizontal: 8.0,
+                                  ),
                                   decoration: BoxDecoration(
-                                    color: Colors.grey[300],
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: IconButton(
-                                    icon: Icon(Icons.call),
-                                    color: Colors.greenAccent,
-                                    onPressed: () {
-                                      String doctorId =
-                                          'doctor1'; // Replace with the actual doctor ID
-                                      String patientId =
-                                          'patient3'; // Replace with the actual patient ID
-                                      Get.to(VideoCallScreen(
-                                          doctorId: doctorId,
-                                          patientId: patientId));
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 6,
-                              horizontal: 8.0,
-                            ),
-                            decoration: BoxDecoration(
-                                color: Colors.white10,
-                                borderRadius: BorderRadius.circular(10)),
-                            child:  Row(
-                              children: [
-                                Icon(
-                                  Ionicons.calendar_outline,
-                                  size: 18,
-                                  color: Colors.white,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(left: 6, right: 14),
-                                  child: Text(
-                                    earliestMeet.bookingStart.year.toString()+"-"+earliestMeet.bookingStart.month.toString()+"-"+earliestMeet.bookingStart.day.toString(),
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(right: 8),
-                                  child: Icon(
-                                    Ionicons.time_outline,
-                                    size: 18,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  earliestMeet.bookingStart.hour.toString()+":"+earliestMeet.bookingStart.minute.toString()+" - "+earliestMeet.bookingEnd.hour.toString()+":"+earliestMeet.bookingEnd.minute.toString(),
-                                  style: TextStyle(
-                                    color: Colors.white,
+                                      color: Colors.white10,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Ionicons.calendar_outline,
+                                        size: 18,
+                                        color: Colors.white,
+                                      ),
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.only(left: 6, right: 14),
+                                        child: Text(
+                                          earliestMeet.bookingStart.year
+                                                  .toString() +
+                                              "-" +
+                                              earliestMeet.bookingStart.month
+                                                  .toString() +
+                                              "-" +
+                                              earliestMeet.bookingStart.day
+                                                  .toString(),
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 8),
+                                        child: Icon(
+                                          Ionicons.time_outline,
+                                          size: 18,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        earliestMeet.bookingStart.hour
+                                                .toString() +
+                                            ":" +
+                                            earliestMeet.bookingStart.minute
+                                                .toString() +
+                                            " - " +
+                                            earliestMeet.bookingEnd.hour
+                                                .toString() +
+                                            ":" +
+                                            earliestMeet.bookingEnd.minute
+                                                .toString(),
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 )
                               ],
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
         ),
       ),
     );

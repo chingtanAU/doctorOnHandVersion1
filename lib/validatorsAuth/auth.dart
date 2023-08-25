@@ -22,6 +22,9 @@ class AuthController extends GetxController {
   Rx<UserProfile> userData = Rx<UserProfile>(UserProfile.empty());
 
   late Rx<User?> firebaseUser;
+  String? get currentUserId => auth.currentUser?.uid;
+  String? get currentUserFullName =>
+      "${userData.value.fName} ${userData.value.lName}";
 
   @override
   Future<void> onInit() async {
@@ -44,17 +47,41 @@ class AuthController extends GetxController {
   }
 
   Future<UserProfile?> fetchUserInfo() async {
-    await userCrud.fetchUserInfo((auth.currentUser!.uid)).then((value) {
-      userData.value = value!;
-      Get.find<AuthController>();
-      Get.put(PatientMeetingsController());
+    if (auth.currentUser != null) {
+      await userCrud.fetchUserInfo(auth.currentUser!.uid).then((value) {
+        if (value != null) {
+          userData.value = value;
+          // ... rest of your code
+          Get.find<AuthController>();
+          Get.put(PatientMeetingsController());
 
-      if (userData.value.role == "Patient") {
-        Get.offAllNamed("/home");
-      } else if (userData.value.role == "Doctor") {
-        Get.offAllNamed("/doctorHomePage");
-      }
-    });
+          if (userData.value.role == "Patient") {
+            Get.offAllNamed("/home");
+          } else if (userData.value.role == "Doctor") {
+            Get.offAllNamed("/doctorHomePage");
+          }
+        } else {
+          // Handle the scenario where value is null
+          print("value is null");
+          //print the details of the user
+          print(auth.currentUser!.uid);
+          print(auth.currentUser!.email);
+          print(auth.currentUser!.phoneNumber);
+        }
+      });
+    }
+
+    // await userCrud.fetchUserInfo((auth.currentUser!.uid)).then((value) {
+    //   userData.value = value!;
+    //   Get.find<AuthController>();
+    //   Get.put(PatientMeetingsController());
+
+    //   if (userData.value.role == "Patient") {
+    //     Get.offAllNamed("/home");
+    //   } else if (userData.value.role == "Doctor") {
+    //     Get.offAllNamed("/doctorHomePage");
+    //   }
+    // });
   }
 
   Future<UserCredential> signInWithGoogle() async {
@@ -125,17 +152,14 @@ class AuthController extends GetxController {
         y = 10;
       }
       for (int i = 0; i < y; i++) {
-        final currentState = globals.regDoctorKeys[i].currentState;
-
-        if (currentState != null) {
-          print(currentState.value);
-
-          if (!currentState.validate()) {
-            print(i);
+        print(i);
+        if (globals.regDoctorKeys[i].currentState != null) {
+          print(globals.regDoctorKeys[i].currentState!.value);
+          if (!globals.regDoctorKeys[i].currentState!.validate()) {
             done = false;
           }
         } else {
-          print('Current state is null for doctor key at index $i');
+          print('Current state is null for index $i');
         }
       }
     }
@@ -161,7 +185,7 @@ class AuthController extends GetxController {
           phone = globals.phoneKey.currentState!.value;
         } else {
           print('Current state is null for phone key');
-          phone = "";
+          phone = "0000000000";
         }
 
         String address = globals.addressKey.currentState!.value;
