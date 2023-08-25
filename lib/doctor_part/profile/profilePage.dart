@@ -18,6 +18,7 @@ class DoctorProfileScreen extends StatelessWidget {
   final RxString clinicPhone = "555-555-5555".obs;
   final RxString description = "".obs; // New RxString
 
+
   @override
   Widget build(BuildContext context) {
     nameController.text = name.value;
@@ -27,6 +28,7 @@ class DoctorProfileScreen extends StatelessWidget {
     clinicPhoneController.text = clinicPhone.value;
     descriptionController.text = description.value; // Set the text field value
     final authController = Get.find<AuthController>();
+
 
 
     return Scaffold(
@@ -63,7 +65,7 @@ class DoctorProfileScreen extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              "Hi Doctor ${authController.userData.value.fName}",
+              "${authController.userData.value.speciality1}",
 
               style: TextStyle(
                 fontSize: 18,
@@ -75,20 +77,20 @@ class DoctorProfileScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Clinic Name:",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Obx(() => Text(
-                    clinicName.value,
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  )),
+                  // Text(
+                  //   "Clinic Name:",
+                  //   style: TextStyle(
+                  //     fontSize: 16,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
+                  // SizedBox(height: 8),
+                  // Obx(() => Text(
+                  //   clinicName.value,
+                  //   style: TextStyle(
+                  //     fontSize: 16,
+                  //   ),
+                  // )),
                   SizedBox(height: 16),
                   Text(
                     "Clinic Address:",
@@ -99,7 +101,7 @@ class DoctorProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Obx(() => Text(
-                    clinicAddress.value,
+                    authController.userData.value.address ?? "",
                     style: TextStyle(
                       fontSize: 16,
                     ),
@@ -114,7 +116,7 @@ class DoctorProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Obx(() => Text(
-                    clinicPhone.value,
+                    authController.userData.value.phone ?? "",
                     style: TextStyle(
                       fontSize: 16,
                     ),

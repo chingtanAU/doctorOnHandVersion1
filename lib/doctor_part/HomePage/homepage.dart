@@ -337,10 +337,10 @@ class _HomepageState extends State<DoctorHomepage> {
                     icon: Icons.home,
                     text: 'Home',
                   ),
-                  GButton(
-                    icon: Icons.message_sharp,
-                    text: 'Messages',
-                  ),
+                  // GButton(
+                  //   icon: Icons.message_sharp,
+                  //   text: 'Messages',
+                  // ),
                   GButton(
                     icon: Icons.person,
                     text: 'Profile',
