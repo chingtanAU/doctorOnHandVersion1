@@ -7,8 +7,6 @@ import 'package:share_plus/share_plus.dart';
 import 'config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_dropdown_alert/dropdown_alert.dart';
-import 'package:flutter_dropdown_alert/model/data_alert.dart';
 
 class TranslationScreen extends StatefulWidget {
   final String textToTranslate;
@@ -86,10 +84,6 @@ class TranslationScreenState extends State<TranslationScreen> {
     // final apiEndpoint = await _storage.read(key: 'apiEndpoint');
     const apiKey = apiKeys;
     const apiEndpoint = apiEndpoints;
-
-    if (apiKey == null) {
-      throw Exception('API key not found');
-    }
 
     final languageCode = languages[currentLanguage!];
     if (languageCode == null) {
@@ -189,16 +183,16 @@ class TranslationScreenState extends State<TranslationScreen> {
                           alignment: Alignment.center,
                           width: 50,
                           height: 60,
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             color: Colors.grey[300],
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0),
                             child: Text(
                               '$_detectedLanguage',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -206,12 +200,12 @@ class TranslationScreenState extends State<TranslationScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Container(
                           width: 50,
                           height: 60,
-                          padding: EdgeInsets.symmetric(horizontal: 15.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
                           decoration: BoxDecoration(
                             color: Colors.grey[300],
                             borderRadius: BorderRadius.circular(8),
@@ -236,12 +230,12 @@ class TranslationScreenState extends State<TranslationScreen> {
                                       Expanded(
                                           child: Text(
                                         value,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       )),
-                                      VerticalDivider(
+                                      const VerticalDivider(
                                         color: Colors.black,
                                       ),
                                       SvgPicture.asset(
@@ -266,7 +260,7 @@ class TranslationScreenState extends State<TranslationScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Text(
                         widget.textToTranslate,
                         style: const TextStyle(fontSize: 16.0),
@@ -283,7 +277,7 @@ class TranslationScreenState extends State<TranslationScreen> {
                             color: Colors.black,
                             fontSize: 16.0,
                           ),
-                          cursorColor: Color.fromRGBO(36, 86, 43, 1),
+                          cursorColor: const Color.fromRGBO(36, 86, 43, 1),
                           decoration: const InputDecoration(
                             labelText: 'Translated Text',
                             border: OutlineInputBorder(),

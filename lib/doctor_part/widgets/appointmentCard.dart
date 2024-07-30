@@ -11,7 +11,7 @@ import '../controller/doctorHomePageController.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class IncomingCard extends StatefulWidget {
-  IncomingCard({
+  const IncomingCard({
     Key? key,
   }) : super(key: key);
 
@@ -56,7 +56,7 @@ class _IncomingCardState extends State<IncomingCard> {
 
     return InkWell(
       onTap: () {
-        print('qssssssssssssssss ${patientData}');
+        print('qssssssssssssssss $patientData');
 
         Get.to(() => PatientPage(u: patientData));
       },
@@ -69,7 +69,7 @@ class _IncomingCardState extends State<IncomingCard> {
           decoration: BoxDecoration(
             //color: Color(0xff78bea4),
             gradient: LinearGradient(
-              colors: [Color(0xff78bea4), Colors.blueGrey.withOpacity(0.1)],
+              colors: [const Color(0xff78bea4), Colors.blueGrey.withOpacity(0.1)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -151,7 +151,7 @@ class _IncomingCardState extends State<IncomingCard> {
                                       ),
                                       const SizedBox(height: 5),
                                       Text(
-                                        earliestMeet.serviceName!,
+                                        earliestMeet.serviceName,
                                         //earliestMeet.description==null? "": earliestMeet.description! ,
                                         style: Theme.of(context)
                                             .textTheme
@@ -183,7 +183,7 @@ class _IncomingCardState extends State<IncomingCard> {
                                                         10)),
                                                 child: Row(
                                                   children: [
-                                                    Icon(
+                                                    const Icon(
                                                       Ionicons
                                                           .location_outline,
                                                       size: 18,
@@ -191,7 +191,7 @@ class _IncomingCardState extends State<IncomingCard> {
                                                     ),
                                                     Padding(
                                                       padding:
-                                                      EdgeInsets.only(
+                                                      const EdgeInsets.only(
                                                           left: 6,
                                                           right: 14),
                                                       child: Text(
@@ -199,7 +199,7 @@ class _IncomingCardState extends State<IncomingCard> {
                                                             .appointments[
                                                         0]
                                                             .appointmentLocation,
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             color: Colors
                                                                 .white),
                                                       ),
@@ -233,7 +233,7 @@ class _IncomingCardState extends State<IncomingCard> {
                                     shape: BoxShape.circle,
                                   ),
                                   child: IconButton(
-                                    icon: Icon(Icons.call),
+                                    icon: const Icon(Icons.call),
                                     color: Colors.greenAccent,
                                     onPressed: () async {
                                       String doctorId =
@@ -273,27 +273,20 @@ class _IncomingCardState extends State<IncomingCard> {
                                 borderRadius: BorderRadius.circular(10)),
                             child: Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Ionicons.calendar_outline,
                                   size: 18,
                                   color: Colors.white,
                                 ),
                                 Padding(
                                   padding:
-                                  EdgeInsets.only(left: 6, right: 14),
+                                  const EdgeInsets.only(left: 6, right: 14),
                                   child: Text(
-                                    earliestMeet.bookingStart.year
-                                        .toString() +
-                                        "-" +
-                                        earliestMeet.bookingStart.month
-                                            .toString() +
-                                        "-" +
-                                        earliestMeet.bookingStart.day
-                                            .toString(),
-                                    style: TextStyle(color: Colors.white),
+                                    "${earliestMeet.bookingStart.year}-${earliestMeet.bookingStart.month}-${earliestMeet.bookingStart.day}",
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                 ),
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsets.only(right: 8),
                                   child: Icon(
                                     Ionicons.time_outline,
@@ -302,18 +295,8 @@ class _IncomingCardState extends State<IncomingCard> {
                                   ),
                                 ),
                                 Text(
-                                  earliestMeet.bookingStart.hour
-                                      .toString() +
-                                      ":" +
-                                      earliestMeet.bookingStart.minute
-                                          .toString() +
-                                      " - " +
-                                      earliestMeet.bookingEnd.hour
-                                          .toString() +
-                                      ":" +
-                                      earliestMeet.bookingEnd.minute
-                                          .toString(),
-                                  style: TextStyle(
+                                  "${earliestMeet.bookingStart.hour}:${earliestMeet.bookingStart.minute} - ${earliestMeet.bookingEnd.hour}:${earliestMeet.bookingEnd.minute}",
+                                  style: const TextStyle(
                                     color: Colors.white,
                                   ),
                                 )

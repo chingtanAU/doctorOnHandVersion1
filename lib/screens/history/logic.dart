@@ -46,7 +46,7 @@ class VisitsController extends GetxController {
         .get();
 
     final fetchedVisits = querySnapshot.docs.map((doc) {
-      final data = doc.data() as Map<String, dynamic>;
+      final data = doc.data();
       return Visit(
         visitDate: data['visitDate'] ?? 'Not set for now',
         doctorName: data['doctorName'] ?? '',

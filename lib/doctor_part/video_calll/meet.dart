@@ -6,12 +6,9 @@ import 'package:doctorppp/doctor_part/completedVisits/view.dart';
 import '../../screens/video_calll/token_generation.dart';
 import 'token.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get.dart';
 import 'package:doctorppp/doctor_part/Appointments/upcoming.dart';
 import 'package:doctorppp/doctor_part/Report/form.dart';
-import 'package:doctorppp/doctor_part/Report/model.dart';
-import 'package:doctorppp/doctor_part/Report/view.dart';
 import '../../validatorsAuth/auth.dart';
 import '../../entity/userProfile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -61,6 +58,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   //String channelName = "test";
   //String token = "007eJxTYKh6svzC93t7jup9N/uw0CUtNua9+DkrkXn/jF+wxjpE+3MqMJilGBknmxqkpaWZmZoYmRgkmRinpJkYWZgmGpolGidZFK5ZmtIQyMjgt/kqKyMDBIL4LAwlqcUlDAwA0zYg4A==";
 
+  @override
   void initState() {
     super.initState();
     _fetchPatientDetails();
@@ -168,7 +166,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
 
     // Set the video encoder configuration
     await _engine.setVideoEncoderConfiguration(VideoEncoderConfiguration(
-      dimensions: VideoDimensions(height: 640, width: 480),
+      dimensions: const VideoDimensions(height: 640, width: 480),
       frameRate: VideoFrameRate.Fps30,
       orientationMode: VideoOutputOrientationMode.Adaptative,
     ));
@@ -273,13 +271,13 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
       height: 20.0,
       width: 30.0,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
+        borderRadius: const BorderRadius.all(Radius.circular(15)),
         color: Colors.grey[700],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Icon(
+          const Icon(
             Icons.remove_red_eye,
             color: Colors.white,
             size: 15.0,
@@ -287,7 +285,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
           ),
           Text(
             '${_infoStrings.length}',
-            style: TextStyle(color: Colors.white, fontSize: 15),
+            style: const TextStyle(color: Colors.white, fontSize: 15),
           )
         ],
       ),
@@ -306,39 +304,39 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
           children: <Widget>[
             RawMaterialButton(
               onPressed: _onToggleMute,
+              shape: const CircleBorder(),
+              elevation: 2.0,
+              fillColor: muted ? Colors.blueAccent : Colors.white,
+              padding: const EdgeInsets.all(12.0),
               child: Icon(
                 muted ? Icons.mic_off : Icons.mic,
                 color: muted ? Colors.white : Colors.blueAccent,
                 size: 20.0,
               ),
-              shape: CircleBorder(),
-              elevation: 2.0,
-              fillColor: muted ? Colors.blueAccent : Colors.white,
-              padding: const EdgeInsets.all(12.0),
             ),
             RawMaterialButton(
               onPressed: () => _onCallEnd(context),
-              child: Icon(
+              shape: const CircleBorder(),
+              elevation: 2.0,
+              fillColor: Colors.redAccent,
+              padding: const EdgeInsets.all(15.0),
+              child: const Icon(
                 Icons.call_end,
                 color: Colors.white,
                 size: 35.0,
               ),
-              shape: CircleBorder(),
-              elevation: 2.0,
-              fillColor: Colors.redAccent,
-              padding: const EdgeInsets.all(15.0),
             ),
             RawMaterialButton(
               onPressed: _onSwitchCamera,
-              child: Icon(
+              shape: const CircleBorder(),
+              elevation: 2.0,
+              fillColor: Colors.white,
+              padding: const EdgeInsets.all(12.0),
+              child: const Icon(
                 Icons.switch_camera,
                 color: Colors.blueAccent,
                 size: 20.0,
               ),
-              shape: CircleBorder(),
-              elevation: 2.0,
-              fillColor: Colors.white,
-              padding: const EdgeInsets.all(12.0),
             )
           ],
         ),
@@ -350,7 +348,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Video Consultation '),
+        title: const Text('Video Consultation '),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -418,13 +416,13 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                       _showReportForm(context);
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
+                      backgroundColor: WidgetStateProperty.all<Color>(
                         const Color(0xff575de3),
                       ),
                     ),
                     child: const Text('Add Report'),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   ElevatedButton(
@@ -433,7 +431,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                       endMeeting();
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
+                      backgroundColor: WidgetStateProperty.all<Color>(
                         const Color(0xff575de3),
                       ),
                     ),
@@ -508,15 +506,15 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   /// Helper function to get list of native views
   List<Widget> _getRenderViews() {
     final List<StatefulWidget> list = [];
-    list.add(rtc_local_view.SurfaceView());
-    _users.forEach(
-      (int uid) => list.add(
+    list.add(const rtc_local_view.SurfaceView());
+    for (var uid in _users) {
+      list.add(
         rtc_remote_view.SurfaceView(
           uid: uid,
           channelId: '',
         ),
-      ),
-    );
+      );
+    }
     return list;
   }
 

@@ -52,7 +52,7 @@ class ReportsController extends GetxController {
       }).toList();
     } catch (e) {
       print("Error fetching reports from Firestore: $e");
-      throw e;
+      rethrow;
     }
   }
 
@@ -68,7 +68,7 @@ class ReportsController extends GetxController {
       //reports[reports.length - 1] = report;
     } catch (e) {
       print("Error adding report to Firestore: $e");
-      throw e;
+      rethrow;
     }
   }
 
@@ -78,7 +78,7 @@ class ReportsController extends GetxController {
       reports.removeWhere((report) => report.id == reportId);
     } catch (e) {
       print("Error deleting report from Firestore: $e");
-      throw e;
+      rethrow;
     }
   }
 
@@ -88,7 +88,7 @@ class ReportsController extends GetxController {
       await reportsRef.doc(reportId).update(updatedReport.toJson());
     } catch (e) {
       print("Error updating report on Firestore: $e");
-      throw e;
+      rethrow;
     }
   }
 
@@ -130,7 +130,7 @@ class ReportForm extends StatefulWidget {
   final Report? report;
   final bool notArrived;
 
-  ReportForm({
+  const ReportForm({super.key, 
     required this.doctorName,
     required this.patientName,
     required this.patientId,
@@ -194,20 +194,20 @@ class _ReportFormState extends State<ReportForm> {
               //   },
               // ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Condition'),
+                decoration: const InputDecoration(labelText: 'Condition'),
                 controller: _conditionController,
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Prescription'),
+                decoration: const InputDecoration(labelText: 'Prescription'),
                 controller: _prescriptionController,
               ),
               TextFormField(
                 controller: _detailsController,
-                decoration: InputDecoration(labelText: 'Details'),
+                decoration: const InputDecoration(labelText: 'Details'),
                 maxLines: 3,
               ),
               CheckboxListTile(
-                title: Text('Not Arrived'),
+                title: const Text('Not Arrived'),
                 value: _notArrivedController.text.isNotEmpty
                     ? _notArrivedController.text.toLowerCase() == 'true'
                     : widget.notArrived,
@@ -226,7 +226,7 @@ class _ReportFormState extends State<ReportForm> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
         ),
         ElevatedButton(
           onPressed: () async {

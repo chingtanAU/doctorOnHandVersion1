@@ -190,7 +190,7 @@ class ImageInputScreenState extends State<ImageInputScreen> {
                                   ));
                                 },
                                 child: Card(
-                                  color: Color.fromRGBO(248, 248, 248, 1),
+                                  color: const Color.fromRGBO(248, 248, 248, 1),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0),
                                     // side: const BorderSide(
@@ -212,7 +212,7 @@ class ImageInputScreenState extends State<ImageInputScreen> {
                                         ),
                                         const SizedBox(width: 15.0),
                                         Expanded(
-                                          child: Container(
+                                          child: SizedBox(
                                             //color: Colors.blueGrey[50],
                                             width: MediaQuery.of(context)
                                                     .size
@@ -226,21 +226,21 @@ class ImageInputScreenState extends State<ImageInputScreen> {
                                                   _scannedTexts[index]['title']
                                                           as String? ??
                                                       '',
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 16.0,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
-                                                SizedBox(height: 5.0),
+                                                const SizedBox(height: 5.0),
                                                 Text(
                                                   _scannedTexts[index]['date']
                                                           as String? ??
                                                       '',
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 14.0,
                                                       color: Colors.grey),
                                                 ),
-                                                SizedBox(height: 10.0),
+                                                const SizedBox(height: 10.0),
                                                 Container(
                                                   //make sure the icons start from the same point as the title and date
                                                   alignment:
@@ -252,7 +252,7 @@ class ImageInputScreenState extends State<ImageInputScreen> {
                                                   child: Row(
                                                     children: <Widget>[
                                                       IconButton(
-                                                        icon: Icon(
+                                                        icon: const Icon(
                                                             Icons.ios_share),
                                                         iconSize: 20,
                                                         onPressed: () async {
@@ -263,7 +263,7 @@ class ImageInputScreenState extends State<ImageInputScreen> {
                                                         },
                                                       ),
                                                       IconButton(
-                                                        icon: Icon(Icons.edit),
+                                                        icon: const Icon(Icons.edit),
                                                         iconSize: 20,
                                                         onPressed: () {
                                                           _editTitle(index);
@@ -271,7 +271,7 @@ class ImageInputScreenState extends State<ImageInputScreen> {
                                                       ),
                                                       IconButton(
                                                         icon:
-                                                            Icon(Icons.delete),
+                                                            const Icon(Icons.delete),
                                                         iconSize: 20,
                                                         onPressed: () {
                                                           showDialog(
@@ -279,13 +279,13 @@ class ImageInputScreenState extends State<ImageInputScreen> {
                                                             builder:
                                                                 (context) =>
                                                                     AlertDialog(
-                                                              title: Text(
+                                                              title: const Text(
                                                                   'Delete scan?'),
-                                                              content: Text(
+                                                              content: const Text(
                                                                   'Are you sure you want to delete this scan?'),
                                                               actions: <Widget>[
                                                                 TextButton(
-                                                                  child: Text(
+                                                                  child: const Text(
                                                                       'Cancel'),
                                                                   onPressed:
                                                                       () {
@@ -295,7 +295,7 @@ class ImageInputScreenState extends State<ImageInputScreen> {
                                                                   },
                                                                 ),
                                                                 TextButton(
-                                                                  child: Text(
+                                                                  child: const Text(
                                                                       'Delete'),
                                                                   onPressed:
                                                                       () {
@@ -315,7 +315,7 @@ class ImageInputScreenState extends State<ImageInputScreen> {
                                                         },
                                                       ),
                                                       IconButton(
-                                                        icon: Icon(
+                                                        icon: const Icon(
                                                             Icons.more_vert),
                                                         iconSize: 20,
                                                         onPressed: () {
@@ -348,7 +348,7 @@ class ImageInputScreenState extends State<ImageInputScreen> {
                         border: Border.all(color: Colors.grey),
                         borderRadius: BorderRadius.circular(15.0),
                         //color: const Color.fromRGBO(36, 86, 43, 1),
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                           begin: Alignment.topRight,
                           end: Alignment.bottomLeft,
                           stops: [0.1, 0.6],

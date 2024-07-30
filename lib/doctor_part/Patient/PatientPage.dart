@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../validatorsAuth/auth.dart';
 import '../../entity/userProfile.dart';
-import '../../screens/video_calll/token_generation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PatientPage extends StatelessWidget {
@@ -47,7 +46,7 @@ class PatientPage extends StatelessWidget {
                 children: [
                   Text(
                     'Patient Name: ${u?.fName} ${u?.lName}',
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   const SizedBox(height: 8),
                   // Text(
@@ -62,17 +61,17 @@ class PatientPage extends StatelessWidget {
                   // const SizedBox(height: 8),
                   Text(
                     'Address: ${u?.address}',
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'Phone: ${u?.phone}',
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'Email: ${u?.email}',
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ],
               ),
@@ -82,7 +81,7 @@ class PatientPage extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Text(
                 'Previous Visits',
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
             for (final visit in _controller.visits)
@@ -99,17 +98,17 @@ class PatientPage extends StatelessWidget {
                       children: [
                         Text(
                           visit.title,
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           'Visit Date: ${visit.date}',
-                          style: Theme.of(context).textTheme.subtitle1,
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           'Diagnosis: ${visit.diagnosis}',
-                          style: Theme.of(context).textTheme.subtitle1,
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ],
                     ),
@@ -183,7 +182,7 @@ class PatientPage extends StatelessWidget {
             patientId = snapshot.docs.first.id;
           }
 
-          if (doctorId != null && patientId != null) {
+          if (doctorId != null) {
             // Get.to(() =>
             //     VideoCallScreen(doctorId: doctorId, patientId: patientId));
             Get.to(VideoCallScreen(
@@ -206,14 +205,14 @@ class PatientPage extends StatelessWidget {
               title: 'Error',
               middleText: 'Doctor ID or Patient ID not found',
               backgroundColor: Colors.red,
-              titleStyle: TextStyle(color: Colors.white),
-              middleTextStyle: TextStyle(color: Colors.white),
+              titleStyle: const TextStyle(color: Colors.white),
+              middleTextStyle: const TextStyle(color: Colors.white),
               actions: [
                 TextButton(
                   onPressed: () {
                     Get.back();
                   },
-                  child: Text(
+                  child: const Text(
                     'OK',
                     style: TextStyle(color: Colors.white),
                   ),
@@ -224,7 +223,7 @@ class PatientPage extends StatelessWidget {
         },
         // ... other properties of the button
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
+          backgroundColor: WidgetStateProperty.all<Color>(
             const Color(0xff575de3),
           ),
         ),

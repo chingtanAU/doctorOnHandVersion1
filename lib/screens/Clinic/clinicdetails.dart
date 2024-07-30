@@ -1,13 +1,10 @@
 import 'package:doctorppp/entity/DoctorProfile.dart';
 import 'package:doctorppp/entity/clinicDTO.dart';
-import 'package:doctorppp/entity/userProfile.dart';
-import 'package:doctorppp/screens/search/model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import "package:latlong2/latlong.dart" as latLng;
 import '../../Controllers/clinicDetailsContoller.dart';
-import '../../persistance/userCrud.dart' as userCrud;
 
 class ClinicDetails extends StatelessWidget {
   final ClinicDTO clinic;
@@ -294,7 +291,7 @@ class DetailClinicCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      doctor!.fName + " " + doctor!.lName,
+                      "${doctor!.fName} ${doctor!.lName}",
                       style: TextStyle(
                           color: Color(MyColors.header01),
                           fontWeight: FontWeight.w700),
@@ -317,7 +314,7 @@ class DetailClinicCard extends StatelessWidget {
                   Get.toNamed('/book', arguments: doctor);
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
+                  backgroundColor: WidgetStateProperty.all<Color>(
                     const Color(0xff575de3),
                   ),
                 ),

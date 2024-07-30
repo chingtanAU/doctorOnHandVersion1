@@ -8,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'translation.dart';
 import 'dart:math';
 import 'config.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class OcrProcessingScreen extends StatefulWidget {
   final XFile imageFile;
@@ -45,26 +44,10 @@ class OcrProcessingScreenState extends State<OcrProcessingScreen> {
     const apiKey = apiKeys;
     const apiEndpoint = apiEndpoints;
 
-    // final apiKey = await _storage.read(key: 'apiKey');
-    // //print('api key: $apiKey');
-    // // final requestUrl =
-    // //     'https://doctorsonhand.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-read:analyze?api-version=2022-08-31';
-    // final apiEndpoint = await _storage.read(key: 'apiEndpoint');
-    //print('api endpoint: $apiEndpoint');
-
-    // Check if the endpoint key exists
-    if (apiEndpoint == null) {
-      throw Exception('API endpoint not found');
-    }
-
     // Concatenate the endpoint with the rest of the URL
-    final requestUrl =
+    const requestUrl =
         '$apiEndpoint/formrecognizer/documentModels/prebuilt-document:analyze?api-version=2022-08-31';
     final imageBytes = await widget.imageFile.readAsBytes();
-
-    if (apiKey == null) {
-      throw Exception('API key not found');
-    }
 
     final requestHeaders = {
       'Content-Type': 'application/octet-stream',

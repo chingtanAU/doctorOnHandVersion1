@@ -3,8 +3,6 @@ import 'package:doctorppp/screens/Clinic/bookingScreen.dart';
 import 'package:doctorppp/screens/appointments/upcoming.dart';
 import 'package:doctorppp/screens/detailscreen.dart';
 import 'package:doctorppp/screens/editProfile/profile_page.dart';
-import 'package:doctorppp/screens/homepage.dart';
-import 'package:doctorppp/screens/video_calll/meet.dart';
 import 'package:doctorppp/screens/video_calll/token_generation.dart';
 import 'package:doctorppp/signin/login.dart';
 import 'package:doctorppp/signin/register.dart';
@@ -14,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'Controllers/clinicController.dart';
-import 'Controllers/patientMeetingsController.dart';
 import 'doctor_part/Appointments/upcoming.dart';
 import 'doctor_part/HomePage/homepage.dart';
 import 'doctor_part/Report/view.dart';
@@ -23,7 +20,6 @@ import 'doctor_part/controller/doctorHomePageBinding.dart';
 import 'doctor_part/video_calll/token_generation.dart';
 import 'screens/HomePage/homepage.dart';
 import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
 Future<void> main() async {
   tz.initializeTimeZones();
@@ -34,7 +30,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp().then((value) => Get.put(AuthController()));
-  await Future.delayed(Duration(seconds: 2));
+  await Future.delayed(const Duration(seconds: 2));
   Get.lazyPut(() => ClinicContoller(), fenix: true);
   Get.lazyPut(() => DoctorHomePageController(), fenix: true);
   //Get.lazyPut(() => PatientMeetingsController(), fenix: true);
@@ -82,25 +78,25 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyLogin(),
+      home: const MyLogin(),
       //home: const CircularProgressIndicator(),
       getPages: [
-        GetPage(name: '/login', page: () => MyLogin()),
+        GetPage(name: '/login', page: () => const MyLogin()),
         GetPage(name: '/register', page: () => MyRegister()),
         // GetPage(
         //     name: '/home', page: () => Homepage(), binding: ClinicBinding()),
         GetPage(name: '/home', page: () => Homepage()),
         GetPage(name: '/book', page: () => BookingCalendarDemoApp()),
-        GetPage(name: '/detail', page: () => DetailScreen()),
-        GetPage(name: '/editProfile', page: () => ProfilePage()),
+        GetPage(name: '/detail', page: () => const DetailScreen()),
+        GetPage(name: '/editProfile', page: () => const ProfilePage()),
         GetPage(
             name: '/doctorHomePage',
             page: () => DoctorHomepage(),
             binding: DoctorHomePageBinding()),
-        GetPage(name: '/appointment', page: () => AppointmentScreen()),
-        GetPage(name: '/completed', page: () => CompletedVisitsScreen()),
-        GetPage(name: '/report', page: () => ReportScreen()),
-        GetPage(name: '/patient', page: () => PatientAppointmentScreen())
+        GetPage(name: '/appointment', page: () => const AppointmentScreen()),
+        GetPage(name: '/completed', page: () => const CompletedVisitsScreen()),
+        GetPage(name: '/report', page: () => const ReportScreen()),
+        GetPage(name: '/patient', page: () => const PatientAppointmentScreen())
       ],
 
 //     return SafeArea(

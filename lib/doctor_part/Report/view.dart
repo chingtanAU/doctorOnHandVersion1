@@ -10,11 +10,13 @@ class ReportScreen extends StatelessWidget {
   final ReportsController reportsController = Get.put(
       ReportsController(doctorId: Get.find<AuthController>().currentUserId));
 
+  const ReportScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Reports'),
+        title: const Text('Reports'),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -47,13 +49,13 @@ class ReportScreen extends StatelessWidget {
             final report = reportsController.reports[index];
             int filledFields = 0;
 
-            if (report.prescription != null && report.prescription.isNotEmpty) {
+            if (report.prescription.isNotEmpty) {
               filledFields++;
             }
-            if (report.condition != null && report.condition.isNotEmpty) {
+            if (report.condition.isNotEmpty) {
               filledFields++;
             }
-            if (report.details != null && report.details.isNotEmpty) {
+            if (report.details.isNotEmpty) {
               filledFields++;
             }
 
@@ -108,7 +110,6 @@ class ReportScreen extends StatelessWidget {
                               ),
                             ),
                           if (report.notArrived == false &&
-                              report.condition != null &&
                               report.condition.isNotEmpty)
                             const Card(
                               color: Colors.white,
@@ -135,7 +136,6 @@ class ReportScreen extends StatelessWidget {
                               ),
                             ),
                           if (report.notArrived == false &&
-                              report.prescription != null &&
                               report.prescription.isNotEmpty)
                             const Card(
                               color: Colors.white,
@@ -162,7 +162,6 @@ class ReportScreen extends StatelessWidget {
                               ),
                             ),
                           if (report.notArrived == false &&
-                              report.details != null &&
                               report.details.isNotEmpty)
                             const Card(
                               color: Colors.white,
@@ -194,10 +193,10 @@ class ReportScreen extends StatelessWidget {
                   ),
                   ListTile(
                     contentPadding:
-                        EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                     title: Text(
                       report.patientName ?? '',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -217,12 +216,12 @@ class ReportScreen extends StatelessWidget {
                         _showReportDetails(context, report, index);
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.green,
+                        backgroundColor: Colors.green,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Update',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -260,7 +259,7 @@ class ReportScreen extends StatelessWidget {
     if (result != null && result) {
       // Show a snackbar to indicate that the report was updated
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Report updated'),
         ),
       );

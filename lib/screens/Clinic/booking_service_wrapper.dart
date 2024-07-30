@@ -26,7 +26,7 @@ class BookingServiceWrapper {
               bookingStart ?? DateTime.now(), // Default to now if null
           bookingEnd: bookingEnd ??
               DateTime.now()
-                  .add(Duration(hours: 1)), // Default to one hour from now
+                  .add(const Duration(hours: 1)), // Default to one hour from now
           serviceId: serviceId,
           serviceName:
               serviceName ?? 'Unknown Service', // Default to 'Unknown Service'

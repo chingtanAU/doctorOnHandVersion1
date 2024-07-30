@@ -46,11 +46,6 @@ class AppointmentController extends GetxController {
   //   ),
   //   // Add more appointments here
   // ].obs;
-  @override
-  void onInit() {
-    super.onInit();
-    //_loadAppointments();
-  }
 
   // Future<void> _loadAppointments() async {
   //   final prefs = await SharedPreferences.getInstance();
@@ -84,11 +79,13 @@ class AppointmentScreen extends StatelessWidget {
 
   final doctorHomePageController = Get.find<DoctorHomePageController>();
 
+  const AppointmentScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Upcoming Appointments"),
+        title: const Text("Upcoming Appointments"),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(

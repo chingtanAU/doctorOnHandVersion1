@@ -1,11 +1,9 @@
-import 'package:booking_calendar/booking_calendar.dart';
 import 'package:doctorppp/doctor_part/widgets/appointmentCard.dart';
 
 import 'package:flutter/material.dart';
 
 import 'package:ionicons/ionicons.dart';
 import '../../validatorsAuth/auth.dart';
-import '../controller/doctorHomePageController.dart';
 import '../schedule/schedule.dart';
 import 'homepage.dart';
 import 'package:get/get.dart';
@@ -32,7 +30,7 @@ class HomeInfo extends StatelessWidget {
                   child: Text(
                     "Hi Dr. ${authController.userData.value.fName}!",
                     //   "\nHow are you today?",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Roboto",
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
@@ -43,7 +41,7 @@ class HomeInfo extends StatelessWidget {
                   color: Colors.grey[300],
                   thickness: 0,
                 ),
-                IncomingCard(),
+                const IncomingCard(),
                 Divider(
                   color: Colors.grey[300],
                   thickness: 0,
@@ -88,7 +86,7 @@ class HomeInfo extends StatelessWidget {
                             width: width * 0.42,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Color(0xFFf4e9f3),
+                              color: const Color(0xFFf4e9f3),
                               boxShadow: const [
                                 BoxShadow(
                                   color: Colors.grey,
@@ -151,7 +149,7 @@ class HomeInfo extends StatelessWidget {
                             width: width * 0.42,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Color(0xFFf4e9f3),
+                              color: const Color(0xFFf4e9f3),
                               boxShadow: const [
                                 BoxShadow(
                                   color: Colors.grey,
@@ -211,7 +209,7 @@ class HomeInfo extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) { return DoctorAvailabilityForm(); }));
+                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) { return const DoctorAvailabilityForm(); }));
                         // Navigator.pshNuamed(context, 'book');
 
                         // Get.offAndToNamed('/book');
@@ -234,7 +232,7 @@ class HomeInfo extends StatelessWidget {
                             width: width * 0.42,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Color(0xFFf4e9f3),
+                              color: const Color(0xFFf4e9f3),
                               boxShadow: const [
                                 BoxShadow(
                                   color: Colors.grey,
@@ -303,7 +301,7 @@ class HomeInfo extends StatelessWidget {
                             width: width * 0.42,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Color(0xFFf4e9f3),
+                              color: const Color(0xFFf4e9f3),
                               boxShadow: const [
                                 BoxShadow(
                                   color: Colors.grey,

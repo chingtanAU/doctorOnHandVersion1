@@ -9,7 +9,6 @@ import 'package:crypto/crypto.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../Controllers/clinicController.dart';
 import '../Controllers/patientMeetingsController.dart';
 import '../globals.dart' as globals;
 import '../globals.dart';
@@ -70,6 +69,7 @@ class AuthController extends GetxController {
         }
       });
     }
+    return null;
 
     // await userCrud.fetchUserInfo((auth.currentUser!.uid)).then((value) {
     //   userData.value = value!;
@@ -256,7 +256,6 @@ class AuthController extends GetxController {
             fontSize: 16.0);
         Get.offNamed("/home");
 
-        ;
       } on FirebaseAuthException catch (e) {
         if (e.code == 'email-already-in-use') {
           FireError.setEmailUseError(true);

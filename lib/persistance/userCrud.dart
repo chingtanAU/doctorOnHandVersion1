@@ -1,4 +1,3 @@
-import 'package:booking_calendar/booking_calendar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctorppp/entity/DoctorProfile.dart';
 import 'package:doctorppp/entity/visitedClinic.dart';
@@ -83,6 +82,6 @@ Stream<List<BookingServiceWrapper>> fetchUserMeetingsStream(String id) {
   return userCollection.doc(id).collection("oppointment").snapshots().map(
       (querySnapshot) => querySnapshot.docs
           .map((doc) => BookingServiceWrapper.fromJson(
-              doc.data() as Map<String, dynamic>))
+              doc.data()))
           .toList());
 }

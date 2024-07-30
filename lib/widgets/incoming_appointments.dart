@@ -1,5 +1,3 @@
-import 'package:booking_calendar/booking_calendar.dart';
-import 'package:doctorppp/screens/HomePage/homepage.dart';
 import 'package:doctorppp/validatorsAuth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
@@ -54,7 +52,7 @@ class IncomingCard extends StatelessWidget {
                 )
               ],
             ),
-            child: Center(
+            child: const Center(
               child: Text(
                 "No upcoming appointments!",
                 textAlign: TextAlign.center,
@@ -141,7 +139,7 @@ class IncomingCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            "${patientMeetingsController.earliestdoctor.value.speciality}",
+                            patientMeetingsController.earliestdoctor.value.speciality,
                             style:
                                 Theme.of(context).textTheme.bodyLarge!.copyWith(
                                       color: Colors.white70,
@@ -165,18 +163,18 @@ class IncomingCard extends StatelessWidget {
                                             BorderRadius.circular(10)),
                                     child: Row(
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           Ionicons.location_outline,
                                           size: 18,
                                           color: Colors.white,
                                         ),
                                         Padding(
-                                          padding: EdgeInsets.only(
+                                          padding: const EdgeInsets.only(
                                               left: 6, right: 14),
                                           child: Text(
-                                            "${patientMeetingsController.earliestdoctor.value.address}",
+                                            patientMeetingsController.earliestdoctor.value.address,
                                             style:
-                                                TextStyle(color: Colors.white),
+                                                const TextStyle(color: Colors.white),
                                           ),
                                         ),
                                       ],
@@ -202,19 +200,19 @@ class IncomingCard extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10)),
                             child: Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Ionicons.calendar_outline,
                                   size: 18,
                                   color: Colors.white,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 6, right: 14),
+                                  padding: const EdgeInsets.only(left: 6, right: 14),
                                   child: Text(
-                                    "${earliestMeet!.bookingStart.year}-${earliestMeet.bookingStart.month}-${earliestMeet.bookingStart.day}",
-                                    style: TextStyle(color: Colors.white),
+                                    "${earliestMeet.bookingStart.year}-${earliestMeet.bookingStart.month}-${earliestMeet.bookingStart.day}",
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                 ),
-                                Padding(
+                                const Padding(
                                   padding: EdgeInsets.only(right: 8),
                                   child: Icon(
                                     Ionicons.time_outline,
@@ -224,7 +222,7 @@ class IncomingCard extends StatelessWidget {
                                 ),
                                 Text(
                                   "${earliestMeet.bookingStart.hour}:${earliestMeet.bookingStart.minute} - ${earliestMeet.bookingEnd.hour}:${earliestMeet.bookingEnd.minute}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                   ),
                                 )

@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../../Controllers/clinicController.dart';
 import '../Clinic/clinicdetails.dart';
 import 'model.dart';
-import 'logic.dart';
 
 class ClinicSearchPage1 extends StatelessWidget {
   final clinicController = Get.find<ClinicContoller>();
@@ -109,7 +108,7 @@ class ClinicSearchPage1 extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const SizedBox(height: 16.0),
-                                    Container(
+                                    SizedBox(
                                       width: 260,
                                       child: Text(
                                         clinicController

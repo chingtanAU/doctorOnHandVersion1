@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../validatorsAuth/auth.dart';
-import 'edit_description.dart';
 import 'edit_email.dart';
 import 'edit_image.dart';
 import 'edit_name.dart';
@@ -16,6 +14,8 @@ import 'display_image_widget.dart';
 class ProfilePage extends StatefulWidget {
 
   final authController = Get.find<AuthController>();
+
+  const ProfilePage({super.key});
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -31,7 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
             elevation: 0,
             toolbarHeight: 10,
           ),
-          Center(
+          const Center(
               child: Padding(
                   padding: EdgeInsets.only(bottom: 20),
                   child: Text(
@@ -50,7 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 imagePath: widget.authController.userData.value.picture,
                 onPressed: () {},
               )),
-          Obx(() => buildUserInfoDisplay(widget.authController.userData.value.fName+" "+widget.authController.userData.value.lName , 'Name', EditNameFormPage())),
+          Obx(() => buildUserInfoDisplay("${widget.authController.userData.value.fName} ${widget.authController.userData.value.lName}" , 'Name', EditNameFormPage())),
       Obx(() => buildUserInfoDisplay(widget.authController.userData.value.phone, 'Phone', EditPhoneFormPage())),
     Obx(() => buildUserInfoDisplay(widget.authController.userData.value.email, 'Email', EditEmailFormPage())),
          /* Expanded(
@@ -65,25 +65,25 @@ class _ProfilePageState extends State<ProfilePage> {
   // Widget builds the display item with the proper formatting to display the user's info
   Widget buildUserInfoDisplay(String getValue, String title, Widget editPage) =>
       Padding(
-          padding: EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.only(bottom: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
                   color: Colors.grey,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 1,
               ),
               Container(
                   width: 350,
                   height: 40,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
                     color: Colors.grey,
@@ -98,11 +98,11 @@ class _ProfilePageState extends State<ProfilePage> {
                             child:
                               Text(
                               getValue,
-                              style: TextStyle(fontSize: 16, height: 1.4),
+                              style: const TextStyle(fontSize: 16, height: 1.4),
                             )
 
                         )),
-                    Icon(
+                    const Icon(
                       Icons.keyboard_arrow_right,
                       color: Colors.grey,
                       size: 40.0,

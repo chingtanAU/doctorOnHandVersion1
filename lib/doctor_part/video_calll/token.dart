@@ -34,7 +34,7 @@ class VideoCallController extends GetxController {
         _snackbarShown = true; // Set the flag to true
 
         // Start the timer to reset the flag after a minute
-        _snackbarTimer = Timer(Duration(minutes: 1), () {
+        _snackbarTimer = Timer(const Duration(minutes: 1), () {
           _snackbarShown = false;
         });
       }
@@ -52,6 +52,6 @@ class VideoCallController extends GetxController {
 
 
   String generateChannelName(String doctorId, String patientId) {
-    return 'meeting_${doctorId}';
+    return 'meeting_$doctorId';
   }
 }

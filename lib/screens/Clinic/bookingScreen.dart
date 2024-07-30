@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:booking_calendar/booking_calendar.dart';
 import 'booking_service_wrapper.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import '../../persistance/userCrud.dart' as usercrud;
 import '../../Controllers/clinicDetailsContoller.dart';
@@ -237,7 +236,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
               uploadingWidget: const CircularProgressIndicator(),
               locale: 'eng',
               startingDayOfWeek: StartingDayOfWeek.monday,
-              disabledDays: [DateTime.thursday],
+              disabledDays: const [DateTime.thursday],
               wholeDayIsBookedWidget:
                   const Text('Sorry, for this day everything is booked'),
               //disabledDates: [DateTime(2023, 1, 20)],

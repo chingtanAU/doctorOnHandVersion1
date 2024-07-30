@@ -1,5 +1,4 @@
 import 'package:booking_calendar/booking_calendar.dart';
-import 'package:doctorppp/entity/visitedClinic.dart';
 
 class UserProfile {
   String fName;

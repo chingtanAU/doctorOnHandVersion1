@@ -87,7 +87,7 @@ class MyLogin1 extends StatelessWidget {
                             children: [
                               Text(
                                 "Remember Me",
-                                style: const TextStyle(color: Colors.black),
+                                style: TextStyle(color: Colors.black),
                               ),
                               // Checkbox(
                               //  ),
@@ -125,8 +125,8 @@ class MyLogin1 extends StatelessWidget {
                           OutlinedButton(
                             style: ButtonStyle(
                               backgroundColor:
-                              MaterialStateProperty.all(Colors.white),
-                              shape: MaterialStateProperty.all(
+                              WidgetStateProperty.all(Colors.white),
+                              shape: WidgetStateProperty.all(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(40),
                                 ),
@@ -192,10 +192,10 @@ class MyLogin1 extends StatelessWidget {
                                         content: TextFormField(
 
                                           controller: _emailResetPass,
-                                          decoration: InputDecoration(),
+                                          decoration: const InputDecoration(),
                                         ),
                                         confirm: MaterialButton(
-                                          child: Text('Submit'),
+                                          child: const Text('Submit'),
                                           onPressed: () async {
                                             // Get.snackbar(
                                             //     await authController

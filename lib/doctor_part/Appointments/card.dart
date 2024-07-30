@@ -1,8 +1,5 @@
 import 'package:booking_calendar/booking_calendar.dart';
-import 'package:doctorppp/doctor_part/Appointments/model.dart';
 import 'package:doctorppp/doctor_part/Appointments/upcoming.dart';
-import 'package:doctorppp/doctor_part/video_calll/meet.dart';
-import 'package:doctorppp/doctor_part/Appointments/model.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:get/get.dart';
@@ -39,7 +36,7 @@ class AppointmentCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xff78bea4), Colors.blueGrey.withOpacity(0.1)],
+              colors: [const Color(0xff78bea4), Colors.blueGrey.withOpacity(0.1)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -62,7 +59,7 @@ class AppointmentCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Appointments",
                       style: TextStyle(
                         fontFamily: "Comic Sans",
@@ -72,7 +69,7 @@ class AppointmentCard extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.cancel,
                         color: Colors.red,
                       ),
@@ -104,59 +101,59 @@ class AppointmentCard extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(width: 14),
+                  const SizedBox(width: 14),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           appointment.userName!,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
-                        SizedBox(height: 5),
+                        const SizedBox(height: 5),
                         Text(
                           appointment.serviceName,
                          // appointment.description!,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 16,
                             color: Colors.white70,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Ionicons.calendar_outline,
                               size: 18,
                               color: Colors.white,
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text(
-                              appointment.bookingStart.year.toString()+"-"+appointment.bookingStart.month.toString()+"-"+appointment.bookingStart.day.toString(),
-                               style: TextStyle(
+                              "${appointment.bookingStart.year}-${appointment.bookingStart.month}-${appointment.bookingStart.day}",
+                               style: const TextStyle(
                                 color: Colors.white,
                               ),
                             ),
-                            SizedBox(width: 10),
-                            Icon(
+                            const SizedBox(width: 10),
+                            const Icon(
                               Ionicons.time_outline,
                               size: 18,
                               color: Colors.white,
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text(
-                              appointment.bookingStart.hour.toString()+":"+appointment.bookingStart.minute.toString()+" - "+appointment.bookingEnd.hour.toString()+":"+appointment.bookingEnd.minute.toString(),
-                              style: TextStyle(
+                              "${appointment.bookingStart.hour}:${appointment.bookingStart.minute} - ${appointment.bookingEnd.hour}:${appointment.bookingEnd.minute}",
+                              style: const TextStyle(
                                 color: Colors.white,
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
 
                       ],
                     ),
