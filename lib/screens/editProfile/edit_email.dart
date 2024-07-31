@@ -77,7 +77,7 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                               // Validate returns true if the form is valid, or false otherwise.
                               if (_formKey.currentState!.validate()) {
                                 await updateUserValue(emailController.text);
-                                Get.to(const ProfilePage());
+                                Get.to( ProfilePage());
                               }
                             },
                             child: const Text(

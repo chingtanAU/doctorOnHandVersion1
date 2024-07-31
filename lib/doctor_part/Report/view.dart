@@ -10,7 +10,7 @@ class ReportScreen extends StatelessWidget {
   final ReportsController reportsController = Get.put(
       ReportsController(doctorId: Get.find<AuthController>().currentUserId));
 
-  const ReportScreen({super.key});
+   ReportScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

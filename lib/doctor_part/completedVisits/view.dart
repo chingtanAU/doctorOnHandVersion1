@@ -86,7 +86,7 @@ class CompletedVisitsController extends GetxController {
 class CompletedVisitsScreen extends StatelessWidget {
   final CompletedVisitsController completedVisitsController = Get.find<CompletedVisitsController>();
 
-  const CompletedVisitsScreen({super.key});
+   CompletedVisitsScreen({super.key});
   //
   // void updateVisits() {
   //   controller.update();

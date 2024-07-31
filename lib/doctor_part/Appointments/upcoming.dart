@@ -79,7 +79,7 @@ class AppointmentScreen extends StatelessWidget {
 
   final doctorHomePageController = Get.find<DoctorHomePageController>();
 
-  const AppointmentScreen({super.key});
+   AppointmentScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

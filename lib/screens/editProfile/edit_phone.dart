@@ -85,7 +85,7 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                               if (_formKey.currentState!.validate() &&
                                   isNumeric(phoneController.text)) {
                                 await updateUserValue(phoneController.text);
-                                Get.to(const ProfilePage());
+                                Get.to( ProfilePage());
                               }
                             },
                             child: const Text(

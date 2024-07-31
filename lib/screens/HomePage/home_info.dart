@@ -79,7 +79,7 @@ class HomeInfo extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const PatientAppointmentScreen(),
+                                builder: (context) =>  PatientAppointmentScreen(),
                               ),
                             );
                           },

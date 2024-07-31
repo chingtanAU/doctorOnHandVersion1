@@ -15,7 +15,7 @@ class ProfilePage extends StatefulWidget {
 
   final authController = Get.find<AuthController>();
 
-  const ProfilePage({super.key});
+   ProfilePage({super.key});
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }

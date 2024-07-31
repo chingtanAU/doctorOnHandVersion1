@@ -112,7 +112,7 @@ class EditNameFormPageState extends State<EditNameFormPage> {
                             if (_formKey.currentState!.validate() &&
                                 isAlpha(firstNameController.text +
                                     secondNameController.text)) {
-                              await updateUserValue(firstNameController.text,secondNameController.text).then((value) =>  Get.to(const ProfilePage()));
+                              await updateUserValue(firstNameController.text,secondNameController.text).then((value) =>  Get.to( ProfilePage()));
                               
                             }
                           },

@@ -83,7 +83,7 @@ class _EditDescriptionFormPageState extends State<EditDescriptionFormPage> {
                               // Validate returns true if the form is valid, or false otherwise.
                               if (_formKey.currentState!.validate()) {
                                 updateUserValue(descriptionController.text);
-                                Get.to(const ProfilePage());
+                                Get.to( ProfilePage());
                               }
                             },
                             child: const Text(

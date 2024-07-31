@@ -88,15 +88,15 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/home', page: () => Homepage()),
         GetPage(name: '/book', page: () => BookingCalendarDemoApp()),
         GetPage(name: '/detail', page: () => const DetailScreen()),
-        GetPage(name: '/editProfile', page: () => const ProfilePage()),
+        GetPage(name: '/editProfile', page: () =>  ProfilePage()),
         GetPage(
             name: '/doctorHomePage',
             page: () => DoctorHomepage(),
             binding: DoctorHomePageBinding()),
-        GetPage(name: '/appointment', page: () => const AppointmentScreen()),
-        GetPage(name: '/completed', page: () => const CompletedVisitsScreen()),
-        GetPage(name: '/report', page: () => const ReportScreen()),
-        GetPage(name: '/patient', page: () => const PatientAppointmentScreen())
+        GetPage(name: '/appointment', page: () =>  AppointmentScreen()),
+        GetPage(name: '/completed', page: () =>  CompletedVisitsScreen()),
+        GetPage(name: '/report', page: () =>  ReportScreen()),
+        GetPage(name: '/patient', page: () =>  PatientAppointmentScreen())
       ],
 
 //     return SafeArea(

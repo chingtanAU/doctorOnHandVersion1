@@ -107,7 +107,7 @@ class PatientAppointmentScreen extends StatelessWidget {
   final AppointmentController appointmentController =
       Get.put(AppointmentController());
 
-  const PatientAppointmentScreen({super.key});
+   PatientAppointmentScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -178,7 +178,7 @@ class _HomepageState extends State<Homepage> with WidgetsBindingObserver {
   List page = [
     HomeInfo(),
     // const ChatList(),
-     const ProfilePage(),
+      ProfilePage(),
   ];
 
   @override
