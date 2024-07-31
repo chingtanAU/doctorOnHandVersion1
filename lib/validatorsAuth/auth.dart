@@ -19,8 +19,11 @@ import '../../widgets/notifcationScreen.dart';
 
 class AuthController extends GetxController {
   Rx<UserProfile> userData = Rx<UserProfile>(UserProfile.empty());
-
   late Rx<User?> firebaseUser;
+  final isLoading = true.obs;
+  final authStateChanged = false.obs;
+  final isUserDataLoaded = false.obs;
+
   String? get currentUserId => auth.currentUser?.uid;
   String? get currentUserFullName =>
       "${userData.value.fName} ${userData.value.lName}";
@@ -28,7 +31,7 @@ class AuthController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    Get.put(PatientMeetingsController());
+    Get.lazyPut(() => PatientMeetingsController(), fenix: true);
     Get.put(NotificationController());
 
     firebaseUser = Rx<User?>(auth.currentUser);
@@ -38,66 +41,43 @@ class AuthController extends GetxController {
 
   Future<void> _setInitialScreen(User? user) async {
     if (user == null) {
-      // if the user is not found then the user is navigated to the Register Screen
-      Get.offAllNamed('/login');
+      authStateChanged.value = true;
+      isLoading.value = false;
+      isUserDataLoaded.value = false;
     } else {
       await fetchUserInfo();
     }
   }
 
-  Future<UserProfile?> fetchUserInfo() async {
+  Future<void> fetchUserInfo() async {
     if (auth.currentUser != null) {
+      isLoading.value = true;
+      isUserDataLoaded.value = false;
       await userCrud.fetchUserInfo(auth.currentUser!.uid).then((value) {
         if (value != null) {
           userData.value = value;
-          // ... rest of your code
           Get.find<AuthController>();
           Get.put(PatientMeetingsController());
-
-          if (userData.value.role == "Patient") {
-            Get.offAllNamed("/home");
-          } else if (userData.value.role == "Doctor") {
-            Get.offAllNamed("/doctorHomePage");
-          }
         } else {
-          // Handle the scenario where value is null
           print("value is null");
-          //print the details of the user
           print(auth.currentUser!.uid);
           print(auth.currentUser!.email);
           print(auth.currentUser!.phoneNumber);
         }
+        authStateChanged.value = true;
+        isLoading.value = false;
+        isUserDataLoaded.value = true;
       });
     }
-    return null;
-
-    // await userCrud.fetchUserInfo((auth.currentUser!.uid)).then((value) {
-    //   userData.value = value!;
-    //   Get.find<AuthController>();
-    //   Get.put(PatientMeetingsController());
-
-    //   if (userData.value.role == "Patient") {
-    //     Get.offAllNamed("/home");
-    //   } else if (userData.value.role == "Doctor") {
-    //     Get.offAllNamed("/doctorHomePage");
-    //   }
-    // });
   }
 
   Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-
-    // Create a new credential
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
@@ -267,6 +247,8 @@ class AuthController extends GetxController {
 
   Future<void> logOut() async {
     await globals.auth.signOut();
+    isUserDataLoaded.value = false;
+    userData.value = UserProfile.empty();
   }
 
   Future<String> resetPassword({required String email}) async {
