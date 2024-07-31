@@ -1,7 +1,5 @@
 import 'package:booking_calendar/booking_calendar.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-import 'HealthCarePhacility.dart';
 import 'package:doctorppp/entity/userProfile.dart';
 
 class DoctorProfile extends UserProfile {
@@ -55,6 +53,7 @@ class DoctorProfile extends UserProfile {
         clinicId: json["clinicId"],
       );
 
+  @override
   Map<String, dynamic> toJson() => {
         'role': role,
         'fName': fName,

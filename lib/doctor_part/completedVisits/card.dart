@@ -1,11 +1,7 @@
 import 'package:booking_calendar/booking_calendar.dart';
 import 'package:flutter/material.dart';
-import 'model.dart';
-import 'card.dart';
 
 
-import 'package:flutter/material.dart';
-import 'model.dart';
 
 class VisitCard extends StatelessWidget {
   final BookingService visit;
@@ -19,13 +15,9 @@ class VisitCard extends StatelessWidget {
     if (visit.userName != null) {
       filledFields++;
     }
-    if (visit.serviceName != null) {
+    filledFields++;
       filledFields++;
-    }
-    if (visit.bookingStart != null) {
-      filledFields++;
-    }
-
+  
     Color cardColor;
     if (filledFields == 3) {
       cardColor = Colors.green;
@@ -45,11 +37,11 @@ class VisitCard extends StatelessWidget {
           color: cardColor,
           borderRadius: BorderRadius.circular(15),
         ),
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Visit Details',
               style: TextStyle(
                 fontFamily: 'Arial',
@@ -58,17 +50,17 @@ class VisitCard extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             ListTile(
-              contentPadding: EdgeInsets.all(0),
-              leading: Icon(
+              contentPadding: const EdgeInsets.all(0),
+              leading: const Icon(
                 Icons.person,
                 color: Colors.black,
                 size: 20,
               ),
               title: Text(
                 visit.userName ?? '',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
@@ -77,18 +69,18 @@ class VisitCard extends StatelessWidget {
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(
                     visit.serviceName ?? '',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                       color: Colors.black,
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(
                     '${visit.bookingStart.toString()} ',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                       color: Colors.black,
                     ),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../search/view.dart';
 import 'model.dart';
-import 'package:booking_calendar/booking_calendar.dart';
 import 'package:doctorppp/entity/DoctorProfile.dart';
 import '../../Controllers/patientMeetingsController.dart';
 import '../Clinic/booking_service_wrapper.dart';
@@ -54,9 +52,9 @@ Future<void> deleteAppointment(
   }
 
   //print all doc id
-  userAppointments.docs.forEach((element) {
+  for (var element in userAppointments.docs) {
     print(element.id);
-  });
+  }
   DocumentSnapshot appointmentDoc = userAppointments.docs.first;
   print("Found matching appointment: ${appointmentDoc.id}");
 
@@ -109,6 +107,8 @@ class PatientAppointmentScreen extends StatelessWidget {
   final AppointmentController appointmentController =
       Get.put(AppointmentController());
 
+   PatientAppointmentScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,7 +130,7 @@ class PatientAppointmentScreen extends StatelessWidget {
         child: const Text('Book Appointment'),
       ),
       appBar: AppBar(
-        title: Text("Upcoming Appointments"),
+        title: const Text("Upcoming Appointments"),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -151,7 +151,7 @@ class PatientAppointmentScreen extends StatelessWidget {
       body: Obx(
         () {
           return appointmentController.appointments.isEmpty
-              ? Center(
+              ? const Center(
                   child: Text(
                     'No upcoming appointments.',
                     style: TextStyle(fontSize: 16),
@@ -176,7 +176,7 @@ class AppointmentCard extends StatelessWidget {
   final AppointmentController appointmentController =
       Get.put(AppointmentController());
 
-  AppointmentCard({required this.appointment});
+  AppointmentCard({super.key, required this.appointment});
 
   @override
   Widget build(BuildContext context) {
@@ -188,13 +188,13 @@ class AppointmentCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF78BEA4), Colors.blueGrey.withOpacity(0.1)],
+            colors: [const Color(0xFF78BEA4), Colors.blueGrey.withOpacity(0.1)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(15),
         ),
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -204,14 +204,14 @@ class AppointmentCard extends StatelessWidget {
               children: [
                 Text(
                   appointment.doctorName,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
                 IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.cancel,
                     color: Colors.red,
                   ),
@@ -220,12 +220,12 @@ class AppointmentCard extends StatelessWidget {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          title: Text('Confirm Cancellation'),
-                          content: Text(
+                          title: const Text('Confirm Cancellation'),
+                          content: const Text(
                               'Do you really want to cancel the appointment?'),
                           actions: <Widget>[
                             TextButton(
-                              child: Text('Yes'),
+                              child: const Text('Yes'),
                               onPressed: () async {
                                 appointmentController.appointments
                                     .remove(appointment);
@@ -239,7 +239,7 @@ class AppointmentCard extends StatelessWidget {
                               },
                             ),
                             TextButton(
-                              child: Text('No'),
+                              child: const Text('No'),
                               onPressed: () {
                                 Navigator.of(context).pop(); // Close the dialog
                               },
@@ -251,12 +251,12 @@ class AppointmentCard extends StatelessWidget {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          title: Text('Cancellation Not Allowed'),
-                          content: Text(
+                          title: const Text('Cancellation Not Allowed'),
+                          content: const Text(
                               'Sorry, you can\'t cancel within 24 hours of your appointment.'),
                           actions: <Widget>[
                             TextButton(
-                              child: Text('OK'),
+                              child: const Text('OK'),
                               onPressed: () {
                                 Navigator.of(context).pop(); // Close the dialog
                               },
@@ -269,33 +269,33 @@ class AppointmentCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               appointment.appointmentTime,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 color: Colors.white,
               ),
             ),
             Text(
               appointment.appointmentDate,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               appointment.appointmentLocation,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 color: Colors.white,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               appointment.appointmentReason,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 color: Colors.white,
               ),

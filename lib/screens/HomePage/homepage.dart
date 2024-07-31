@@ -1,9 +1,4 @@
-import 'package:doctorppp/screens/Clinic/clinicdetails.dart';
 import 'package:doctorppp/screens/HomePage/home_info.dart';
-import 'package:doctorppp/signin/profile.dart';
-import 'package:doctorppp/screens/search/model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,11 +6,9 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../../Controllers/clinicController.dart';
 import '../../Controllers/patientMeetingsController.dart';
-import '../../entity/HealthCarePhacility.dart';
 import '../../globals.dart' as globals;
 import '../../validatorsAuth/auth.dart';
 import '../../widgets/appbar.dart';
-import '../../widgets/chat/ChatList.dart';
 import '../../widgets/notifcationScreen.dart';
 import '../editProfile/profile_page.dart';
 import '../ocr/image_input.dart';
@@ -60,12 +53,12 @@ class _HomepageState extends State<Homepage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -185,7 +178,7 @@ class _HomepageState extends State<Homepage> with WidgetsBindingObserver {
   List page = [
     HomeInfo(),
     // const ChatList(),
-     ProfilePage(),
+      ProfilePage(),
   ];
 
   @override
@@ -219,7 +212,7 @@ class _HomepageState extends State<Homepage> with WidgetsBindingObserver {
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
@@ -235,7 +228,7 @@ class _HomepageState extends State<Homepage> with WidgetsBindingObserver {
               accountName: Text(
                   '${widget.authController.userData.value.fName} ${widget.authController.userData.value.lName}'),
               accountEmail: Text(widget.authController.userData.value.email),
-              currentAccountPicture: CircleAvatar(
+              currentAccountPicture: const CircleAvatar(
                 backgroundImage: AssetImage('assets/profile.jpg'),
               ),
             ),
@@ -244,20 +237,20 @@ class _HomepageState extends State<Homepage> with WidgetsBindingObserver {
               title: const Text('OCR'),
               onTap: () {
                 // Handle item tap
-                Get.to(() => ImageInputScreen());
+                Get.to(() => const ImageInputScreen());
               },
             ),
             ListTile(
-              leading: Icon(Icons.account_circle_sharp),
-              title: Text('Profile'),
+              leading: const Icon(Icons.account_circle_sharp),
+              title: const Text('Profile'),
               onTap: () {
                 Get.toNamed("/editProfile");
                 // Handle item tap
               },
             ),
             ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Log out'),
+              leading: const Icon(Icons.logout),
+              title: const Text('Log out'),
               onTap: () {
                 Get.delete<NotificationController>();
                 Get.delete<PatientMeetingsController>();

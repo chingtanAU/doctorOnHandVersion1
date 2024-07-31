@@ -92,7 +92,7 @@ class _ScanScreenState extends State<ScanScreen> {
             ),
             const SizedBox(height: 20.0),
             Center(
-              child: Container(
+              child: SizedBox(
                 width: 100, // Set the width as per your requirement
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(

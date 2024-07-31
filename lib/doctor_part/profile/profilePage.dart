@@ -16,7 +16,9 @@ class DoctorProfileScreen extends StatelessWidget {
   final RxString clinicName = "ABC Clinic".obs;
   final RxString clinicAddress = "123 Main Street".obs;
   final RxString clinicPhone = "555-555-5555".obs;
-  final RxString description = "".obs; // New RxString
+  final RxString description = "".obs;
+
+  DoctorProfileScreen({super.key}); // New RxString
 
 
   @override
@@ -47,31 +49,31 @@ class DoctorProfileScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              child: Center(
+              child: const Center(
                 child: CircleAvatar(
                   radius: 60,
                   backgroundImage: AssetImage('assets/profile.jpg'),
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               " ${authController.userData.value.fName ?? ""} ${authController.userData.value.lName ?? ""}",
               //   "\nHow are you today?",
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               "${authController.userData.value.speciality1}",
 
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
               ),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
@@ -91,58 +93,58 @@ class DoctorProfileScreen extends StatelessWidget {
                   //     fontSize: 16,
                   //   ),
                   // )),
-                  SizedBox(height: 16),
-                  Text(
+                  const SizedBox(height: 16),
+                  const Text(
                     "Clinic Address:",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Obx(() => Text(
                     authController.userData.value.address ?? "",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   )),
-                  SizedBox(height: 16),
-                  Text(
+                  const SizedBox(height: 16),
+                  const Text(
                     "Clinic Phone:",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Obx(() => Text(
                     authController.userData.value.phone ?? "",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   )),
-                  SizedBox(height: 32),
-                  Text(
+                  const SizedBox(height: 32),
+                  const Text(
                     "Description:", // New text field label
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   TextField(
                     controller: descriptionController, // New text field
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Enter a description',
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
                   ElevatedButton(
                     onPressed: () {
                       _showUpdateDialog(context);
                     },
-                    child: Text("Update Profile"),
+                    child: const Text("Update Profile"),
                   ),
                 ],
               ),
@@ -165,7 +167,7 @@ class DoctorProfileScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Update Profile"),
+          title: const Text("Update Profile"),
           content: SingleChildScrollView(
 
           child: Column(
@@ -173,27 +175,27 @@ class DoctorProfileScreen extends StatelessWidget {
             children: [
               TextField(
                 controller: nameController,
-                decoration: InputDecoration(labelText: "Name"),
+                decoration: const InputDecoration(labelText: "Name"),
               ),
               TextField(
                 controller: specializationController,
-                decoration: InputDecoration(labelText: "Specialization"),
+                decoration: const InputDecoration(labelText: "Specialization"),
               ),
               TextField(
                 controller: clinicNameController,
-                decoration: InputDecoration(labelText: "Clinic Name"),
+                decoration: const InputDecoration(labelText: "Clinic Name"),
               ),
               TextField(
                 controller: clinicAddressController,
-                decoration: InputDecoration(labelText: "Clinic Address"),
+                decoration: const InputDecoration(labelText: "Clinic Address"),
               ),
               TextField(
                 controller: clinicPhoneController,
-                decoration: InputDecoration(labelText: "Clinic Phone"),
+                decoration: const InputDecoration(labelText: "Clinic Phone"),
               ),
               TextField(
                 controller: descriptionController, // New text field
-                decoration: InputDecoration(labelText: "Description"),
+                decoration: const InputDecoration(labelText: "Description"),
               ),
             ],
           ),),
@@ -202,7 +204,7 @@ class DoctorProfileScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
             ),
             TextButton(
               onPressed: () {
@@ -214,7 +216,7 @@ class DoctorProfileScreen extends StatelessWidget {
                 description.value = descriptionController.text; // Update the RxString value
                 Navigator.pop(context);
               },
-              child: Text("Update"),
+              child: const Text("Update"),
             ),
           ],
         );

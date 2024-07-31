@@ -111,9 +111,9 @@ class ApiKeyInputScreenState extends State<ApiKeyInputScreen> {
               ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black),
+                      WidgetStateProperty.all<Color>(Colors.black),
                   foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
+                      WidgetStateProperty.all<Color>(Colors.white),
                 ),
                 onPressed: _saveApiKeyAndEndpoint,
                 child: const Text('Save for Future Use'),

@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class DoctorAvailabilityForm extends StatefulWidget {
+  const DoctorAvailabilityForm({super.key});
+
   @override
   _DoctorAvailabilityFormState createState() => _DoctorAvailabilityFormState();
 }
@@ -67,7 +69,7 @@ class _DoctorAvailabilityFormState extends State<DoctorAvailabilityForm> {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(Duration(days: 365)),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
     );
     if (picked != null) {
       setState(() {
@@ -81,7 +83,7 @@ class _DoctorAvailabilityFormState extends State<DoctorAvailabilityForm> {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(Duration(days: 365)),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
     );
     if (picked != null) {
       setState(() {
@@ -125,20 +127,20 @@ class _DoctorAvailabilityFormState extends State<DoctorAvailabilityForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Doctor Availability Form'),
+        title: const Text('Doctor Availability Form'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Select Working Days:',
                 style: TextStyle(fontSize: 16.0),
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               Wrap(
                 spacing: 8.0,
                 children: _daysOfWeek.map((day) {
@@ -157,43 +159,43 @@ class _DoctorAvailabilityFormState extends State<DoctorAvailabilityForm> {
                   );
                 }).toList(),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Row(
                 children: [
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Select Start Date:',
                           style: TextStyle(fontSize: 16.0),
                         ),
-                        SizedBox(height: 8.0),
+                        const SizedBox(height: 8.0),
                         ElevatedButton(
                           onPressed: () => _selectStartDate(context),
                           child: Text(
                             ' ${_selectedStartDate != null ? DateFormat('yyyy-MM-dd').format(_selectedStartDate!) : 'Not Selected'}',
-                            style: TextStyle(fontSize: 16.0),
+                            style: const TextStyle(fontSize: 16.0),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(width: 16.0),
+                  const SizedBox(width: 16.0),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Select End Date:',
                           style: TextStyle(fontSize: 16.0),
                         ),
-                        SizedBox(height: 8.0),
+                        const SizedBox(height: 8.0),
                         ElevatedButton(
                           onPressed: () => _selectEndDate(context),
                           child: Text(
                             ' ${_selectedEndDate != null ? DateFormat('yyyy-MM-dd').format(_selectedEndDate!) : 'Not Selected'}',
-                            style: TextStyle(fontSize: 16.0),
+                            style: const TextStyle(fontSize: 16.0),
                           ),
                         ),
                       ],
@@ -201,18 +203,18 @@ class _DoctorAvailabilityFormState extends State<DoctorAvailabilityForm> {
                   ),
                 ],
               ),
-              Divider(height: 32.0),
+              const Divider(height: 32.0),
               Row(
                 children: [
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Select Start Time:',
                           style: TextStyle(fontSize: 16.0),
                         ),
-                        SizedBox(height: 8.0),
+                        const SizedBox(height: 8.0),
                         ElevatedButton(
                           onPressed: () => _selectStartTime(context),
                           child: Text(_selectedStartTime != null
@@ -222,16 +224,16 @@ class _DoctorAvailabilityFormState extends State<DoctorAvailabilityForm> {
                       ],
                     ),
                   ),
-                  SizedBox(width: 16.0),
+                  const SizedBox(width: 16.0),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Select End Time:',
                           style: TextStyle(fontSize: 16.0),
                         ),
-                        SizedBox(height: 8.0),
+                        const SizedBox(height: 8.0),
                         ElevatedButton(
                           onPressed: () => _selectEndTime(context),
                           child: Text(_selectedEndTime != null
@@ -245,15 +247,15 @@ class _DoctorAvailabilityFormState extends State<DoctorAvailabilityForm> {
               ),
 
 
-              SizedBox(height: 16.0),
-              Text(
+              const SizedBox(height: 16.0),
+              const Text(
                 'Select Time Slot:',
                 style: TextStyle(fontSize: 16.0),
               ),
-              SizedBox(height: 8.0),
+              const SizedBox(height: 8.0),
               DropdownButtonFormField<String>(
                 value: _timeSlotController.text,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Select Time Slot',
                 ),
                 items: _timeSlots.map((slot) {
@@ -272,10 +274,10 @@ class _DoctorAvailabilityFormState extends State<DoctorAvailabilityForm> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: _submitForm,
-                child: Text('Submit'),
+                child: const Text('Submit'),
               )
             ],
           ),

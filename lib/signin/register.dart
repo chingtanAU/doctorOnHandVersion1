@@ -78,7 +78,7 @@ class _MyRegisterState extends State<MyRegister> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Obx(() => Container(
-                          margin: EdgeInsets.only(left: 35, right: 35),
+                          margin: const EdgeInsets.only(left: 35, right: 35),
                           child: Column(
                             children: [
                               DropdownButtonExample(),
@@ -164,14 +164,14 @@ class _MyRegisterState extends State<MyRegister> {
                                           enabledBorder: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Colors.black,
                                             ),
                                           ),
                                           focusedBorder: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Colors.black,
                                             ),
                                           ),
@@ -451,13 +451,13 @@ class ClinicName extends StatelessWidget {
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 color: Colors.black,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 color: Colors.black,
               ),
             ),
@@ -477,13 +477,13 @@ class ClinicName extends StatelessWidget {
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 color: Colors.black,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 color: Colors.black,
               ),
             ),
@@ -503,13 +503,13 @@ class ClinicName extends StatelessWidget {
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 color: Colors.black,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 color: Colors.black,
               ),
             ),
@@ -610,13 +610,13 @@ class _DropdownButtonClinicState extends State<DropdownButtonClinic> {
         DropdownButtonFormField<HealthCarePhacility>(
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) => (value == null ? 'clinic is required' : null),
-          hint: Text("Select your clinic",
-              style: const TextStyle(color: Colors.black)),
+          hint: const Text("Select your clinic",
+              style: TextStyle(color: Colors.black)),
           key: globals.clinicListKey,
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.black,
                 ),
                 // focusedBorder: OutlineInputBorder(

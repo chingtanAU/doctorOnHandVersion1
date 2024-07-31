@@ -60,5 +60,6 @@ class DoctorHomePageController extends GetxController {
     await meetingCrud
         .fetchDoctorMeetings(id)
         .then((value) => allDoctrorMeetings.value = value);
+    return null;
   }
 }

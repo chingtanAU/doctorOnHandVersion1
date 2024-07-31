@@ -19,7 +19,7 @@ class CompletedVisitsController extends GetxController {
   void onInit() async {
     super.onInit();
      print("dezfezfezfezf${doctorHomePageController.allDoctrorMeetings.value.length}");
-     visits.value= await doctorHomePageController.getPassedMeetings(doctorHomePageController.allDoctrorMeetings.value, DateTime.now());
+     visits.value= doctorHomePageController.getPassedMeetings(doctorHomePageController.allDoctrorMeetings.value, DateTime.now());
      print("fjksoqjfoqfq${visits.value.length}");
   }
 
@@ -85,6 +85,8 @@ class CompletedVisitsController extends GetxController {
 
 class CompletedVisitsScreen extends StatelessWidget {
   final CompletedVisitsController completedVisitsController = Get.find<CompletedVisitsController>();
+
+   CompletedVisitsScreen({super.key});
   //
   // void updateVisits() {
   //   controller.update();
@@ -94,7 +96,7 @@ class CompletedVisitsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Completed Visits'),
+        title: const Text('Completed Visits'),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(

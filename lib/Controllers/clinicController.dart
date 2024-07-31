@@ -1,6 +1,5 @@
 import 'package:doctorppp/entity/HealthCarePhacility.dart';
 import 'package:doctorppp/globals.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import '../entity/clinicDTO.dart';
@@ -43,7 +42,6 @@ class ClinicContoller extends GetxController {
             clinicName: obj1.name,
             lastVisit: matchingObject.lastVisit,
             visitNumber: matchingObject.visitNumber);
-        ;
       } else {
         return ClinicDTO(
             idClinic: obj1.id, clinicName: obj1.name, visitNumber: 0);
@@ -57,18 +55,21 @@ class ClinicContoller extends GetxController {
     await facilityController
         .fetchAllWalkinClinic()
         .then((value) => walkinClinicList.value = value);
+    return null;
   }
 
   Future<List<HealthCarePhacility>?> fetchAllClinicOnlyWithAppointment() async {
     await facilityController
         .fetchAllClinicOnlyWithAppointment()
         .then((value) => clinicOnlyWithAppointment.value = value);
+    return null;
   }
 
   Future<List<HealthCarePhacility>?> fetchAllUserVisitedClinic() async {
     await userController
         .fetchUserVisitedClinic(auth.currentUser!.uid)
         .then((value) => userVisitedClinic.value = value);
+    return null;
   }
 
   void search() {

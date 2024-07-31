@@ -1,12 +1,10 @@
 import 'package:doctorppp/screens/editProfile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../validatorsAuth/Validator.dart' as validator;
 import '../../globals.dart';
 import '../../validatorsAuth/auth.dart';
 import 'appbar_widget.dart';
-import 'package:email_validator/email_validator.dart';
 import '../../persistance/userCrud.dart' as crud;
 
 // This class handles the Page to edit the Email Section of the User Profile.
@@ -47,16 +45,16 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                     width: 320,
-                    child: const Text(
+                    child: Text(
                       "What's your email?",
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.left,
                     )),
                 Padding(
-                    padding: EdgeInsets.only(top: 40),
+                    padding: const EdgeInsets.only(top: 40),
                     child: SizedBox(
                         height: 100,
                         width: 320,
@@ -68,7 +66,7 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                           controller: emailController,
                         ))),
                 Padding(
-                    padding: EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.only(top: 10),
                     child: Align(
                         alignment: Alignment.bottomCenter,
                         child: SizedBox(
@@ -79,7 +77,7 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                               // Validate returns true if the form is valid, or false otherwise.
                               if (_formKey.currentState!.validate()) {
                                 await updateUserValue(emailController.text);
-                                Get.to(ProfilePage());
+                                Get.to( ProfilePage());
                               }
                             },
                             child: const Text(

@@ -1,11 +1,9 @@
 import 'package:doctorppp/screens/editProfile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:string_validator/string_validator.dart';
 import '../../globals.dart';
 import '../../validatorsAuth/auth.dart';
-import 'appbar_widget.dart';
 import 'appbar_widget.dart';
 import '../../persistance/userCrud.dart' as crud;
 
@@ -45,15 +43,15 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                     width: 320,
-                    child: const Text(
+                    child: Text(
                       "What's Your Phone Number?",
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     )),
                 Padding(
-                    padding: EdgeInsets.only(top: 40),
+                    padding: const EdgeInsets.only(top: 40),
                     child: SizedBox(
                         height: 100,
                         width: 320,
@@ -75,7 +73,7 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                           ),
                         ))),
                 Padding(
-                    padding: EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.only(top: 10),
                     child: Align(
                         alignment: Alignment.bottomCenter,
                         child: SizedBox(
@@ -87,7 +85,7 @@ class EditPhoneFormPageState extends State<EditPhoneFormPage> {
                               if (_formKey.currentState!.validate() &&
                                   isNumeric(phoneController.text)) {
                                 await updateUserValue(phoneController.text);
-                                Get.to(ProfilePage());
+                                Get.to( ProfilePage());
                               }
                             },
                             child: const Text(

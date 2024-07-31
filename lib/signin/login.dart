@@ -9,7 +9,7 @@ import '../../../validatorsAuth/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyLogin extends StatefulWidget {
-  MyLogin({Key? key}) : super(key: key);
+  const MyLogin({Key? key}) : super(key: key);
 
   @override
   _MyLoginState createState() => _MyLoginState();
@@ -51,7 +51,7 @@ class _MyLoginState extends State<MyLogin> {
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      return Center(
+      return const Center(
         child: CircularProgressIndicator(),
       );
     } else {
@@ -196,10 +196,10 @@ class _MyLoginState extends State<MyLogin> {
                                           validator: (email) =>
                                               validator.emailValidatro(email!),
                                           controller: _emailResetPass,
-                                          decoration: InputDecoration(),
+                                          decoration: const InputDecoration(),
                                         ),
                                         confirm: MaterialButton(
-                                          child: Text('Submit'),
+                                          child: const Text('Submit'),
                                           onPressed: () async {
                                             Get.snackbar(
                                                 await authController
@@ -222,12 +222,12 @@ class _MyLoginState extends State<MyLogin> {
                             const SizedBox(height: 25),
                             ElevatedButton(
                               style: ButtonStyle(
-                                minimumSize: MaterialStateProperty.all(Size(
+                                minimumSize: WidgetStateProperty.all(const Size(
                                     double.infinity,
                                     50)), // makes the button full width
-                                backgroundColor: MaterialStateProperty.all(
-                                    Color(0xff4c505b)),
-                                shape: MaterialStateProperty.all(
+                                backgroundColor: WidgetStateProperty.all(
+                                    const Color(0xff4c505b)),
+                                shape: WidgetStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(40),
                                   ),
@@ -254,11 +254,11 @@ class _MyLoginState extends State<MyLogin> {
                             const SizedBox(height: 20),
                             OutlinedButton(
                               style: ButtonStyle(
-                                minimumSize: MaterialStateProperty.all(
-                                    Size(double.infinity, 50)),
+                                minimumSize: WidgetStateProperty.all(
+                                    const Size(double.infinity, 50)),
                                 backgroundColor:
-                                    MaterialStateProperty.all(Colors.white),
-                                shape: MaterialStateProperty.all(
+                                    WidgetStateProperty.all(Colors.white),
+                                shape: WidgetStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(40),
                                   ),

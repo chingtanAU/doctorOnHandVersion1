@@ -1,7 +1,4 @@
 import 'package:doctorppp/doctor_part/HomePage/home_info.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -9,7 +6,6 @@ import 'package:doctorppp/doctor_part/profile/profilePage.dart';
 
 import '../../screens/video_calll/token_generation.dart';
 import '../../validatorsAuth/auth.dart';
-import '../completedVisits/view.dart';
 import '../controller/doctorHomePageController.dart';
 
 class DoctorHomepage extends StatefulWidget {
@@ -207,7 +203,7 @@ class _HomepageState extends State<DoctorHomepage> {
           child: ListView(
             children: [
               UserAccountsDrawerHeader(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
@@ -223,7 +219,7 @@ class _HomepageState extends State<DoctorHomepage> {
                 accountName: Text(
                     '${widget.authController.userData.value.fName} ${widget.authController.userData.value.lName}'),
                 accountEmail: Text(widget.authController.userData.value.email),
-                currentAccountPicture: CircleAvatar(
+                currentAccountPicture: const CircleAvatar(
                   backgroundImage: AssetImage('assets/profile.jpg'),
                 ),
               ),
