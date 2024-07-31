@@ -5,7 +5,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import "package:latlong2/latlong.dart" as latLng;
 import '../../Controllers/clinicDetailsContoller.dart';
-import 'package:flutter/widgets.dart';
 
 class ClinicDetails extends StatelessWidget {
   final ClinicDTO clinic;
@@ -13,11 +12,10 @@ class ClinicDetails extends StatelessWidget {
   final String visit;
   final ClinicDetailsContoller clinicdetailController;
 
-  ClinicDetails({Key? key, required this.clinic})
+  ClinicDetails({super.key, required this.clinic})
       : last = clinic.lastVisit.toString(),
         visit = clinic.visitNumber.toString(),
-        clinicdetailController = Get.find<ClinicDetailsContoller>(),
-        super(key: key);
+        clinicdetailController = Get.find<ClinicDetailsContoller>();
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +123,7 @@ class ClinicDetails extends StatelessWidget {
 }
 
 class ClinicLocation extends StatelessWidget {
-  const ClinicLocation({Key? key}) : super(key: key);
+  const ClinicLocation({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -137,9 +135,8 @@ class ClinicLocation extends StatelessWidget {
         child: FlutterMap(
           options: MapOptions(
             onMapReady: () {
-              print('Map is ready');
             },
-            initialCenter: latLng.LatLng(53.6363, -113.3733),
+            initialCenter: const latLng.LatLng(53.6363, -113.3733),
             initialZoom: 16.0,
           ),
           children: [
@@ -147,13 +144,13 @@ class ClinicLocation extends StatelessWidget {
               urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
               subdomains: const ['a', 'b', 'c'],
             ),
-            MarkerLayer(
+            const MarkerLayer(
               markers: [
                 Marker(
                   point: latLng.LatLng(53.6363, -113.3733),
                   width: 80,
                   height: 80,
-                  child: const Icon(
+                  child: Icon(
                     Icons.location_on,
                     color: Colors.red,
                     size: 40,
@@ -174,10 +171,10 @@ class ClinicInfo extends StatelessWidget {
   final String total;
 
   const ClinicInfo({
-    Key? key,
+    super.key,
     required this.last,
     required this.total,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -225,10 +222,10 @@ class AboutClinic extends StatelessWidget {
   final String desc;
 
   const AboutClinic({
-    Key? key,
+    super.key,
     required this.title,
     required this.desc,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -241,10 +238,10 @@ class NumberCard extends StatelessWidget {
   final String value;
 
   const NumberCard({
-    Key? key,
+    super.key,
     required this.label,
     required this.value,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -289,9 +286,9 @@ class DetailClinicCard extends StatelessWidget {
   final DoctorProfile? doctor;
 
   const DetailClinicCard({
-    Key? key,
+    super.key,
     required this.doctor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
