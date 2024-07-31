@@ -5,16 +5,19 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import "package:latlong2/latlong.dart" as latLng;
 import '../../Controllers/clinicDetailsContoller.dart';
+import 'package:flutter/widgets.dart';
 
 class ClinicDetails extends StatelessWidget {
   final ClinicDTO clinic;
+  final String last;
+  final String visit;
+  final ClinicDetailsContoller clinicdetailController;
 
-  ClinicDetails({Key? key, required this.clinic}) : super(key: key);
-
-  late String last = clinic.lastVisit.toString();
-
-  late String visit = clinic.visitNumber.toString();
-  final clinicdetailController = Get.find<ClinicDetailsContoller>();
+  ClinicDetails({Key? key, required this.clinic})
+      : last = clinic.lastVisit.toString(),
+        visit = clinic.visitNumber.toString(),
+        clinicdetailController = Get.find<ClinicDetailsContoller>(),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -122,9 +125,7 @@ class ClinicDetails extends StatelessWidget {
 }
 
 class ClinicLocation extends StatelessWidget {
-  const ClinicLocation({
-    Key? key,
-  }) : super(key: key);
+  const ClinicLocation({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -135,14 +136,30 @@ class ClinicLocation extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         child: FlutterMap(
           options: MapOptions(
-            interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
-            center: latLng.LatLng(53.6363, -113.3733),
-            zoom: 16.0,
+            onMapReady: () {
+              print('Map is ready');
+            },
+            initialCenter: latLng.LatLng(53.6363, -113.3733),
+            initialZoom: 16.0,
           ),
           children: [
             TileLayer(
               urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
               subdomains: const ['a', 'b', 'c'],
+            ),
+            MarkerLayer(
+              markers: [
+                Marker(
+                  point: latLng.LatLng(53.6363, -113.3733),
+                  width: 80,
+                  height: 80,
+                  child: const Icon(
+                    Icons.location_on,
+                    color: Colors.red,
+                    size: 40,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -150,6 +167,7 @@ class ClinicLocation extends StatelessWidget {
     );
   }
 }
+
 
 class ClinicInfo extends StatelessWidget {
   final String last;
@@ -268,69 +286,62 @@ class NumberCard extends StatelessWidget {
 }
 
 class DetailClinicCard extends StatelessWidget {
-  DoctorProfile? doctor;
+  final DoctorProfile? doctor;
 
-  DetailClinicCard({
-    this.doctor,
+  const DetailClinicCard({
     Key? key,
+    required this.doctor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        child: Container(
-          padding: const EdgeInsets.all(15),
-          width: double.infinity,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${doctor!.fName} ${doctor!.lName}",
-                      style: TextStyle(
-                          color: Color(MyColors.header01),
-                          fontWeight: FontWeight.w700),
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "${doctor?.fName ?? ''} ${doctor?.lName ?? ''}",
+                    style: TextStyle(
+                      color: Color(MyColors.header01),
+                      fontWeight: FontWeight.w700,
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      doctor!.speciality,
-                      style: TextStyle(
-                        color: Color(MyColors.grey02),
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Get.toNamed('/book', arguments: doctor);
-                },
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all<Color>(
-                    const Color(0xff575de3),
                   ),
-                ),
-                child: const Text('Book Appointment'),
+                  const SizedBox(height: 10),
+                  Text(
+                    doctor?.speciality ?? '',
+                    style: TextStyle(
+                      color: Color(MyColors.grey02),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
-              // const Image(
-              //   image: AssetImage('assets/medical1.png'),
-              //   width: 100,
-              // )
-            ],
-          ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Get.toNamed('/book', arguments: doctor);
+              },
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all<Color>(
+                  const Color(0xff575de3),
+                ),
+              ),
+              child: const Text('Book Appointment'),
+            ),
+          ],
         ),
       ),
     );
   }
 }
+
 
 TextStyle kTitleStyle = TextStyle(
   color: Color(MyColors.header01),
