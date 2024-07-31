@@ -42,7 +42,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   flutter_map: ^7.0.2
   cupertino_icons: ^1.0.2
-  string_validator: ^0.3.0
   flutter_svg: ^2.0.7
   firebase_core: ^3.3.0
   firebase_auth: ^5.1.3
@@ -57,16 +56,15 @@ dependencies:
   ionicons: ^0.2.2
   google_nav_bar: ^5.0.6
   flutter_chat_ui: ^1.6.6
-  file_picker: ^5.3.2
   image_picker: ^1.1.2
   open_filex: ^4.3.2
   path_provider: ^2.0.15
   uuid: ^4.4.2
   sizer: ^2.0.15
-  permission_handler: ^10.3.0
+  permission_handler: ^11.3.1
   agora_token_service: ^0.1.2
   flutter_secure_storage: ^8.0.0
-  share_plus: ^7.0.2
+  share_plus: ^10.0.0
   flutter_dropdown_alert: ^1.0.7
   flutter_local_notifications: ^15.1.0+1
   timezone: ^0.9.2
@@ -74,6 +72,7 @@ dependencies:
   http: ^1.2.1
   agora_rtc_engine: ^5.3.1
   build_runner: ^2.4.11
+  file_picker: ^8.0.6
 
 
   path: any
