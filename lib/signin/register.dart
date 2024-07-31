@@ -196,11 +196,11 @@ class _MyRegisterState extends State<MyRegister> {
                                 onChanged: (text) {
                                   validator.FireError.setEmailUseError(false);
                                 },
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
+                                /*autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,*/
                                 key: globals.emailKey,
-                                validator: (email) =>
-                                    validator.emailValidatro(email!),
+                                //validator: (email) =>
+                                  //  validator.emailValidatro(email!),
                                 style: const TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
