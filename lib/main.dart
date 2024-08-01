@@ -22,99 +22,77 @@ import 'screens/HomePage/homepage.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   tz.initializeTimeZones();
+
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarIconBrightness: Brightness.dark,
     statusBarColor: Colors.transparent,
   ));
-  WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp().then((value) => Get.put(AuthController()));
-  await Future.delayed(const Duration(seconds: 2));
+  final authController = Get.put(AuthController());
   Get.lazyPut(() => ClinicContoller(), fenix: true);
   Get.lazyPut(() => DoctorHomePageController(), fenix: true);
-  //Get.lazyPut(() => PatientMeetingsController(), fenix: true);
-
   Get.put<AgoraTokenService>(AgoraTokenService());
   Get.lazyPut(() => AgoraTokenService1());
 
-  runApp(const MyApp());
+  runApp(MyApp(authController: authController));
 }
 
-@override
-void initState() {}
-
-// class ClinicBinding extends Bindings {
-//   @override
-//   void dependencies() {
-//     Get.put(ClinicContoller());
-//   }
-// }
-
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final AuthController authController;
+  const MyApp({super.key, required this.authController});
+
   @override
   Widget build(BuildContext context) {
-//     return SafeArea(
-//       child: GetMaterialApp(
-//         debugShowCheckedModeBanner: false,
-//         title: 'DoctorsOnHand',
-//         theme: ThemeData(
-//           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(background: Colors.blueGrey),
-//         ),
-//         home: MyLogin(),
-
-//         routes: {
-//           'register': (context) => MyRegister(),
-//           'login': (context) => MyLogin(),
-//           'home' : (context) => Homepage(),
-//            'book' : (context) => BookingCalendarDemoApp(),
-//           'detail' : (context) => DetailScreen(),
-//         },
-
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'DoctorsOnHand',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyLogin(),
-      //home: const CircularProgressIndicator(),
+      home: Obx(() {
+        if (authController.isLoading.value) {
+          return const Scaffold(body: Center(child: CircularProgressIndicator()));
+        } else if (!authController.authStateChanged.value) {
+          return const Scaffold(body: Center(child: Text('Waiting for auth state...')));
+        } else {
+          if (authController.firebaseUser.value == null) {
+            return const MyLogin();
+          } else {
+            if (!authController.isUserDataLoaded.value) {
+              return const Scaffold(body: Center(child: CircularProgressIndicator()));
+            } else {
+              if (authController.userData.value.role == "Patient") {
+                return Homepage();
+              } else if (authController.userData.value.role == "Doctor") {
+                return DoctorHomepage();
+              } else {
+                return const Scaffold(body: Center(child: Text('Unknown role')));
+              }
+            }
+          }
+        }
+      }),
       getPages: [
         GetPage(name: '/login', page: () => const MyLogin()),
         GetPage(name: '/register', page: () => MyRegister()),
-        // GetPage(
-        //     name: '/home', page: () => Homepage(), binding: ClinicBinding()),
         GetPage(name: '/home', page: () => Homepage()),
         GetPage(name: '/book', page: () => BookingCalendarDemoApp()),
         GetPage(name: '/detail', page: () => const DetailScreen()),
-        GetPage(name: '/editProfile', page: () =>  ProfilePage()),
+        GetPage(name: '/editProfile', page: () => ProfilePage()),
         GetPage(
-            name: '/doctorHomePage',
-            page: () => DoctorHomepage(),
-            binding: DoctorHomePageBinding()),
-        GetPage(name: '/appointment', page: () =>  AppointmentScreen()),
-        GetPage(name: '/completed', page: () =>  CompletedVisitsScreen()),
-        GetPage(name: '/report', page: () =>  ReportScreen()),
-        GetPage(name: '/patient', page: () =>  PatientAppointmentScreen())
+          name: '/doctorHomePage',
+          page: () => DoctorHomepage(),
+          binding: DoctorHomePageBinding(),
+        ),
+        GetPage(name: '/appointment', page: () => AppointmentScreen()),
+        GetPage(name: '/completed', page: () => CompletedVisitsScreen()),
+        GetPage(name: '/report', page: () => ReportScreen()),
+        GetPage(name: '/patient', page: () => PatientAppointmentScreen()),
       ],
-
-//     return SafeArea(
-//       child: GetMaterialApp(
-//         debugShowCheckedModeBanner: false,
-//         title: 'DoctorsOnHand',
-//         theme: ThemeData(
-//           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(background: Colors.blueGrey),
-//         ),
-//         home: MyLogin(),
-
-//         routes: {
-//           'register': (context) => MyRegister(),
-//           'login': (context) => MyLogin(),
-//           'home' : (context) => Homepage()
-//         },
-//       ),
-// >>>>>>> main
     );
   }
 }

@@ -8,10 +8,10 @@ class DisplayImage extends StatelessWidget {
 
   // Constructor
   const DisplayImage({
-    Key? key,
+    super.key,
     required this.imagePath,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

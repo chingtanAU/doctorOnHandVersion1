@@ -13,47 +13,71 @@ Future<void> addUser(String uid, Map<String, dynamic> user) async {
 
 Future<List<VisitedClinic>> fetchUserVisitedClinic(String id) async {
   QuerySnapshot<Object?> snapshot =
-      await userCollection.doc(id).collection("visitedClinic").get();
+  await userCollection.doc(id).collection("visitedClinic").get();
   return snapshot.docs
       .map((docSnapshot) => VisitedClinic.fromJson(
-          docSnapshot as DocumentSnapshot<Map<String, dynamic>>))
+      docSnapshot as DocumentSnapshot<Map<String, dynamic>>))
       .toList();
 }
 
 Future<DoctorProfile?> fetchDoctorInfo(String id) async {
-  DoctorProfile? doctor;
-  await userCollection.doc(id).get().then((doc) {
-    print(doc.data());
-    final data = doc.data() as Map<String, dynamic>;
-    doctor = DoctorProfile.fromJson(data);
-  });
-  return doctor;
+  try {
+    DocumentSnapshot doc = await userCollection.doc(id).get();
+    if (doc.exists) {
+      final data = doc.data() as Map<String, dynamic>;
+      return DoctorProfile.fromJson(data);
+    } else {
+      print("No doctor found with ID: $id");
+      return null;
+    }
+  } catch (e) {
+    print("Error fetching doctor info: $e");
+    return null;
+  }
 }
 
 Future<UserProfile?> fetchUserInfo(String id) async {
-  UserProfile? user;
-  await userCollection.doc(id).get().then((doc) {
-    print(doc.data());
-    final data = doc.data();
-    if (data != null) {
-      user = UserProfile.fromJson(data as Map<String, dynamic>);
-      print(user?.address);
+  try {
+    DocumentSnapshot doc = await userCollection.doc(id).get();
+    if (doc.exists) {
+      final data = doc.data() as Map<String, dynamic>;
+      UserProfile user = UserProfile.fromJson(data);
+      print("User address: ${user.address}");
+      return user;
+    } else {
+      print("No user found with ID: $id");
+      return null;
     }
-
-    print(user?.address);
-  });
-  return user;
+  } catch (e) {
+    print("Error fetching user info: $e");
+    return null;
+  }
 }
 
-Future<DoctorProfile> getDoctorByClinicId(String? clinicId) async {
-  DoctorProfile doctor;
-  QuerySnapshot querySnapshot =
-      await userCollection.where("clinicId", isEqualTo: clinicId).get();
-  DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
-  Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
-  doctor = DoctorProfile.fromJson(data);
-  doctor.id = documentSnapshot.id;
-  return doctor;
+Future<DoctorProfile?> getDoctorByClinicId(String? clinicId) async {
+  if (clinicId == null) {
+    print("Clinic ID is null");
+    return null;
+  }
+
+  try {
+    QuerySnapshot querySnapshot =
+    await userCollection.where("clinicId", isEqualTo: clinicId).get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      DocumentSnapshot documentSnapshot = querySnapshot.docs.first;
+      Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+      DoctorProfile doctor = DoctorProfile.fromJson(data);
+      doctor.id = documentSnapshot.id;
+      return doctor;
+    } else {
+      print("No doctor found for clinic ID: $clinicId");
+      return null;
+    }
+  } catch (e) {
+    print("Error fetching doctor by clinic ID: $e");
+    return null;
+  }
 }
 
 Future<void> updateUser(String uid, Map<String, dynamic> value) async {
@@ -71,17 +95,17 @@ Future<void> addmeetingUser(
 
 Future<List<BookingServiceWrapper>> fetchUserMeetings(String id) async {
   QuerySnapshot<Object?> snapshot =
-      await userCollection.doc(id).collection("oppointment").get();
+  await userCollection.doc(id).collection("oppointment").get();
   return snapshot.docs
       .map((docSnapshot) => BookingServiceWrapper.fromJson(
-          docSnapshot.data() as Map<String, dynamic>))
+      docSnapshot.data() as Map<String, dynamic>))
       .toList();
 }
 
 Stream<List<BookingServiceWrapper>> fetchUserMeetingsStream(String id) {
   return userCollection.doc(id).collection("oppointment").snapshots().map(
-      (querySnapshot) => querySnapshot.docs
+          (querySnapshot) => querySnapshot.docs
           .map((doc) => BookingServiceWrapper.fromJson(
-              doc.data()))
+          doc.data()))
           .toList());
 }

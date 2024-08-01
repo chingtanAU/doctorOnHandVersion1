@@ -9,8 +9,8 @@ import '../screens/Clinic/booking_service_wrapper.dart';
 
 class IncomingCard extends StatelessWidget {
   IncomingCard({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final patientMeetingsController = Get.find<PatientMeetingsController>();
   final AuthController authController = Get.find<AuthController>();
