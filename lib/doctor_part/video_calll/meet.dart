@@ -15,10 +15,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class VideoCallScreen extends StatefulWidget {
   const VideoCallScreen({
-    Key? key,
+    super.key,
     required this.doctorId,
     required this.patientId,
-  }) : super(key: key);
+  });
   final String doctorId;
   final String patientId;
 

@@ -13,27 +13,14 @@ class ClinicDetails extends StatelessWidget {
   final ClinicDetailsContoller clinicdetailController;
 
   ClinicDetails({super.key, required this.clinic})
-      : last = clinic.lastVisit.toString(),
-        visit = clinic.visitNumber.toString(),
-        clinicdetailController = Get.find<ClinicDetailsContoller>();
-
+      : last = clinic.lastVisit?.toString() ?? 'N/A',
+        visit = clinic.visitNumber?.toString() ?? 'N/A',
+        clinicdetailController = Get.find<ClinicDetailsContoller>() {
+    clinicdetailController.setDoctordata(clinic.idClinic);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      // floatingActionButton: ElevatedButton(
-      //   onPressed: () =>
-      //   {
-      //     Get.toNamed('/book')
-      //   },
-      //   style: ButtonStyle(
-      //     backgroundColor: MaterialStateProperty.all<Color>(
-      //       const Color(0xff575de3),
-      //     ),
-      //   ),
-      //   child: const Text('Book Appointment'),
-      // ),
-
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -41,18 +28,13 @@ class ClinicDetails extends StatelessWidget {
             elevation: 9,
             flexibleSpace: Container(
               decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                stops: [
-                  0.1,
-                  0.6,
-                ],
-                colors: [
-                  Colors.blue,
-                  Colors.teal,
-                ],
-              )),
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  stops: [0.1, 0.6],
+                  colors: [Colors.blue, Colors.teal],
+                ),
+              ),
               child: FlexibleSpaceBar(
                 background: Image.asset("assets/medical1.png"),
               ),
@@ -69,48 +51,19 @@ class ClinicDetails extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // for (var doctor in clinicdetailController.doctorData.value)
-                    // you can add a for loop here to get all the doctors in the clinic
-
                     DetailClinicCard(
                         doctor: clinicdetailController.doctorData.value),
-                    DetailClinicCard(
-                        doctor: clinicdetailController.doctorData.value),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    const SizedBox(height: 15),
                     ClinicInfo(last: last, total: visit),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      'About Clinic',
-                      style: kTitleStyle,
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    // Text(clinic.description,
-                    //   style:  TextStyle(
-                    //     color: Color(MyColors.purple01),
-                    //     fontWeight: FontWeight.w500,
-                    //     height: 1.5,
-                    //   ),
-                    // ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Text(
-                      'Location',
-                      style: kTitleStyle,
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
+                    const SizedBox(height: 30),
+                    Text('About Clinic', style: kTitleStyle),
+                    const SizedBox(height: 15),
+                    // Add clinic description here if available
+                    const SizedBox(height: 25),
+                    Text('Location', style: kTitleStyle),
+                    const SizedBox(height: 25),
                     const ClinicLocation(),
-                    const SizedBox(
-                      height: 25,
-                    ),
+                    const SizedBox(height: 25),
                   ],
                 );
               }),
@@ -141,8 +94,8 @@ class ClinicLocation extends StatelessWidget {
           ),
           children: [
             TileLayer(
-              urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-              subdomains: const ['a', 'b', 'c'],
+              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+              userAgentPackageName: 'com.example.app', // Replace with your app package name
             ),
             const MarkerLayer(
               markers: [
@@ -292,6 +245,15 @@ class DetailClinicCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (doctor == null) {
+      return const Card(
+        child: Padding(
+          padding: EdgeInsets.all(15),
+          child: Text('Doctor information not available'),
+        ),
+      );
+    }
+
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Padding(
@@ -304,7 +266,7 @@ class DetailClinicCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "${doctor?.fName ?? ''} ${doctor?.lName ?? ''}",
+                    "${doctor!.fName} ${doctor!.lName}",
                     style: TextStyle(
                       color: Color(MyColors.header01),
                       fontWeight: FontWeight.w700,
@@ -312,7 +274,7 @@ class DetailClinicCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    doctor?.speciality ?? '',
+                    doctor!.speciality,
                     style: TextStyle(
                       color: Color(MyColors.grey02),
                       fontWeight: FontWeight.w500,

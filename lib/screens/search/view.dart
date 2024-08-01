@@ -4,25 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Controllers/clinicController.dart';
 import '../Clinic/clinicdetails.dart';
-import 'model.dart';
 
 class ClinicSearchPage1 extends StatelessWidget {
-  final clinicController = Get.find<ClinicContoller>();
-  final clinicdetailController = Get.put(ClinicDetailsContoller());
+  final ClinicContoller clinicController;
+  final ClinicDetailsContoller clinicdetailController;
 
-  List<Obx> actions4 = [];
-
-  ClinicSearchPage1({super.key});
+  ClinicSearchPage1({super.key})
+      : clinicController = Get.find<ClinicContoller>(),
+        clinicdetailController = Get.put(ClinicDetailsContoller());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-          const IconButton(
-            icon: Icon(Icons.arrow_back_ios_new_outlined),
-            onPressed: null,
-          ),
-          actions4),
+        IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_outlined),
+          onPressed: () => Get.back(),
+        ),
+        [], // Empty list for actions
+      ),
       body: Column(
         children: [
           Padding(
@@ -31,11 +31,9 @@ class ClinicSearchPage1 extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextField(
-                    //controller: clinicController.searchController,
                     onChanged: (value) {
                       clinicController.searchText.value = value;
-                      clinicController
-                          .search(); // Trigger the search method when text changes
+                      clinicController.search();
                     },
                     decoration: const InputDecoration(
                       hintText: 'Search',
@@ -70,115 +68,69 @@ class ClinicSearchPage1 extends StatelessWidget {
           ),
           Expanded(
             child: Obx(
-              () => ListView.builder(
+                  () => ListView.builder(
                 itemCount: clinicController.filteredClinics.length,
                 itemBuilder: (context, index) {
+                  final clinic = clinicController.filteredClinics[index];
                   return GestureDetector(
-                      onTap: () {
-                        clinicdetailController.setDoctordata(
-                            clinicController.filteredClinics[index].idClinic);
-                        Get.to(() => ClinicDetails(
-                            clinic: clinicController.filteredClinics[index]));
-                      },
-                      child: Card(
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(0.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.asset(
-                                    "assets/medical1.png",
-                                    height: 150,
-                                    width: 90,
+                    onTap: () {
+                      clinicdetailController.setDoctordata(clinic.idClinic);
+                      Get.to(() => ClinicDetails(clinic: clinic));
+                    },
+                    child: Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.asset(
+                                "assets/medical1.png",
+                                height: 100,
+                                width: 70,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    clinic.clinicName,
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                ),
+                                  const SizedBox(height: 8.0),
+                                  Text(
+                                    'Visits: ${clinic.visitNumber}',
+                                    style: const TextStyle(fontSize: 14.0),
+                                  ),
+                                  const SizedBox(height: 4.0),
+                                  Text(
+                                    'Last Visit: ${clinic.lastVisit}',
+                                    style: const TextStyle(fontSize: 14.0),
+                                  ),
+                                ],
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(height: 16.0),
-                                    SizedBox(
-                                      width: 260,
-                                      child: Text(
-                                        clinicController
-                                            .filteredClinics[index].clinicName,
-                                        style: const TextStyle(
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8.0),
-                                    Text(
-                                      'Visits: ${clinicController.filteredClinics[index].visitNumber}',
-                                      style: const TextStyle(fontSize: 16.0),
-                                    ),
-                                    const SizedBox(height: 8.0),
-                                    Text(
-                                      'Last Visit: ${clinicController.filteredClinics[index].lastVisit}',
-                                      style: const TextStyle(fontSize: 16.0),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ));
+                      ),
+                    ),
+                  );
                 },
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ClinicDetailsPage extends StatelessWidget {
-  final Clinic clinic;
-
-  const ClinicDetailsPage({Key? key, required this.clinic}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Clinic Details'),
-      ),
-      body: Column(
-        children: [
-          Image.asset(clinic.imageUrl),
-          const SizedBox(height: 16.0),
-          Text(
-            clinic.name,
-            style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 8.0),
-          Text(
-            'Visits: ${clinic.visits}',
-            style: const TextStyle(fontSize: 16.0),
-          ),
-          const SizedBox(height: 8.0),
-          Text(
-            'Last Visit: ${clinic.lastVisit}',
-            style: const TextStyle(fontSize: 16.0),
-          ),
-          const SizedBox(height: 16.0),
-          Text(
-            clinic.description,
-            style: const TextStyle(fontSize: 16.0),
           ),
         ],
       ),

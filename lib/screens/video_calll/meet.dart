@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VideoCallScreen extends StatefulWidget {
-  const VideoCallScreen({Key? key,required this.doctorId,
-    required this.patientId,}) : super(key: key);
+  const VideoCallScreen({super.key,required this.doctorId,
+    required this.patientId,});
     final String doctorId;
     final String patientId;
 

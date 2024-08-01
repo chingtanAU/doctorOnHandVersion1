@@ -12,8 +12,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class IncomingCard extends StatefulWidget {
   const IncomingCard({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<IncomingCard> createState() => _IncomingCardState();

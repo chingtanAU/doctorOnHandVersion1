@@ -7,10 +7,10 @@ class AppointmentCard extends StatelessWidget {
   final VoidCallback onPressed;
 
   const AppointmentCard({
-    Key? key,
+    super.key,
     required this.appointment,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

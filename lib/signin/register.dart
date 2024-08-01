@@ -33,7 +33,7 @@ const List<String> listClinic = <String>[
 ];
 
 class MyRegister extends StatefulWidget {
-  MyRegister({Key? key}) : super(key: key);
+  MyRegister({super.key});
 
   final authController = Get.find<AuthController>();
   final SignUpContoller signUpContoller = Get.put(SignUpContoller());
@@ -440,7 +440,7 @@ class _MyRegisterState extends State<MyRegister> {
 }
 
 class ClinicName extends StatelessWidget {
-  const ClinicName({Key? key}) : super(key: key);
+  const ClinicName({super.key});
   @override
   Widget build(BuildContext context) {
     return Column(children: [

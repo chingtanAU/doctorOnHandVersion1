@@ -14,11 +14,11 @@ class TranslationScreen extends StatefulWidget {
   final String extractedText;
 
   const TranslationScreen({
-    Key? key,
+    super.key,
     required this.textToTranslate,
     required this.imagePath,
     required this.extractedText,
-  }) : super(key: key);
+  });
 
   @override
   TranslationScreenState createState() => TranslationScreenState();
