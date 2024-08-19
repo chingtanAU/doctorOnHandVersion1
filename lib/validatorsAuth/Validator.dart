@@ -1,19 +1,7 @@
-import 'package:email_validator/email_validator.dart';
-
 class FireError {
   static bool emailUsedError = false;
-  static bool _userNotFoundError = false;
-  static bool _wrongPassError = false;
-
-  static bool get userNotFoundError => _userNotFoundError;
-  static set userNotFoundError(bool value) {
-    _userNotFoundError = value;
-  }
-
-  static bool get wrongPassError => _wrongPassError;
-  static set wrongPassError(bool value) {
-    _wrongPassError = value;
-  }
+  static bool userNotFoundError = false;
+  static bool wrongPassError = false;
 
   static void setEmailUseError(bool err) {
     emailUsedError = err;
@@ -25,17 +13,20 @@ class FireError {
 }
 
 String? nameValidator(String name) {
-  return name.isNotEmpty ? null : 'Required ';
+  return name.isNotEmpty ? null : 'Required';
 }
 
-String? emailValidatro(String email) {
+String? emailValidator(String email) {
+  // Regular expression for email validation
+  final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+
   if (email.isEmpty) {
-    return "Email can not be empty";
+    return "Email cannot be empty";
   } else if (FireError.getEmailError()) {
     return 'Email already in use';
   } else if (FireError.userNotFoundError) {
     return 'No user found for that email';
-  } else if (!EmailValidator.validate(email)) {
+  } else if (!emailRegex.hasMatch(email)) {
     return "Invalid Email Address";
   }
   return null;
@@ -43,7 +34,7 @@ String? emailValidatro(String email) {
 
 String? passwordValidator(String value) {
   RegExp regex =
-      RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+  RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
   if (value.isEmpty) {
     return 'Please enter password';
   } else {
@@ -57,7 +48,6 @@ String? passwordValidator(String value) {
   }
 }
 
-//validate phone number
 String? phoneValidator(String value) {
   if (value.isEmpty) {
     return 'Please enter phone number';

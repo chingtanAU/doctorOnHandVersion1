@@ -5,7 +5,7 @@ import 'image_input.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ApiKeyInputScreen extends StatefulWidget {
-  const ApiKeyInputScreen({Key? key}) : super(key: key); // add a key parameter
+  const ApiKeyInputScreen({super.key}); // add a key parameter
 
   @override
   ApiKeyInputScreenState createState() => ApiKeyInputScreenState();

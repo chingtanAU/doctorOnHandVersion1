@@ -24,7 +24,7 @@ const List<String> listClinic = <String>[
 ];
 
 class MyRegister extends StatefulWidget {
-  const MyRegister({Key? key}) : super(key: key);
+  const MyRegister({super.key});
 
   @override
   _MyRegisterState createState() => _MyRegisterState();

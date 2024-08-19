@@ -9,7 +9,7 @@ import '../../persistance/userCrud.dart' as crud;
 
 // This class handles the Page to edit the Email Section of the User Profile.
 class EditEmailFormPage extends StatefulWidget {
-  EditEmailFormPage({Key? key}) : super(key: key);
+  EditEmailFormPage({super.key});
   final authController = Get.find<AuthController>();
 
   @override
@@ -60,7 +60,7 @@ class EditEmailFormPageState extends State<EditEmailFormPage> {
                         width: 320,
                         child: TextFormField(
                           // Handles Form Validation
-                          validator: (email)=>validator.emailValidatro(email!),
+                          validator: (email) => validator.emailValidator(email!),
                           decoration: const InputDecoration(
                               labelText: 'Your email address'),
                           controller: emailController,

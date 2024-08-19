@@ -9,7 +9,7 @@ import '../../../validatorsAuth/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyLogin extends StatefulWidget {
-  const MyLogin({Key? key}) : super(key: key);
+  const MyLogin({super.key});
 
   @override
   _MyLoginState createState() => _MyLoginState();
@@ -109,7 +109,7 @@ class _MyLoginState extends State<MyLogin> {
                               },
                               key: globals.emailLoginKey,
                               validator: (email) =>
-                                  validator.emailValidatro(email!),
+                                  validator.emailValidator(email!),
                               style: const TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                   fillColor: Colors.grey.shade100,
@@ -194,7 +194,7 @@ class _MyLoginState extends State<MyLogin> {
                                         title: 'Enter your email',
                                         content: TextFormField(
                                           validator: (email) =>
-                                              validator.emailValidatro(email!),
+                                              validator.emailValidator(email!),
                                           controller: _emailResetPass,
                                           decoration: const InputDecoration(),
                                         ),

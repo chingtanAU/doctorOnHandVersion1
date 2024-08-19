@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 class MyLogin1 extends StatelessWidget {
-  MyLogin1({Key? key}) : super(key: key);
+  MyLogin1({super.key});
 
   final TextEditingController _emailResetPass = TextEditingController();
 //  final authController = Get.find<AuthController>();

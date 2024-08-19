@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({Key? key}) : super(key: key);
+  const DetailScreen({super.key});
 
   @override
   _DetailScreenState createState() => _DetailScreenState();

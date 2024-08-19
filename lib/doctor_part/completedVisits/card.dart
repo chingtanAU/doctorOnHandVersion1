@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class VisitCard extends StatelessWidget {
   final BookingService visit;
 
-  const VisitCard({Key? key, required this.visit}) : super(key: key);
+  const VisitCard({super.key, required this.visit});
 
   @override
   Widget build(BuildContext context) {

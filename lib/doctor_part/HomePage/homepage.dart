@@ -9,7 +9,7 @@ import '../../validatorsAuth/auth.dart';
 import '../controller/doctorHomePageController.dart';
 
 class DoctorHomepage extends StatefulWidget {
-  DoctorHomepage({Key? key}) : super(key: key);
+  DoctorHomepage({super.key});
 
   final authController = Get.find<AuthController>();
   final agora = Get.put<AgoraTokenService>(AgoraTokenService());

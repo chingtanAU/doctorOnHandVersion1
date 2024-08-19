@@ -33,7 +33,7 @@ const List<String> listClinic = <String>[
 ];
 
 class MyRegister extends StatefulWidget {
-  MyRegister({Key? key}) : super(key: key);
+  MyRegister({super.key});
 
   final authController = Get.find<AuthController>();
   final SignUpContoller signUpContoller = Get.put(SignUpContoller());
@@ -196,11 +196,11 @@ class _MyRegisterState extends State<MyRegister> {
                                 onChanged: (text) {
                                   validator.FireError.setEmailUseError(false);
                                 },
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
+                                /*autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,*/
                                 key: globals.emailKey,
-                                validator: (email) =>
-                                    validator.emailValidatro(email!),
+                                //validator: (email) =>
+                                  //  validator.emailValidatro(email!),
                                 style: const TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
@@ -440,7 +440,7 @@ class _MyRegisterState extends State<MyRegister> {
 }
 
 class ClinicName extends StatelessWidget {
-  const ClinicName({Key? key}) : super(key: key);
+  const ClinicName({super.key});
   @override
   Widget build(BuildContext context) {
     return Column(children: [

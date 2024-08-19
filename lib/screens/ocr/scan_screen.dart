@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ScanScreen extends StatefulWidget {
   final Map<String, dynamic> scan;
 
-  const ScanScreen(this.scan, {Key? key}) : super(key: key);
+  const ScanScreen(this.scan, {super.key});
 
   @override
   _ScanScreenState createState() => _ScanScreenState();

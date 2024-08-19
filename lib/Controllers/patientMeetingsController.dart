@@ -25,8 +25,15 @@ class PatientMeetingsController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     _initializeNotifications();
-    fetchPatientMeetings(auth.currentUser!.uid);
-    print("aaaaaaa ${allPatientMeetings.value.length}");
+
+    // Check if auth.currentUser is not null before using it
+    if (auth.currentUser != null) {
+      fetchPatientMeetings(auth.currentUser!.uid);
+    } else {
+      print("User is not logged in");
+      // You might want to handle this case, perhaps by redirecting to the login screen
+      // Get.offAllNamed('/login');
+    }
     // Compute the earliest meeting here
     earliestMeeting.value = getEaliestMeeting();
     if (earliestMeeting.value != null) {
@@ -81,24 +88,22 @@ class PatientMeetingsController extends GetxController {
   }
 
   BookingServiceWrapper? getEaliestMeeting() {
-    final meetings =
-        getUpcomingMeetings(allPatientMeetings.value, DateTime.now());
+    final meetings = getUpcomingMeetings(allPatientMeetings.value, DateTime.now());
     print(DateTime.now().toString());
     if (meetings.isEmpty) {
       return null;
     }
     return meetings.reduce((current, next) =>
-        current.bookingStart.isBefore(next.bookingStart) ? current : next);
+    current.bookingStart.isBefore(next.bookingStart) ? current : next);
   }
 
-  Future<DoctorProfile?> getDoctorData(BookingServiceWrapper meeting) async {
-    await userCrud
-        .fetchDoctorInfo(meeting.serviceId!)
-        .then((value) => earliestdoctor.value = value!);
+
+  Future<void> getDoctorData(BookingServiceWrapper meeting) async {
+    earliestdoctor.value = await userCrud.fetchDoctorInfo(meeting.serviceId!) ?? DoctorProfile.empty();
     print(earliestdoctor.value.fName);
     update();
-    return null;
   }
+
 
   List<BookingServiceWrapper> getUpcomingMeetings(
       List<BookingServiceWrapper> meetings, DateTime presentTime) {
@@ -130,42 +135,47 @@ class PatientMeetingsController extends GetxController {
         .fetchUserMeetingsStream(id)
         .listen((List<BookingServiceWrapper> data) {
       allPatientMeetings.value = data;
+      print("aaaaaaa ${allPatientMeetings.value.length}");
+
       // Update the earliest meeting whenever data changes
       earliestMeeting.value = getEaliestMeeting();
+
       if (earliestMeeting.value != null) {
-        getDoctorData(earliestMeeting.value!);
+        getDoctorData(earliestMeeting.value!).then((_) {
+          print(earliestdoctor.value.fName);
+        });
       }
 
       List<BookingServiceWrapper> upcomingMeetings =
-          getUpcomingMeetings(allPatientMeetings.value, DateTime.now());
+      getUpcomingMeetings(allPatientMeetings.value, DateTime.now());
 
       for (var meeting in upcomingMeetings) {
-        getDoctorData(meeting); // Fetch doctor data for the current meeting
+        getDoctorData(meeting).then((_) {
+          final DateTime oneWeekBefore =
+          meeting.bookingStart.subtract(const Duration(days: 7));
+          final DateTime thirtySixHoursBefore =
+          meeting.bookingStart.subtract(const Duration(hours: 36));
+          final DateTime oneHourBefore =
+          meeting.bookingStart.subtract(const Duration(hours: 1));
 
-        final DateTime oneWeekBefore =
-            meeting.bookingStart.subtract(const Duration(days: 7));
-        final DateTime thirtySixHoursBefore =
-            meeting.bookingStart.subtract(const Duration(hours: 36));
-        print(thirtySixHoursBefore.toString());
-        final DateTime oneHourBefore =
-            meeting.bookingStart.subtract(const Duration(hours: 1));
-
-        scheduleNotification(
-            oneWeekBefore,
-            earliestdoctor.value.fName,
-            'Upcoming Appointment',
-            'You have an appointment with Dr. ${earliestdoctor.value.fName} in one week.');
-        scheduleNotification(
-            thirtySixHoursBefore,
-            earliestdoctor.value.fName,
-            'Appointment Reminder',
-            'You have an appointment with Dr. ${earliestdoctor.value.fName} in 36 hours. Remember, you only have 12 hours left to cancel.');
-        scheduleNotification(
-            oneHourBefore,
-            earliestdoctor.value.fName,
-            'Last Reminder',
-            'Your appointment with Dr. ${earliestdoctor.value.fName} is in one hour.');
+          scheduleNotification(
+              oneWeekBefore,
+              earliestdoctor.value.fName,
+              'Upcoming Appointment',
+              'You have an appointment with Dr. ${earliestdoctor.value.fName} in one week.');
+          scheduleNotification(
+              thirtySixHoursBefore,
+              earliestdoctor.value.fName,
+              'Appointment Reminder',
+              'You have an appointment with Dr. ${earliestdoctor.value.fName} in 36 hours. Remember, you only have 12 hours left to cancel.');
+          scheduleNotification(
+              oneHourBefore,
+              earliestdoctor.value.fName,
+              'Last Reminder',
+              'Your appointment with Dr. ${earliestdoctor.value.fName} is in one hour.');
+        });
       }
     });
   }
+
 }
